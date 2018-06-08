@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 
 namespace ProjektZespolowy.Models.MyModels
 {
-    public abstract class Podmiot
+    public class Powiadomienie
     {
-        public int PodmiotId { get; set; }
-        public int Ilosc_punktow { get; set; }
+        public string Nazwa { get; set; }
+
+        public void wyslijPowiadomienie()
+        {
+
+        }
     }
 }

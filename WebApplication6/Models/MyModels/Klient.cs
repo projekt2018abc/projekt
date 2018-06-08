@@ -8,7 +8,6 @@ namespace ProjektZespolowy.Models
     public class Klient : Osoba
     {
         public String Nip { get; set; }
-        public int Ilosc_punktow { get; set; }
 
         public void rejestracja()
         {

@@ -3,7 +3,7 @@ using System;
 
 namespace ProjektZespolowy.Models
 {
-    public class Osoba:Podmiot
+    public abstract class Osoba:Podmiot
     {
         //public int OsobaId { get; set; }              //id dziedziczymy z klasy Podmiot
         public string Imie { get; set; }
