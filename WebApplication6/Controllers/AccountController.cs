@@ -230,7 +230,7 @@ namespace WebApplication6.Controllers
                 {
                     _logger.LogInformation("User created a new account with password.");
             // Add a user to the default role, or any role you prefer here
-            await _userManager.AddToRoleAsync(user, "UzytkownikNiezweryfikowany");
+            await _userManager.AddToRoleAsync(user, model.SelectedRole.ToString());
 
             await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");

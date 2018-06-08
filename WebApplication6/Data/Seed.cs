@@ -16,7 +16,8 @@ namespace WebApplication6.Data
             //adding customs roles
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            string[] roleNames = { "Administrator", "Pracownik", "Uzytkownik", "UzytkownikNiezweryfikowany" };
+            string[] roleNames = { "Administrator", "Pracownik", "Uzytkownik", "UzytkownikNiezweryfikowany",
+                                   "Indywidualne", "Firma", "Wlasciciel", "Monitoring"};
             IdentityResult roleResult;
             foreach (var roleName in roleNames)
             {
