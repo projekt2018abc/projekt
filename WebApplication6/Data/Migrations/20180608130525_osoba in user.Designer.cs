@@ -12,9 +12,10 @@ using WebApplication6.Data;
 namespace WebApplication6.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180608130525_osoba in user")]
+    partial class osobainuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,19 +130,29 @@ namespace WebApplication6.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Podmiot", b =>
+            modelBuilder.Entity("ProjektZespolowy.Models.Osoba", b =>
                 {
-                    b.Property<int>("PodmiotId")
+                    b.Property<int>("OsobaId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppUserId");
 
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.HasKey("PodmiotId");
+                    b.Property<string>("Haslo_hashed");
 
-                    b.ToTable("Podmioty");
+                    b.Property<string>("Imie");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Podmiot");
+                    b.Property<string>("Nazwisko");
+
+                    b.Property<int?>("Pesel");
+
+                    b.HasKey("OsobaId");
+
+                    b.ToTable("Osoby");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Osoba");
                 });
 
             modelBuilder.Entity("WebApplication6.Models.ApplicationUser", b =>
@@ -169,6 +180,8 @@ namespace WebApplication6.Data.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<int?>("OsobaId");
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
@@ -184,8 +197,6 @@ namespace WebApplication6.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
-                    b.Property<int?>("osobaPodmiotId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -196,37 +207,18 @@ namespace WebApplication6.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("osobaPodmiotId");
+                    b.HasIndex("OsobaId");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("ProjektZespolowy.Models.Osoba", b =>
-                {
-                    b.HasBaseType("ProjektZespolowy.Models.MyModels.Podmiot");
-
-                    b.Property<string>("AppUserId");
-
-                    b.Property<string>("Haslo_hashed");
-
-                    b.Property<string>("Imie");
-
-                    b.Property<string>("Nazwisko");
-
-                    b.Property<int?>("Pesel");
-
-                    b.ToTable("Osoba");
-
-                    b.HasDiscriminator().HasValue("Osoba");
                 });
 
             modelBuilder.Entity("ProjektZespolowy.Models.Klient", b =>
                 {
                     b.HasBaseType("ProjektZespolowy.Models.Osoba");
 
-                    b.Property<int>("Ilosc_punktow");
+                    b.Property<int>("ilosc_punktow");
 
-                    b.Property<string>("Nip");
+                    b.Property<string>("nip");
 
                     b.ToTable("Klient");
 
@@ -282,7 +274,7 @@ namespace WebApplication6.Data.Migrations
                 {
                     b.HasOne("ProjektZespolowy.Models.Osoba", "osoba")
                         .WithMany()
-                        .HasForeignKey("osobaPodmiotId");
+                        .HasForeignKey("OsobaId");
                 });
 #pragma warning restore 612, 618
         }

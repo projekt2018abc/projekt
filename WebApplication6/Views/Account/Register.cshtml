@@ -26,6 +26,13 @@
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="SelectedRole"></label>
+                <p />
+                <input asp-for="SelectedRole" type="radio" value=0 /><b>Indywidualne</b>
+                <input asp-for="SelectedRole" type="radio" value=1 /><b>Firma</b>
+                <span asp-validation-for="SelectedRole" class="radio"></span>
+            </div>
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>

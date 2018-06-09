@@ -223,13 +223,14 @@ namespace WebApplication6.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,};
+                user.createOsobaFromApplicationUser();
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
             // Add a user to the default role, or any role you prefer here
-            await _userManager.AddToRoleAsync(user, "UzytkownikNiezweryfikowany");
+            await _userManager.AddToRoleAsync(user, model.SelectedRole.ToString());
 
             await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");

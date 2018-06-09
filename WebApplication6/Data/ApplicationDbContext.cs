@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjektZespolowy.Models;
+using ProjektZespolowy.Models.MyModels;
 using WebApplication6.Models;
 
 namespace WebApplication6.Data
@@ -14,6 +15,7 @@ namespace WebApplication6.Data
 
         public DbSet<Osoba> Osoby { get; set; }
         public DbSet<Klient> Klienci { get; set; }
+        public DbSet<Podmiot> Podmioty { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
