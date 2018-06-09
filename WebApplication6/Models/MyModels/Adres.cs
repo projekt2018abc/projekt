@@ -13,5 +13,11 @@ namespace ProjektZespolowy.Models.MyModels
         public string Ulica { get; set; }
         public string Numer_domu { get; set; }
         public string Numer_lokalu { get; set; }
+                
+        public override string ToString()
+        {
+            return $"{Miejscowosc} {Kod_pocztowy}\n" +
+                $"{Ulica} {Numer_domu}/{Numer_lokalu}";
+        }
     }
 }

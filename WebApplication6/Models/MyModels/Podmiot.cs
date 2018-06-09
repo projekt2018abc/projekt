@@ -10,5 +10,12 @@ namespace ProjektZespolowy.Models.MyModels
         public int PodmiotId { get; set; }
         public int? Ilosc_punktow { get; set; }
         public Adres adres { get; set; }
-    }
+        public List<Rachunek> Historia { get; set; }
+        public string AppUserId { get; set; }
+
+        internal void dodajRachunekDoHistorii(Rachunek rachunek)
+        {
+            Historia.Add(rachunek);
+        }
+}
 }

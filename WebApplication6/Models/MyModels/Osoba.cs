@@ -9,6 +9,5 @@ namespace ProjektZespolowy.Models
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
         public int? Pesel { get; set; }
-        public string AppUserId { get; set; }           //Id obiektu klasy Application User
     }
 }

@@ -13,11 +13,11 @@ namespace WebApplication6.Models
     {
         public bool UserConfirmed { get; set; }
 
-        public Podmiot podmiot { get; set; }
+        //public Podmiot podmiot { get; set; }
 
-        public Podmiot createOsobaFromApplicationUser() {
-            podmiot = new Klient { AppUserId = Id };
-            return podmiot;
+        public void createKlientFromApplicationUser() {
+        new Klient { AppUserId = Id };
+
         }
     }
 }
