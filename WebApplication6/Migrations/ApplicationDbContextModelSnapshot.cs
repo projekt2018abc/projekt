@@ -9,13 +9,12 @@ using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 using WebApplication6.Data;
 
-namespace WebApplication6.Data.Migrations
+namespace ProjektZespolowy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180609115443_m3")]
-    partial class m3
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
