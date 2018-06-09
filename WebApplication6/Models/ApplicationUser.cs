@@ -15,7 +15,7 @@ namespace WebApplication6.Models
         public Osoba osoba { get; set; }
 
         public Osoba createOsobaFromApplicationUser() {
-            osoba = new Osoba { AppUserId = Id };
+            osoba = new Klient { AppUserId = Id };
             return osoba;
         }
     }

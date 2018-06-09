@@ -7,6 +7,7 @@ namespace ProjektZespolowy.Models.MyModels
 {
     public class WykonanaUsluga
     {
+        public int WykonanaUslugaId { get; set; }
         public Usluga Usluga { get; set; }
         public double Ilosc { get; set; }
         public int IloscZaPunkty { get; set; }

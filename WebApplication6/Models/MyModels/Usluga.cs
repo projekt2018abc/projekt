@@ -2,6 +2,7 @@
 {
     public class Usluga
     {
+        public int UslugaId { get; set; }
         public string TypUslugi { get; set; }
         public double Cena {
             get

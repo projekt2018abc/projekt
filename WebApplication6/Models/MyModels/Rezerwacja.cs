@@ -7,6 +7,7 @@ namespace ProjektZespolowy.Models.MyModels
 {
     public class Rezerwacja
     {
+        public int RezerwacjaId { get; set; }
         public DateTime Date { get; set; }
         public Usluga usluga { get; set; }
 

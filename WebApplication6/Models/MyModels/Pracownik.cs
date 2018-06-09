@@ -7,6 +7,7 @@ namespace ProjektZespolowy.Models.MyModels
 {
     public class Pracownik
     {
+        public int PracownikId { get; set; }
         public string Stanowisko { get; set; }
     }
 }
