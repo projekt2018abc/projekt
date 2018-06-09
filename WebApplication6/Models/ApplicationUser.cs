@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using ProjektZespolowy.Models;
+using ProjektZespolowy.Models.MyModels;
 
 namespace WebApplication6.Models
 {
@@ -12,11 +13,11 @@ namespace WebApplication6.Models
     {
         public bool UserConfirmed { get; set; }
 
-        public Osoba osoba { get; set; }
+        //public Podmiot podmiot { get; set; }
 
-        public Osoba createOsobaFromApplicationUser() {
-            osoba = new Klient { AppUserId = Id };
-            return osoba;
+        public void createKlientFromApplicationUser() {
+        new Klient { AppUserId = Id };
+
         }
     }
 }

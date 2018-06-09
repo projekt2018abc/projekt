@@ -12,9 +12,10 @@ using WebApplication6.Data;
 namespace ProjektZespolowy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180609212221_m8")]
+    partial class m8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,8 +169,6 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<int?>("AdresId");
 
-                    b.Property<string>("AppUserId");
-
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
@@ -196,6 +195,23 @@ namespace ProjektZespolowy.Migrations
                     b.ToTable("Powiadomienia");
                 });
 
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Pracownik", b =>
+                {
+                    b.Property<int>("PracownikId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
+                    b.Property<string>("Stanowisko");
+
+                    b.HasKey("PracownikId");
+
+                    b.ToTable("Pracownicy");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Pracownik");
+                });
+
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rachunek", b =>
                 {
                     b.Property<int>("RachunekId")
@@ -203,15 +219,9 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<DateTime>("Data");
 
-                    b.Property<int?>("FakturaId");
-
                     b.Property<int?>("KlientPodmiotId");
 
-                    b.Property<string>("Paragon");
-
                     b.HasKey("RachunekId");
-
-                    b.HasIndex("FakturaId");
 
                     b.HasIndex("KlientPodmiotId");
 
@@ -309,6 +319,8 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<int?>("PodmiotId");
+
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -327,6 +339,8 @@ namespace ProjektZespolowy.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("PodmiotId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -350,6 +364,8 @@ namespace ProjektZespolowy.Migrations
                 {
                     b.HasBaseType("ProjektZespolowy.Models.MyModels.Podmiot");
 
+                    b.Property<string>("AppUserId");
+
                     b.Property<string>("Imie");
 
                     b.Property<string>("Nazwisko");
@@ -361,6 +377,16 @@ namespace ProjektZespolowy.Migrations
                     b.HasDiscriminator().HasValue("Osoba");
                 });
 
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Wlasciciel", b =>
+                {
+                    b.HasBaseType("ProjektZespolowy.Models.MyModels.Pracownik");
+
+
+                    b.ToTable("Wlasciciel");
+
+                    b.HasDiscriminator().HasValue("Wlasciciel");
+                });
+
             modelBuilder.Entity("ProjektZespolowy.Models.Klient", b =>
                 {
                     b.HasBaseType("ProjektZespolowy.Models.Osoba");
@@ -370,27 +396,6 @@ namespace ProjektZespolowy.Migrations
                     b.ToTable("Klient");
 
                     b.HasDiscriminator().HasValue("Klient");
-                });
-
-            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Pracownik", b =>
-                {
-                    b.HasBaseType("ProjektZespolowy.Models.Osoba");
-
-                    b.Property<string>("Stanowisko");
-
-                    b.ToTable("Pracownik");
-
-                    b.HasDiscriminator().HasValue("Pracownik");
-                });
-
-            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Wlasciciel", b =>
-                {
-                    b.HasBaseType("ProjektZespolowy.Models.MyModels.Pracownik");
-
-
-                    b.ToTable("Wlasciciel");
-
-                    b.HasDiscriminator().HasValue("Wlasciciel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -447,10 +452,6 @@ namespace ProjektZespolowy.Migrations
 
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rachunek", b =>
                 {
-                    b.HasOne("ProjektZespolowy.Models.MyModels.Faktura", "faktura")
-                        .WithMany()
-                        .HasForeignKey("FakturaId");
-
                     b.HasOne("ProjektZespolowy.Models.MyModels.Podmiot", "Klient")
                         .WithMany("Historia")
                         .HasForeignKey("KlientPodmiotId");
@@ -468,6 +469,13 @@ namespace ProjektZespolowy.Migrations
                     b.HasOne("ProjektZespolowy.Models.MyModels.Usluga", "Usluga")
                         .WithMany()
                         .HasForeignKey("UslugaId");
+                });
+
+            modelBuilder.Entity("WebApplication6.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Podmiot", "podmiot")
+                        .WithMany()
+                        .HasForeignKey("PodmiotId");
                 });
 #pragma warning restore 612, 618
         }

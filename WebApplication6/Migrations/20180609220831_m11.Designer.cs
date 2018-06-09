@@ -12,9 +12,10 @@ using WebApplication6.Data;
 namespace ProjektZespolowy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180609220831_m11")]
+    partial class m11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,15 +204,9 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<DateTime>("Data");
 
-                    b.Property<int?>("FakturaId");
-
                     b.Property<int?>("KlientPodmiotId");
 
-                    b.Property<string>("Paragon");
-
                     b.HasKey("RachunekId");
-
-                    b.HasIndex("FakturaId");
 
                     b.HasIndex("KlientPodmiotId");
 
@@ -447,10 +442,6 @@ namespace ProjektZespolowy.Migrations
 
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rachunek", b =>
                 {
-                    b.HasOne("ProjektZespolowy.Models.MyModels.Faktura", "faktura")
-                        .WithMany()
-                        .HasForeignKey("FakturaId");
-
                     b.HasOne("ProjektZespolowy.Models.MyModels.Podmiot", "Klient")
                         .WithMany("Historia")
                         .HasForeignKey("KlientPodmiotId");

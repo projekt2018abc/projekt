@@ -34,6 +34,10 @@ namespace WebApplication6.Data
             : base(options)
         {
         }
+        public ApplicationDbContext()
+        {
+
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -41,6 +45,10 @@ namespace WebApplication6.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=tcp:projekt2018.database.windows.net,1433;Initial Catalog=ProjektZDB_2018-06-06T18-38Z;Persist Security Info=False;User ID=projekt2018abc;Password=dupA1234;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30");
         }
     }
 }
