@@ -10,5 +10,10 @@ namespace ProjektZespolowy.Models.MyModels
         public int PodmiotId { get; set; }
         public int? Ilosc_punktow { get; set; }
         public Adres adres { get; set; }
+
+        internal void dodajRachunekDoHistorii(Rachunek rachunek)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

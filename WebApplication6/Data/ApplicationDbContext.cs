@@ -25,13 +25,18 @@ namespace WebApplication6.Data
         public DbSet<WykonanaUsluga> WykonaneUslugi { get; set; }
         public DbSet<Rachunek> Rachunki { get; set; }
         public DbSet<Rezerwacja> Rezerwacje { get; set; }
+        //public DbSet<NaszaPlacowka> NaszePlacowki { get; set; }
 
 
 
 
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        //    : base(options)
+        //{
+        //}
+
+        public ApplicationDbContext()
         {
         }
 
@@ -42,5 +47,9 @@ namespace WebApplication6.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+        //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //    {
+        //        optionsBuilder.UseSqlServer()
+        //    }
     }
 }

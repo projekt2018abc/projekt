@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProjektZespolowy.Models.MyModels
 {
-    public class Pracownik
+    public class Pracownik:Osoba
     {
         public int PracownikId { get; set; }
         public string Stanowisko { get; set; }
