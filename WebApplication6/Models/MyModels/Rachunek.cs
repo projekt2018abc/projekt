@@ -34,7 +34,7 @@ namespace ProjektZespolowy.Models.MyModels
             PunktyZysk = 0;
             PunktyWykorzystane = 0;
             Cena = 0;
-            foreach(WykonanaUsluga usluga in Uslugi)
+            foreach (WykonanaUsluga usluga in Uslugi)
             {
                 usluga.aktualizuj();
                 PunktyZysk += usluga.DodanePunkty;
@@ -56,17 +56,17 @@ namespace ProjektZespolowy.Models.MyModels
 
         public bool zatwierdzRachunek(bool czyFaktura)
         {
-            if (Klient.Ilosc_punktow<PunktyWykorzystane)
+            if (Klient.Ilosc_punktow < PunktyWykorzystane)
             {
                 System.Console.WriteLine("Za mało punktów na koncie klienta");
                 return false;
             }
-            Paragon=generujParagon();
+            Paragon = generujParagon();
             Klient.Ilosc_punktow -= PunktyWykorzystane;
             Klient.Ilosc_punktow += PunktyZysk;
             Klient.dodajRachunekDoHistorii(this);
             if (czyFaktura)
-                faktura=generujFakture();
+                faktura = generujFakture();
 
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
@@ -75,8 +75,8 @@ namespace ProjektZespolowy.Models.MyModels
             }
 
             return true;
-            
-            
+
+
         }
 
         private Faktura generujFakture()
@@ -86,18 +86,20 @@ namespace ProjektZespolowy.Models.MyModels
 
         private string generujParagon()
         {
+            Data = DateTime.Now;
             return $"Stacja Paliw SPB\n" +
                     $"{NaszaPlacowka.ToString()}\n" +
                     $"{UslugiToString()}\n" +
+                    $"{Data}\n" +
                     $"Dziękujemy za skorzystanie z naszych usług\n" +
                     $"Zapraszamy ponownie!";
-                
+
         }
 
         private string UslugiToString()
         {
             String lista = null;
-            foreach(WykonanaUsluga usluga in Uslugi)
+            foreach (WykonanaUsluga usluga in Uslugi)
             {
                 if (usluga.IloscZaPunkty > 0)
                     lista += $"{usluga.Usluga.TypUslugi} X {usluga.Ilosc}:{usluga.Ilosc * usluga.Usluga.Cena}PLN\n" +
