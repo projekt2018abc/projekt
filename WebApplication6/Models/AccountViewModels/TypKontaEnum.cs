@@ -8,6 +8,9 @@ namespace ProjektZespolowy.Models.AccountViewModels
     public enum TypKontaEnum
     {
         Indywidualne,
-        Firma
+        Firma,
+        Pracownik,
+        Monitoring,
+        Właściciel
     }
 }
