@@ -16,6 +16,7 @@ namespace WebApplication6
 {
     public class Startup
     {
+        public static String DbConnectionString;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,9 +36,10 @@ namespace WebApplication6
                 options.Password.RequireNonAlphanumeric = false;
             });
 
-
+            DbConnectionString = Configuration.GetConnectionString("AzureDB");
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AzureDB")));
+                options.UseSqlServer(DbConnectionString));
+
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

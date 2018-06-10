@@ -48,7 +48,7 @@ namespace WebApplication6.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=tcp:projekt2018.database.windows.net;Initial Catalog=ProjektZDB;Integrated Security=False;User ID=projekt2018abc;Password=dupA1234;Connect Timeout=60;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            optionsBuilder.UseSqlServer(Startup.DbConnectionString);
         }
     }
 }
