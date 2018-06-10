@@ -86,9 +86,11 @@ namespace ProjektZespolowy.Models.MyModels
 
         private string generujParagon()
         {
+            Data = DateTime.Now;
             return $"Stacja Paliw SPB\n" +
                     $"{NaszaPlacowka.ToString()}\n" +
                     $"{UslugiToString()}\n" +
+                    $"{Data}\n" +
                     $"Dziękujemy za skorzystanie z naszych usług\n" +
                     $"Zapraszamy ponownie!";
                 
