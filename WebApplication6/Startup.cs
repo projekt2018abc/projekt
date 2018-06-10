@@ -37,7 +37,7 @@ namespace WebApplication6
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AzureDB2")));
+                options.UseSqlServer(Configuration.GetConnectionString("AzureDB")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

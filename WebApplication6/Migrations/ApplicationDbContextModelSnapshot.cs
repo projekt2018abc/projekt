@@ -337,8 +337,6 @@ namespace ProjektZespolowy.Migrations
                 {
                     b.HasBaseType("ProjektZespolowy.Models.MyModels.Podmiot");
 
-                    b.Property<string>("Haslo_hashed");
-
                     b.Property<string>("Nazwa");
 
                     b.Property<string>("Regon");
