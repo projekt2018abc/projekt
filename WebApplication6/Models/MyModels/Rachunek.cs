@@ -9,7 +9,7 @@ namespace ProjektZespolowy.Models.MyModels
     public class Rachunek
     {
         public int RachunekId { get; set; }
-        private List<WykonanaUsluga> Uslugi;
+        public List<WykonanaUsluga> Uslugi { get; set; }
         public Podmiot Klient { get; set; }
         private int PunktyZysk { get; set; }
         private int PunktyWykorzystane { get; set; }
