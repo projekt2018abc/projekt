@@ -1,0 +1,63 @@
+﻿@model ProjektZespolowy.Models.MyModels.WykonanaUsluga
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>WykonanaUsluga</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ilosc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ilosc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IloscZaPunkty)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IloscZaPunkty)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Koszt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Koszt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WykorzystanePunkty)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WykorzystanePunkty)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DodanePunkty)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DodanePunkty)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Zaksiegowano)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Zaksiegowano)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="WykonanaUslugaId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
