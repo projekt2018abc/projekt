@@ -16,6 +16,7 @@ namespace ProjektZespolowy.Models.MyModels
         public int WykorzystanePunkty { get; set; }
         public int DodanePunkty { get; set; }
         public bool Zaksiegowano { get; internal set; } = false;
+        public Stanowisko Stanowisko { get; set; }
 
         public bool wykorzystajPunkty(int iloscProduktu)
         {

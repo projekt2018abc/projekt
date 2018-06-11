@@ -50,5 +50,6 @@ namespace WebApplication6.Data
         {
             optionsBuilder.UseSqlServer(Startup.DbConnectionString);
         }
+        public DbSet<ProjektZespolowy.Models.MyModels.Stanowisko> Stanowisko { get; set; }
     }
 }
