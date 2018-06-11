@@ -8,6 +8,8 @@ namespace ProjektZespolowy.Models.MyModels
 {
     public class Rachunek
     {
+
+
         public int RachunekId { get; set; }
         public List<WykonanaUsluga> Uslugi { get; set; }
         public Podmiot Klient { get; set; }
@@ -89,14 +91,14 @@ namespace ProjektZespolowy.Models.MyModels
             Data = DateTime.Now;
             return $"Stacja Paliw SPB\n" +
                     $"{NaszaPlacowka.ToString()}\n" +
-                    $"{UslugiToString()}\n" +
+                    $"{UslugaToString()}\n" +
                     $"{Data}\n" +
                     $"Dziękujemy za skorzystanie z naszych usług\n" +
                     $"Zapraszamy ponownie!";
 
         }
 
-        private string UslugiToString()
+        private string UslugaToString()
         {
             String lista = null;
             foreach (WykonanaUsluga usluga in Uslugi)
@@ -110,5 +112,6 @@ namespace ProjektZespolowy.Models.MyModels
             }
             return lista;
         }
+
     }
 }

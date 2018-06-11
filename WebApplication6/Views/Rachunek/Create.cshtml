@@ -11,20 +11,51 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Data" class="control-label"></label>
-                <input asp-for="Data" class="form-control" />
-                <span asp-validation-for="Data" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Paragon" class="control-label"></label>
-                <input asp-for="Paragon" class="form-control" />
-                <span asp-validation-for="Paragon" class="text-danger"></span>
+                <label asp-for="Uslugi" class="control-label"></label>
+                <select asp-for="Uslugi" class="list">
+                    <option>aaa</option>
+                    <option>bbb</option>
+                </select>
+                <span asp-validation-for="Uslugi" class="dropdown-toggle"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+            </div>*@
+
+            <table class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            Data
+                        </th>
+                        <th>
+                            Rodzaj Usługi
+                        </th>
+                        <th>
+                            Ilość
+                        </th>
+                        <th>
+                            Stanowisko
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                    <tr>
+                        @if (ViewBag.wykonaneUslugi != null)
+                        {
+                            foreach (var usluga in ViewBag.wykonaneUslugi)
+                            {
+                            <th>@usluga.Data</th>
+
+                            }
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
         </form>
     </div>
 </div>

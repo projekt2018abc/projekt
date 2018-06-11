@@ -17,6 +17,7 @@ namespace ProjektZespolowy.Controllers
         public RachunekController(ApplicationDbContext context)
         {
             _context = context;
+            ViewBag.wykonaneUslugi = _context.WykonaneUslugi.Where(u => u.Zaksiegowano == false).ToList();
         }
 
         // GET: Rachunek
