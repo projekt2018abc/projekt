@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ProjektZespolowy.Migrations
 {
-    public partial class m14 : Migration
+    public partial class tm : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

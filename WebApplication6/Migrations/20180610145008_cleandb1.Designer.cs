@@ -12,8 +12,8 @@ using WebApplication6.Data;
 namespace ProjektZespolowy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180609220831_m11")]
-    partial class m11
+    [Migration("20180610145008_cleandb1")]
+    partial class cleandb1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -204,9 +204,15 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<DateTime>("Data");
 
+                    b.Property<int?>("FakturaId");
+
                     b.Property<int?>("KlientPodmiotId");
 
+                    b.Property<string>("Paragon");
+
                     b.HasKey("RachunekId");
+
+                    b.HasIndex("FakturaId");
 
                     b.HasIndex("KlientPodmiotId");
 
@@ -304,6 +310,8 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<int>("PodmiotId");
+
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -329,8 +337,6 @@ namespace ProjektZespolowy.Migrations
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Firma", b =>
                 {
                     b.HasBaseType("ProjektZespolowy.Models.MyModels.Podmiot");
-
-                    b.Property<string>("Haslo_hashed");
 
                     b.Property<string>("Nazwa");
 
@@ -370,6 +376,8 @@ namespace ProjektZespolowy.Migrations
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Pracownik", b =>
                 {
                     b.HasBaseType("ProjektZespolowy.Models.Osoba");
+
+                    b.Property<bool>("DostepDoMonitoringu");
 
                     b.Property<string>("Stanowisko");
 
@@ -442,6 +450,10 @@ namespace ProjektZespolowy.Migrations
 
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rachunek", b =>
                 {
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Faktura", "faktura")
+                        .WithMany()
+                        .HasForeignKey("FakturaId");
+
                     b.HasOne("ProjektZespolowy.Models.MyModels.Podmiot", "Klient")
                         .WithMany("Historia")
                         .HasForeignKey("KlientPodmiotId");

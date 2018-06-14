@@ -12,8 +12,8 @@ using WebApplication6.Data;
 namespace ProjektZespolowy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180610120309_appuserObjectCreation")]
-    partial class appuserObjectCreation
+    [Migration("20180610153459_tm")]
+    partial class tm
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -337,8 +337,6 @@ namespace ProjektZespolowy.Migrations
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Firma", b =>
                 {
                     b.HasBaseType("ProjektZespolowy.Models.MyModels.Podmiot");
-
-                    b.Property<string>("Haslo_hashed");
 
                     b.Property<string>("Nazwa");
 

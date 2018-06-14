@@ -22,6 +22,10 @@
     <Compile Remove="Migrations\20180609213051_m9.Designer.cs" />
     <Compile Remove="Migrations\20180609215448_m9.cs" />
     <Compile Remove="Migrations\20180609215448_m9.Designer.cs" />
+    <Compile Remove="Migrations\20180610143952_db.cs" />
+    <Compile Remove="Migrations\20180610143952_db.Designer.cs" />
+    <Compile Remove="Migrations\20180610144535_cleandb1.cs" />
+    <Compile Remove="Migrations\20180610144535_cleandb1.Designer.cs" />
   </ItemGroup>
 
 
