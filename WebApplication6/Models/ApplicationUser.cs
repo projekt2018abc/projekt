@@ -14,6 +14,21 @@ namespace WebApplication6.Models
     {
         public bool UserConfirmed { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Pesel { get; set; }
+
+        public string Nip { get; set; }
+
+        public string Regon { get; set; }
+
+        public int Points { get; set; }
+
+        public bool IsNaturalPerson { get; set; }
+
+        /** --------------------------------------- **/
         public int PodmiotId { get; set; }
 
         public void createPodmiotFromApplicationUser(TypKontaEnum typKonta) {
