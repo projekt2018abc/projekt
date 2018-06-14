@@ -12,8 +12,8 @@ using WebApplication6.Data;
 namespace ProjektZespolowy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180610153459_tm")]
-    partial class tm
+    [Migration("20180614195913_wtf2")]
+    partial class wtf2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -210,6 +210,8 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<string>("Paragon");
 
+                    b.Property<int>("PracownikId");
+
                     b.HasKey("RachunekId");
 
                     b.HasIndex("FakturaId");
@@ -235,6 +237,18 @@ namespace ProjektZespolowy.Migrations
                     b.ToTable("Rezerwacje");
                 });
 
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Stanowisko", b =>
+                {
+                    b.Property<int>("StanowiskoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Typ");
+
+                    b.HasKey("StanowiskoId");
+
+                    b.ToTable("Stanowisko");
+                });
+
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Usluga", b =>
                 {
                     b.Property<int>("UslugaId")
@@ -246,9 +260,13 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<int>("PunktyZysk");
 
+                    b.Property<int?>("StanowiskoId");
+
                     b.Property<string>("TypUslugi");
 
                     b.HasKey("UslugaId");
+
+                    b.HasIndex("StanowiskoId");
 
                     b.ToTable("Uslugi");
                 });
@@ -268,11 +286,21 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<double>("Koszt");
 
+                    b.Property<int?>("RachunekId");
+
+                    b.Property<int?>("StanowiskoId");
+
                     b.Property<int?>("UslugaId");
 
                     b.Property<int>("WykorzystanePunkty");
 
+                    b.Property<bool>("Zaksiegowano");
+
                     b.HasKey("WykonanaUslugaId");
+
+                    b.HasIndex("RachunekId");
+
+                    b.HasIndex("StanowiskoId");
 
                     b.HasIndex("UslugaId");
 
@@ -466,8 +494,23 @@ namespace ProjektZespolowy.Migrations
                         .HasForeignKey("UslugaId");
                 });
 
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Usluga", b =>
+                {
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Stanowisko")
+                        .WithMany("DostepneUslugi")
+                        .HasForeignKey("StanowiskoId");
+                });
+
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.WykonanaUsluga", b =>
                 {
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Rachunek")
+                        .WithMany("Uslugi")
+                        .HasForeignKey("RachunekId");
+
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Stanowisko", "Stanowisko")
+                        .WithMany()
+                        .HasForeignKey("StanowiskoId");
+
                     b.HasOne("ProjektZespolowy.Models.MyModels.Usluga", "Usluga")
                         .WithMany()
                         .HasForeignKey("UslugaId");
