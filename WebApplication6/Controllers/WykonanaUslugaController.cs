@@ -13,10 +13,12 @@ namespace ProjektZespolowy.Controllers
     public class WykonanaUslugaController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private WykonanaUsluga usluga;
 
         public WykonanaUslugaController(ApplicationDbContext context)
         {
             _context = context;
+            usluga = new WykonanaUsluga();
         }
 
         // GET: WykonanaUsluga
@@ -46,6 +48,7 @@ namespace ProjektZespolowy.Controllers
         // GET: WykonanaUsluga/Create
         public IActionResult Create()
         {
+            ViewBag.Uslugi = _context.Uslugi.ToList();
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace ProjektZespolowy.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WykonanaUslugaId,Ilosc,IloscZaPunkty,Data,Koszt,WykorzystanePunkty,DodanePunkty,Zaksiegowano")] WykonanaUsluga wykonanaUsluga)
+        public async Task<IActionResult> Create([Bind("WykonanaUslugaId,Ilosc,IloscZaPunkty,Data,Koszt,WykorzystanePunkty,DodanePunkty,Zaksiegowano,Usluga")] WykonanaUsluga wykonanaUsluga)
         {
             if (ModelState.IsValid)
             {
@@ -149,5 +152,11 @@ namespace ProjektZespolowy.Controllers
         {
             return _context.WykonaneUslugi.Any(e => e.WykonanaUslugaId == id);
         }
+
+        //public ActionResult DodajUsluge(int id)
+        //{
+        //    //WykonanaUsluga = _context.Uslugi.Where(u => u.UslugaId == id).Single();
+        //    return RedirectToAction("DodajUsluge");
+        //}
     }
 }
