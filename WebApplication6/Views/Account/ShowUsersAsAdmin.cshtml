@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "ShowUsersAsAdmin";
+}
+@foreach (var item in Model)
+{
+    <label>@item.Email</label>
+
+}
+
+<h2>ShowUsersAsAdmin</h2>
+
