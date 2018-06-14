@@ -1,0 +1,50 @@
+﻿@model IEnumerable<WebApplication6.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "ShowUsers";
+}
+
+<h2>ShowUsers</h2>
+<p>W bazie znajduje sie @Model.Count() Userów</p>
+
+<p>@Html.ActionLink("Dodaj nowego", "RegisterAsAdmin")</p>
+
+
+    <table>
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Czy aktywny
+            </th>
+
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserConfirmed)
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("DeleteUser", "DeleteUser", new { id = item.Id })
+            </td>
+        </tr>
+        }
+    </table>
+
+<h3>Userzy</h3>
+
