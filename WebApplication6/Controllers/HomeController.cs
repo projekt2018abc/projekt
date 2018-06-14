@@ -32,6 +32,13 @@ namespace WebApplication6.Controllers
             return View();
         }
 
+        public IActionResult Cennik()
+        {
+            ViewData["Message"] = "Cennik";
+
+            return View();
+        }
+
         [AllowAnonymous]
         public IActionResult Contact2()
         {
