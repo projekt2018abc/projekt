@@ -3,10 +3,10 @@
     ViewData["Title"] = "Rejestracja";
 }
 
-<h2>@ViewData["Title"]</h2>
+<section id="register">
+    <h2>@ViewData["Title"]</h2>
 
-<div class="row">
-    <div class="col-md-4">
+    <div id="register-wrapper">
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h4>Utwórz nowe konto.</h4>
             <hr />
@@ -29,41 +29,66 @@
             <div class="form-group">
                 <label asp-for="SelectedRole"></label>
                 <p />
-                <input asp-for="SelectedRole" type="radio" value=0 /><b>Indywidualne</b>
-                <input asp-for="SelectedRole" type="radio" value=1 /><b>Firma</b>
+                <input asp-for="SelectedRole" onclick="toggleFields()" checked type="radio" value=0 id="radio1" /><b>Indywidualne</b>
+                <input asp-for="SelectedRole" onclick="toggleFields()" type="radio" value=1 id="radio2" /><b>Firma</b>
                 <span asp-validation-for="SelectedRole" class="radio"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="imie">
                 <label asp-for="FirstName"></label>
                 <input asp-for="FirstName" class="form-control" />
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="nazwisko">
                 <label asp-for="LastName"></label>
                 <input asp-for="LastName" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group" id="pesel">
                 <label asp-for="Pesel"></label>
                 <input asp-for="Pesel" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group" id="nip">
                 <label asp-for="Nip"></label>
                 <input asp-for="Nip" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group hidden-field" id="firma">
                 <label asp-for="CompanyName"></label>
                 <input asp-for="CompanyName" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group hidden-field" id="regon">
                 <label asp-for="Regon"></label>
                 <input asp-for="Regon" class="form-control" />
             </div>
-            <button type="submit" class="btn btn-default">Utwórz konto</button>
+            <button type="submit" class="btn btn-default" id="submit-button">Utwórz konto</button>
 
 
         </form>
     </div>
-</div>
+</section>
+
+<script type="text/javascript">
+    function toggleFields() {
+        var radioButton2 = document.getElementById("radio2");
+        var radioButton1 = document.getElementById("radio1");
+        if (radioButton2.checked == true) {
+            document.getElementById("firma").classList.remove("hidden-field");
+            document.getElementById("regon").classList.remove("hidden-field");
+            document.getElementById("imie").classList.add("hidden-field");
+            document.getElementById("nazwisko").classList.add("hidden-field");
+            document.getElementById("pesel").classList.add("hidden-field");
+            document.getElementById("regon").classList.add("hidden-field");
+            
+        }
+        else {
+            document.getElementById("firma").classList.add("hidden-field");
+            document.getElementById("regon").classList.add("hidden-field");
+            document.getElementById("imie").classList.remove("hidden-field");
+            document.getElementById("nazwisko").classList.remove("hidden-field");
+            document.getElementById("pesel").classList.remove("hidden-field");
+            document.getElementById("regon").classList.remove("hidden-field");
+        }
+    }
+    
+</script>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
