@@ -13,11 +13,13 @@ namespace ProjektZespolowy.Controllers
     public class RachunekController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private Rachunek rachunek;
 
         public RachunekController(ApplicationDbContext context)
         {
             _context = context;
-            ViewBag.wykonaneUslugi = _context.WykonaneUslugi.Where(u => u.Zaksiegowano == false).ToList();
+            rachunek = new Rachunek();
+            
         }
 
         // GET: Rachunek
@@ -47,6 +49,7 @@ namespace ProjektZespolowy.Controllers
         // GET: Rachunek/Create
         public IActionResult Create()
         {
+            ViewBag.wykonaneUslugi = _context.WykonaneUslugi.Where(u => u.Zaksiegowano == false).ToList();
             return View();
         }
 
@@ -61,7 +64,9 @@ namespace ProjektZespolowy.Controllers
             {
                 _context.Add(rachunek);
                 await _context.SaveChangesAsync();
+                //ViewBag.wykonaneUslugi = _context.WykonaneUslugi.Where(u => u.Zaksiegowano == false).ToList();
                 return RedirectToAction(nameof(Index));
+                
             }
             return View(rachunek);
         }
@@ -146,9 +151,20 @@ namespace ProjektZespolowy.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //[ActionName("DodajUslugeAsync")]
+        public ActionResult DodajUsluge(int id)
+        {
+            this.rachunek.dodajUsluge(_context.WykonaneUslugi.Where(u => u.WykonanaUslugaId == id).Single());
+            _context.SaveChangesAsync();
+            return RedirectToAction("DodajUsluge");
+            
+        }
+        
+
         private bool RachunekExists(int id)
         {
             return _context.Rachunki.Any(e => e.RachunekId == id);
+            
         }
     }
 }

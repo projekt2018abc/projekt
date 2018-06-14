@@ -31,29 +31,69 @@
                             Data
                         </th>
                         <th>
-                            Rodzaj Usługi
+                             Rodzaj Usługi
                         </th>
                         <th>
-                            Ilość
+                             Ilość
                         </th>
                         <th>
-                            Stanowisko
+                             Stanowisko
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    {
+                <tbody>                   
                     <tr>
                         @if (ViewBag.wykonaneUslugi != null)
                         {
                             foreach (var usluga in ViewBag.wykonaneUslugi)
                             {
-                            <th>@usluga.Data</th>
+                                try
+                                {
+                                    <td>@usluga.Data</td>
+                                }
+                                catch (Exception)
+                                {
+                                    <td>Nie można wczytać wartości</td>
 
+                                }
+                                try
+                                {
+                                    <td>@usluga.Usluga.TypUslugi</td>
+                                }
+                                catch (Exception)
+                                {
+                                    <td>Nie można wczytać wartości</td>
+                                }
+                                try
+                                {
+                                    <td>@usluga.Ilosc</td>
+                                }
+
+
+                                catch (Exception)
+                                {
+
+                                    <td>Nie można wczytać wartości</td>
+                                }
+                                try
+                                {
+
+                                <td>@usluga.Stanowisko.Typ @usluga.Stanowisko.Numer</td>
+                                }
+                            
+                                catch (Exception)
+                                {
+                                <td>Nie można wczytać wartości</td>
+                                }
+                                <td>
+                                    <div>
+                                        @*@Html.ActionLink("DodajUsluge", "DodajUsluge")*@
+                                        <a asp-action="DodajUsluge" asp-route-id="@usluga.WykonanaUslugaId"> Dodaj</a>
+                                    </div>
+                                </td>
                             }
                         }
                     </tr>
-                    }
                 </tbody>
             </table>
         </form>

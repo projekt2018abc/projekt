@@ -11,7 +11,7 @@ namespace ProjektZespolowy.Models.MyModels
 
 
         public int RachunekId { get; set; }
-        public List<WykonanaUsluga> Uslugi { get; set; }
+        public List<WykonanaUsluga> Uslugi { get; set; } = new List<WykonanaUsluga>();
         public Podmiot Klient { get; set; }
         private int PunktyZysk { get; set; }
         private int PunktyWykorzystane { get; set; }
@@ -19,15 +19,19 @@ namespace ProjektZespolowy.Models.MyModels
         public DateTime Data { get; set; }
         public String Paragon { get; set; }
         public Faktura faktura { get; set; }
+        public int PracownikId { get; set; }
+
 
         public void dodajUsluge(WykonanaUsluga usluga)
         {
             Uslugi.Add(usluga);
+            usluga.Zaksiegowano = true;
             aktualizuj();
         }
         public void usunUsluge(WykonanaUsluga usluga)
         {
             Uslugi.Remove(usluga);
+            usluga.Zaksiegowano = false;
             aktualizuj();
         }
 
