@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using WebApplication6.Models;
 using WebApplication6.Models.AccountViewModels;
 using WebApplication6.Services;
+using WebApplication6.Data;
 
 namespace WebApplication6.Controllers
 {
@@ -20,6 +21,8 @@ namespace WebApplication6.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
+
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -251,6 +254,52 @@ namespace WebApplication6.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ShowUsers()
+        {
+            var users = db.Users.ToList();
+            users.First().UserConfirmed = true;
+            return View(users);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult RegisterAsAdmin(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterAsAdmin(RegisterViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.createPodmiotFromApplicationUser(model.SelectedRole);
+               
+                var result = await _userManager.CreateAsync(user, model.Password);
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ShowUsersAsAdmin(string returnUrl = null)
+        {
+            var modele = _userManager.Users.ToList();
+            
+            return View(modele);
+            
+        }
+
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -440,6 +489,15 @@ namespace WebApplication6.Controllers
             return View();
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult DeleteUser(string id)
+        {
+            var user = _userManager.Users.Where(x => x.Id == id).First();
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("ShowUsers");
+        }
 
         [HttpGet]
         public IActionResult AccessDenied()
