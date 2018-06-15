@@ -250,7 +250,6 @@ namespace WebApplication6.Controllers
         public IActionResult ShowUsers()
         {
             var users = db.Users.ToList();
-            users.First().UserConfirmed = true;
             return View(users);
         }
 

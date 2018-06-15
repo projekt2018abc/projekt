@@ -9,6 +9,7 @@ namespace ProjektZespolowy.Models.MyModels
     {
         public int PowiadomienieId { get; set; }
         public string Nazwa { get; set; }
+        public Monitoring monitoring { get; set; }
 
         public void wyslijPowiadomienie()
         {
