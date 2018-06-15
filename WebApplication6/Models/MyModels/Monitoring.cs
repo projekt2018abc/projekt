@@ -7,6 +7,7 @@ namespace ProjektZespolowy.Models.MyModels
 {
     public class Monitoring
     {
+        public int Id { get; set; }
         public double PoziomPaliwa { get; set; }
         public double Cisnienie { get; set; }
         public double Temperatura { get; set; }
