@@ -197,7 +197,7 @@ namespace ProjektZespolowy.Controllers
 
         public async Task<IActionResult> SzukajKlient()
         {
-            string mail = Request.Form["userMail"];
+            string mail = Request.Form["userMail"].ToString();
             rachunek.Klient = _context.Users.Where(u => u.Email == mail).Single();
             return RedirectToAction(nameof(Podsumowanie));
             

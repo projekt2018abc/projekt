@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ProjektZespolowy.Migrations
 {
-    public partial class a2 : Migration
+    public partial class naCzysto : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,14 +49,21 @@ namespace ProjektZespolowy.Migrations
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    IsNaturalPerson = table.Column<bool>(nullable: false),
+                    LastName = table.Column<string>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    Nip = table.Column<string>(nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
+                    Pesel = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     PodmiotId = table.Column<int>(nullable: false),
+                    Points = table.Column<int>(nullable: false),
+                    Regon = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     UserConfirmed = table.Column<bool>(nullable: false),
@@ -273,8 +280,9 @@ namespace ProjektZespolowy.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Data = table.Column<DateTime>(nullable: false),
                     FakturaId = table.Column<int>(nullable: true),
-                    KlientPodmiotId = table.Column<int>(nullable: true),
+                    KlientId = table.Column<string>(nullable: true),
                     Paragon = table.Column<string>(nullable: true),
+                    PodmiotId = table.Column<int>(nullable: true),
                     PracownikId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -287,8 +295,14 @@ namespace ProjektZespolowy.Migrations
                         principalColumn: "FakturaId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Rachunki_Podmioty_KlientPodmiotId",
-                        column: x => x.KlientPodmiotId,
+                        name: "FK_Rachunki_AspNetUsers_KlientId",
+                        column: x => x.KlientId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Rachunki_Podmioty_PodmiotId",
+                        column: x => x.PodmiotId,
                         principalTable: "Podmioty",
                         principalColumn: "PodmiotId",
                         onDelete: ReferentialAction.Restrict);
@@ -404,9 +418,14 @@ namespace ProjektZespolowy.Migrations
                 column: "FakturaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rachunki_KlientPodmiotId",
+                name: "IX_Rachunki_KlientId",
                 table: "Rachunki",
-                column: "KlientPodmiotId");
+                column: "KlientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rachunki_PodmiotId",
+                table: "Rachunki",
+                column: "PodmiotId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rezerwacje_UslugaId",
@@ -464,9 +483,6 @@ namespace ProjektZespolowy.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Rachunki");
 
             migrationBuilder.DropTable(
@@ -474,6 +490,9 @@ namespace ProjektZespolowy.Migrations
 
             migrationBuilder.DropTable(
                 name: "Faktury");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Podmioty");
