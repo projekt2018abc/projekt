@@ -195,6 +195,25 @@ namespace ProjektZespolowy.Controllers
             return Create();
         }
 
+        public async Task<IActionResult> SzukajKlient()
+        {
+            string mail = Request.Form["userMail"];
+            rachunek.Klient = _context.Users.Where(u => u.Email == mail).Single();
+            return RedirectToAction(nameof(Podsumowanie));
+            
+        }
+
+        public async Task<IActionResult> Wystaw()
+        {
+            rachunek.zatwierdzRachunek(false);
+            return Paragon();
+        }
+
+        private IActionResult Paragon()
+        {
+            return View();
+        }
+
         private bool RachunekExists(int id)
         {
             return _context.Rachunki.Any(e => e.RachunekId == id);

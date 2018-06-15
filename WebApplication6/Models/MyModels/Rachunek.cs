@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication6.Data;
+using WebApplication6.Models;
 
 namespace ProjektZespolowy.Models.MyModels
 {
@@ -12,7 +13,7 @@ namespace ProjektZespolowy.Models.MyModels
 
         public int RachunekId { get; set; }
         public List<WykonanaUsluga> Uslugi { get; set; } = new List<WykonanaUsluga>();
-        public Podmiot Klient { get; set; }
+        public ApplicationUser Klient { get; set; }
         private int PunktyZysk { get; set; }
         private int PunktyWykorzystane { get; set; }
         private double Cena;
@@ -64,7 +65,7 @@ namespace ProjektZespolowy.Models.MyModels
         public bool wykorzystajPunkty(WykonanaUsluga usluga, int iloscProduktu)
         {
             int koszt = iloscProduktu * usluga.Usluga.PunktyKoszt;
-            if (koszt > Klient.Ilosc_punktow)
+            if (koszt > Klient.Points)
                 return false;
             usluga.wykorzystajPunkty(iloscProduktu);
             aktualizuj();
@@ -73,14 +74,14 @@ namespace ProjektZespolowy.Models.MyModels
 
         public bool zatwierdzRachunek(bool czyFaktura)
         {
-            if (Klient.Ilosc_punktow < PunktyWykorzystane)
+            if (Klient.Points < PunktyWykorzystane)
             {
                 System.Console.WriteLine("Za mało punktów na koncie klienta");
                 return false;
             }
             Paragon = generujParagon();
-            Klient.Ilosc_punktow -= PunktyWykorzystane;
-            Klient.Ilosc_punktow += PunktyZysk;
+            Klient.Points -= PunktyWykorzystane;
+            Klient.Points += PunktyZysk;
             Klient.dodajRachunekDoHistorii(this);
             if (czyFaktura)
                 faktura = generujFakture();

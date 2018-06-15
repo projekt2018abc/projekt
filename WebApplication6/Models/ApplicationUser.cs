@@ -14,9 +14,27 @@ namespace WebApplication6.Models
     {
         public bool UserConfirmed { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Pesel { get; set; }
+
+        public string Nip { get; set; }
+
+        public string Regon { get; set; }
+
+        public int Points { get; set; }
+
+        public bool IsNaturalPerson { get; set; }
+
+        public List<Rachunek> Historia { get; set; }
+
+        /** --------------------------------------- **/
         public int PodmiotId { get; set; }
 
-        public void createPodmiotFromApplicationUser(TypKontaEnum typKonta) {
+        public void createPodmiotFromApplicationUser(TypKontaEnum typKonta)
+        {
             switch (typKonta)
             {
                 case TypKontaEnum.Indywidualne:
@@ -32,7 +50,7 @@ namespace WebApplication6.Models
                     PodmiotId = p.PodmiotId;
                     break;
                 case TypKontaEnum.Monitoring:
-                    var m = new Pracownik {DostepDoMonitoringu=true };
+                    var m = new Pracownik { DostepDoMonitoringu = true };
                     PodmiotId = m.PodmiotId;
                     break;
                 case TypKontaEnum.Właściciel:
@@ -44,6 +62,11 @@ namespace WebApplication6.Models
             }
 
 
+        }
+
+        internal void dodajRachunekDoHistorii(Rachunek rachunek)
+        {
+            Historia.Add(rachunek);
         }
     }
 }

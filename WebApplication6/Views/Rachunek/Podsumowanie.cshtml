@@ -20,18 +20,25 @@
             Cena
         </dt>
         <dd>
-            @Html.DisplayFor(model=>model.getCena())
+            @Model.getCena()
         </dd>
         <dt>
-            @Html.DisplayNameFor(model=>model.Klient)
+            @Html.DisplayNameFor(model => model.Klient)
         </dt>
         <dd>
-            @Html.DisplayFor(model=>model.Klient)
+            @Html.DisplayFor(model => model.Klient)
         </dd>
-        <input id="userMail" name="userMail" />
     </dl>
+    <div><input id="userMail" name="userMail" /></div>
+    <a asp-action="SzukajKlient"> Znajdź klienta</a>    
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.RachunekId">Edit</a> |
+    @Html.DisplayNameFor(model=>model.Paragon)
+</div>
+<div>
+    @Html.DisplayFor(model=>model.Paragon)
+</div>
+<div>
+    <a asp-action="Wystaw" >Wystaw Rachunek</a> |
     <a asp-action="Index">Back to List</a>
 </div>
