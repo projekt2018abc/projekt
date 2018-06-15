@@ -36,7 +36,7 @@ namespace WebApplication6
                 options.Password.RequireNonAlphanumeric = false;
             });
 
-            DbConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            DbConnectionString = Configuration.GetConnectionString("AzureDB");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(DbConnectionString));
 
