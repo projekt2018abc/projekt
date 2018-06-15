@@ -61,6 +61,9 @@ namespace ProjektZespolowy.Controllers
         {
             if (ModelState.IsValid)
             {
+                int id = Int32.Parse(Request.Form["selectedId"]);
+                wykonanaUsluga.Usluga = _context.Uslugi.Where(u => u.UslugaId == id).Single();
+                wykonanaUsluga.aktualizuj();
                 _context.Add(wykonanaUsluga);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

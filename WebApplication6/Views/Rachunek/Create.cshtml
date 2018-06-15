@@ -11,19 +11,87 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Uslugi" class="control-label"></label>
-                <select asp-for="Uslugi" class="list">
-                    <option>aaa</option>
-                    <option>bbb</option>
-                </select>
-                <span asp-validation-for="Uslugi" class="dropdown-toggle"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>*@
 
+            <h2>Usługi na rachunku</h2>
+            <div>
+                <table class="table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                Data
+                            </th>
+                            <th>
+                                Rodzaj Usługi
+                            </th>
+                            <th>
+                                Ilość
+                            </th>
+                            <th>
+                                Stanowisko
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (ViewBag.uslugiNaRachunku != null)
+                        {
+                            foreach (var usluga in ViewBag.uslugiNaRachunku)
+                            {
+                                <tr>
+                                    @try
+                                    {
+                                        <td><center>@usluga.Data</center></td>
+                                    }
+                                    catch (Exception)
+                                    {
+                                        @*<td>Nie można wczytać wartości</td>*@
+
+                                    }
+                                    @try
+                                    {
+                                        <td><center>@usluga.Usluga.TypUslugi</center></td>
+                                    }
+                                    catch (Exception)
+                                    {
+                                        @*<td>Nie można wczytać wartości</td>*@
+                                    }
+                                    @try
+                                    {
+                                        <td><center>@usluga.Ilosc</center></td>
+                                    }
+
+
+                                    catch (Exception)
+                                    {
+
+                                        @*<td>Nie można wczytać wartości</td>*@
+                                    }
+                                    @try
+                                    {
+
+                                        <td><center>@usluga.Stanowisko.Typ @usluga.Stanowisko.Numer</center></td>
+                                    }
+
+                                    catch (Exception)
+                                    {
+                                        @*<td>Nie można wczytać wartości</td>*@
+                                    }
+                                    <td>
+                                        <div>
+                                            @*@Html.ActionLink("DodajUsluge", "DodajUsluge")*@
+                                            <a asp-action="UsunUslugeAsync" asp-route-id="@usluga.WykonanaUslugaId"> Usuń</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Usługi do dodania</h2>
             <table class="table-responsive">
                 <thead>
                     <tr>
@@ -31,71 +99,75 @@
                             Data
                         </th>
                         <th>
-                             Rodzaj Usługi
+                            Rodzaj Usługi
                         </th>
                         <th>
-                             Ilość
+                            Ilość
                         </th>
                         <th>
-                             Stanowisko
+                            Stanowisko
                         </th>
                     </tr>
                 </thead>
-                <tbody>                   
-                    <tr>
-                        @if (ViewBag.wykonaneUslugi != null)
+                <tbody>
+
+                    @if (ViewBag.wykonaneUslugi != null)
+                    {
+                        foreach (var usluga in ViewBag.wykonaneUslugi)
                         {
-                            foreach (var usluga in ViewBag.wykonaneUslugi)
-                            {
-                                try
+                            <tr>
+                                @try
                                 {
-                                    <td>@usluga.Data</td>
+                                    <td><center>@usluga.Data</center></td>
                                 }
                                 catch (Exception)
                                 {
-                                    <td>Nie można wczytać wartości</td>
+                                    @*<td>Nie można wczytać wartości</td>*@
 
                                 }
-                                try
+                                @try
                                 {
-                                    <td>@usluga.Usluga.TypUslugi</td>
+                                    <td><center>@usluga.Usluga.TypUslugi</center></td>
                                 }
                                 catch (Exception)
                                 {
-                                    <td>Nie można wczytać wartości</td>
+                                    @*<td>Nie można wczytać wartości</td>*@
                                 }
-                                try
+                                @try
                                 {
-                                    <td>@usluga.Ilosc</td>
+                                    <td><center>@usluga.Ilosc</center></td>
                                 }
 
 
                                 catch (Exception)
                                 {
 
-                                    <td>Nie można wczytać wartości</td>
+                                    @*<td>Nie można wczytać wartości</td>*@
                                 }
-                                try
+                                @try
                                 {
 
-                                <td>@usluga.Stanowisko.Typ @usluga.Stanowisko.Numer</td>
+                                    <td><center>@usluga.Stanowisko.Typ @usluga.Stanowisko.Numer</center></td>
                                 }
-                            
+
                                 catch (Exception)
                                 {
-                                <td>Nie można wczytać wartości</td>
+                                    @*<td>Nie można wczytać wartości</td>*@
                                 }
                                 <td>
                                     <div>
                                         @*@Html.ActionLink("DodajUsluge", "DodajUsluge")*@
-                                        <a asp-action="DodajUsluge" asp-route-id="@usluga.WykonanaUslugaId"> Dodaj</a>
+                                        <a asp-action="DodajUslugeAsync" asp-route-id="@usluga.WykonanaUslugaId"> Dodaj</a>
                                     </div>
                                 </td>
-                            }
+                            </tr>
                         }
-                    </tr>
+
+                    }
+
                 </tbody>
             </table>
+            <input type="submit" value="Create" class="btn btn-default" />
         </form>
     </div>
 </div>

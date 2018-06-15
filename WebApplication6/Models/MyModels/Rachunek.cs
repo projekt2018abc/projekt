@@ -27,12 +27,17 @@ namespace ProjektZespolowy.Models.MyModels
             Uslugi.Add(usluga);
             usluga.Zaksiegowano = true;
             aktualizuj();
-        }
+            using (var db = new ApplicationDbContext())
+            { db.SaveChanges(); }
+            }
         public void usunUsluge(WykonanaUsluga usluga)
         {
-            Uslugi.Remove(usluga);
-            usluga.Zaksiegowano = false;
+            WykonanaUsluga usuwanaUsluga = Uslugi.Find(u => u.WykonanaUslugaId == usluga.WykonanaUslugaId);
+            Uslugi.RemoveAll(u=>u.WykonanaUslugaId==usluga.WykonanaUslugaId);
+            usuwanaUsluga.Zaksiegowano = false;
             aktualizuj();
+            using (var db = new ApplicationDbContext())
+            { db.SaveChanges(); }
         }
 
         private void aktualizuj()
@@ -48,6 +53,12 @@ namespace ProjektZespolowy.Models.MyModels
                 Cena += usluga.Koszt;
 
             }
+        }
+
+        public double getCena()
+        {
+            aktualizuj();
+            return Cena;
         }
 
         public bool wykorzystajPunkty(WykonanaUsluga usluga, int iloscProduktu)
@@ -76,7 +87,7 @@ namespace ProjektZespolowy.Models.MyModels
 
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                context.Add(this);
+                context.Rachunki.Add(this);
                 context.SaveChanges();
             }
 

@@ -50,16 +50,19 @@
                 </div>
             </div>
             <div>
-                <label asp-for="Usluga" class="control-label"></label>
-                <select asp-for="Usluga">
-                    @if (ViewBag.Uslugi != null)
-                    {
-                        foreach (var usluga in ViewBag.Uslugi)
-                        {
-                            <option value=@usluga.UslugaId>@usluga.TypUslugi</option>
-                        }
-                    }
+                <select id="selectedId" name="selectedId" asp-items="@(new SelectList(ViewBag.Uslugi, "UslugaId", "TypUslugi"))">
                 </select>
+
+
+                @*<select>
+            @if (ViewBag.Uslugi != null)
+            {
+                foreach (var usluga in ViewBag.Uslugi)
+                {
+                    <option value=@usluga.UslugaId>@usluga.TypUslugi</option>
+                }
+            }
+        </select>*@
             </div>
 
             

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,8 +19,17 @@ namespace ProjektZespolowy.Controllers
         public RachunekController(ApplicationDbContext context)
         {
             _context = context;
-            rachunek = new Rachunek();
+            if (Temp.rachunek == null)
+            {
+                rachunek = new Rachunek { Data = DateTime.Now };
+                Temp.rachunek = rachunek;
+            }
+            else
+                rachunek = Temp.rachunek;
+
             
+
+
         }
 
         // GET: Rachunek
@@ -49,7 +59,8 @@ namespace ProjektZespolowy.Controllers
         // GET: Rachunek/Create
         public IActionResult Create()
         {
-            ViewBag.wykonaneUslugi = _context.WykonaneUslugi.Where(u => u.Zaksiegowano == false).ToList();
+            ViewBag.uslugiNaRachunku = rachunek.Uslugi;
+            ViewBag.wykonaneUslugi = _context.WykonaneUslugi.Where(u => u.Zaksiegowano == false).Include(u => u.Usluga).ToList();
             return View();
         }
 
@@ -65,9 +76,15 @@ namespace ProjektZespolowy.Controllers
                 _context.Add(rachunek);
                 await _context.SaveChangesAsync();
                 //ViewBag.wykonaneUslugi = _context.WykonaneUslugi.Where(u => u.Zaksiegowano == false).ToList();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Podsumowanie));
                 
             }
+            return View(rachunek);
+        }
+
+        public async Task<IActionResult> Podsumowanie()
+        {
+
             return View(rachunek);
         }
 
@@ -152,14 +169,31 @@ namespace ProjektZespolowy.Controllers
         }
 
         //[ActionName("DodajUslugeAsync")]
-        public ActionResult DodajUsluge(int id)
+        public async Task<IActionResult> DodajUslugeAsync(int id)
         {
-            this.rachunek.dodajUsluge(_context.WykonaneUslugi.Where(u => u.WykonanaUslugaId == id).Single());
-            _context.SaveChangesAsync();
-            return RedirectToAction("DodajUsluge");
+            WykonanaUsluga usluga = _context.WykonaneUslugi.Where(u=>u.WykonanaUslugaId==id).Include(u=>u.Usluga).Single();
+            this.rachunek.dodajUsluge(usluga);
+           //ViewBag.wykonaneUslugi =await _context.WykonaneUslugi.Where(u => u.Zaksiegowano == false&& u.WykonanaUslugaId!=id).Include(u => u.Usluga).ToListAsync();
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Create));
             
         }
-        
+
+        public async Task<IActionResult> UsunUslugeAsync(int id)
+        {
+            WykonanaUsluga usluga = _context.WykonaneUslugi.Where(u => u.WykonanaUslugaId == id).Include(u => u.Usluga).Single();
+            this.rachunek.usunUsluge(usluga);
+            //ViewBag.wykonaneUslugi =await _context.WykonaneUslugi.Where(u => u.Zaksiegowano == false || u.WykonanaUslugaId == id).Include(u => u.Usluga).ToListAsync();
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Create));
+
+        }
+
+        private async Task<IActionResult> CreateAsync()
+        {
+            //
+            return Create();
+        }
 
         private bool RachunekExists(int id)
         {
