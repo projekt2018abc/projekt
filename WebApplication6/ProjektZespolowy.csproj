@@ -6,16 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Migrations\20180609112543_m3.cs" />
-    <Compile Remove="Data\Migrations\20180609112543_m3.Designer.cs" />
-    <Compile Remove="Data\Migrations\20180609112909_m3.cs" />
-    <Compile Remove="Data\Migrations\20180609112909_m3.Designer.cs" />
-    <Compile Remove="Data\Migrations\20180609114430_m3.cs" />
-    <Compile Remove="Data\Migrations\20180609114430_m3.Designer.cs" />
-    <Compile Remove="Data\Migrations\20180609114629_m3.cs" />
-    <Compile Remove="Data\Migrations\20180609114629_m3.Designer.cs" />
-    <Compile Remove="Data\Migrations\20180609114844_m3.cs" />
-    <Compile Remove="Data\Migrations\20180609114844_m3.Designer.cs" />
+    <Compile Remove="Data\Migrations\**" />
+    <Content Remove="Data\Migrations\**" />
+    <EmbeddedResource Remove="Data\Migrations\**" />
+    <None Remove="Data\Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Migrations\20180609193829_m5.cs" />
     <Compile Remove="Migrations\20180609193829_m5.Designer.cs" />
     <Compile Remove="Migrations\20180609213051_m9.cs" />
@@ -40,10 +37,6 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.2" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.1" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

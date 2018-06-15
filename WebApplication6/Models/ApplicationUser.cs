@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,10 +28,13 @@ namespace WebApplication6.Models
 
         public bool IsNaturalPerson { get; set; }
 
+        public List<Rachunek> Historia { get; set; }
+
         /** --------------------------------------- **/
         public int PodmiotId { get; set; }
 
-        public void createPodmiotFromApplicationUser(TypKontaEnum typKonta) {
+        public void createPodmiotFromApplicationUser(TypKontaEnum typKonta)
+        {
             switch (typKonta)
             {
                 case TypKontaEnum.Indywidualne:
@@ -47,7 +50,7 @@ namespace WebApplication6.Models
                     PodmiotId = p.PodmiotId;
                     break;
                 case TypKontaEnum.Monitoring:
-                    var m = new Pracownik {DostepDoMonitoringu=true };
+                    var m = new Pracownik { DostepDoMonitoringu = true };
                     PodmiotId = m.PodmiotId;
                     break;
                 case TypKontaEnum.Właściciel:
@@ -59,6 +62,11 @@ namespace WebApplication6.Models
             }
 
 
+        }
+
+        internal void dodajRachunekDoHistorii(Rachunek rachunek)
+        {
+            Historia.Add(rachunek);
         }
     }
 }

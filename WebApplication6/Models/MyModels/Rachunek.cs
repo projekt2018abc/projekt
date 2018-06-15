@@ -3,30 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication6.Data;
+using WebApplication6.Models;
 
 namespace ProjektZespolowy.Models.MyModels
 {
     public class Rachunek
     {
+
+
         public int RachunekId { get; set; }
-        private List<WykonanaUsluga> Uslugi;
-        public Podmiot Klient { get; set; }
+        public List<WykonanaUsluga> Uslugi { get; set; } = new List<WykonanaUsluga>();
+        public ApplicationUser Klient { get; set; }
         private int PunktyZysk { get; set; }
         private int PunktyWykorzystane { get; set; }
         private double Cena;
         public DateTime Data { get; set; }
         public String Paragon { get; set; }
         public Faktura faktura { get; set; }
+        public int PracownikId { get; set; }
+
 
         public void dodajUsluge(WykonanaUsluga usluga)
         {
             Uslugi.Add(usluga);
+            usluga.Zaksiegowano = true;
             aktualizuj();
-        }
+            using (var db = new ApplicationDbContext())
+            { db.SaveChanges(); }
+            }
         public void usunUsluge(WykonanaUsluga usluga)
         {
-            Uslugi.Remove(usluga);
+            WykonanaUsluga usuwanaUsluga = Uslugi.Find(u => u.WykonanaUslugaId == usluga.WykonanaUslugaId);
+            Uslugi.RemoveAll(u=>u.WykonanaUslugaId==usluga.WykonanaUslugaId);
+            usuwanaUsluga.Zaksiegowano = false;
             aktualizuj();
+            using (var db = new ApplicationDbContext())
+            { db.SaveChanges(); }
         }
 
         private void aktualizuj()
@@ -44,10 +56,16 @@ namespace ProjektZespolowy.Models.MyModels
             }
         }
 
+        public double getCena()
+        {
+            aktualizuj();
+            return Cena;
+        }
+
         public bool wykorzystajPunkty(WykonanaUsluga usluga, int iloscProduktu)
         {
             int koszt = iloscProduktu * usluga.Usluga.PunktyKoszt;
-            if (koszt > Klient.Ilosc_punktow)
+            if (koszt > Klient.Points)
                 return false;
             usluga.wykorzystajPunkty(iloscProduktu);
             aktualizuj();
@@ -56,21 +74,21 @@ namespace ProjektZespolowy.Models.MyModels
 
         public bool zatwierdzRachunek(bool czyFaktura)
         {
-            if (Klient.Ilosc_punktow < PunktyWykorzystane)
+            if (Klient.Points < PunktyWykorzystane)
             {
                 System.Console.WriteLine("Za mało punktów na koncie klienta");
                 return false;
             }
             Paragon = generujParagon();
-            Klient.Ilosc_punktow -= PunktyWykorzystane;
-            Klient.Ilosc_punktow += PunktyZysk;
+            Klient.Points -= PunktyWykorzystane;
+            Klient.Points += PunktyZysk;
             Klient.dodajRachunekDoHistorii(this);
             if (czyFaktura)
                 faktura = generujFakture();
 
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                context.Add(this);
+                context.Rachunki.Add(this);
                 context.SaveChanges();
             }
 
@@ -89,14 +107,14 @@ namespace ProjektZespolowy.Models.MyModels
             Data = DateTime.Now;
             return $"Stacja Paliw SPB\n" +
                     $"{NaszaPlacowka.ToString()}\n" +
-                    $"{UslugiToString()}\n" +
+                    $"{UslugaToString()}\n" +
                     $"{Data}\n" +
                     $"Dziękujemy za skorzystanie z naszych usług\n" +
                     $"Zapraszamy ponownie!";
 
         }
 
-        private string UslugiToString()
+        private string UslugaToString()
         {
             String lista = null;
             foreach (WykonanaUsluga usluga in Uslugi)
@@ -110,5 +128,6 @@ namespace ProjektZespolowy.Models.MyModels
             }
             return lista;
         }
+
     }
 }
