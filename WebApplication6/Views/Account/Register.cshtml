@@ -1,14 +1,14 @@
 ﻿@model RegisterViewModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Rejestracja";
 }
 
-<h2>@ViewData["Title"]</h2>
+<section class="register">
+    <h2>@ViewData["Title"]</h2>
 
-<div class="row">
-    <div class="col-md-4">
+    <div class="register-wrapper">
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-            <h4>Create a new account.</h4>
+            <h4>Utwórz nowe konto.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -29,14 +29,41 @@
             <div class="form-group">
                 <label asp-for="SelectedRole"></label>
                 <p />
-                <input asp-for="SelectedRole" type="radio" value=0 /><b>Indywidualne</b>
-                <input asp-for="SelectedRole" type="radio" value=1 /><b>Firma</b>
+                <input asp-for="SelectedRole" onclick="toggleFields()" checked type="radio" value=0 id="radio1" /><b>Indywidualne</b>
+                <input asp-for="SelectedRole" onclick="toggleFields()" type="radio" value=1 id="radio2" /><b>Firma</b>
                 <span asp-validation-for="SelectedRole" class="radio"></span>
             </div>
-            <button type="submit" class="btn btn-default">Register</button>
+            <div class="form-group" id="imie">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control" />
+            </div>
+
+            <div class="form-group" id="nazwisko">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" />
+            </div>
+            <div class="form-group" id="pesel">
+                <label asp-for="Pesel"></label>
+                <input asp-for="Pesel" class="form-control" />
+            </div>
+            <div class="form-group" id="nip">
+                <label asp-for="Nip"></label>
+                <input asp-for="Nip" class="form-control" />
+            </div>
+            <div class="form-group hidden-field" id="firma">
+                <label asp-for="CompanyName"></label>
+                <input asp-for="CompanyName" class="form-control" />
+            </div>
+            <div class="form-group hidden-field" id="regon">
+                <label asp-for="Regon"></label>
+                <input asp-for="Regon" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-default" id="submit-button">Utwórz konto</button>
+
+
         </form>
     </div>
-</div>
+</section>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")

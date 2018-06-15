@@ -33,11 +33,19 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     @*<li><a asp-area="" asp-controller="Home" asp-action="About">Dla Wszystkich Uzytkownikow</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Dla uzytkownikow zweryfikowaych</a></li>
+
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact2">Dla gosci</a></li>*@
                     <li><a asp-area="" asp-controller="Rachunek" asp-action="Index">Rachunki</a></li>
                     <li><a asp-area="" asp-controller="Usluga" asp-action="Index">Uslugi</a></li>
                     <li><a asp-area="" asp-controller="Stanowisko" asp-action="Index">Stanowiska</a></li>
                     <li><a asp-area="" asp-controller="WykonanaUsluga" asp-action="Index">Wykonane Uslugi</a></li>
+
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact2">Dla gosci</a></li>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                    <li><a asp-area="" asp-controller="Account" asp-action="ShowUsers">Użytkownicy</a></li>
+                    }
+
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -50,11 +58,11 @@
         </footer>
     </div>
 
-    <environment include="Development">
+    @*<environment include="Development">*@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
+    @*</environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
@@ -69,7 +77,7 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
+    </environment>*@
 
     @RenderSection("Scripts", required: false)
 </body>
