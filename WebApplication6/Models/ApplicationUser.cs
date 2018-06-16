@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -12,20 +13,26 @@ namespace WebApplication6.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
+        [Display(Name = "Użytkownik zweryfikowany")]
         public bool UserConfirmed { get; set; }
 
+        [Display(Name = "Imie")]
         public string FirstName { get; set; }
 
+        [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
-
+        
         public string Pesel { get; set; }
+
 
         public string Nip { get; set; }
 
         public string Regon { get; set; }
 
+        [Display(Name = "Punkty")]
         public int Points { get; set; }
 
+        [Display(Name = "Osoba fizyczna")]
         public bool IsNaturalPerson { get; set; }
 
         public List<Rachunek> Historia { get; set; }
