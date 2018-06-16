@@ -31,7 +31,7 @@ namespace WebApplication6.Models.AccountViewModels
         public string FirstName { get; set; }
 
         [RegularExpression(@"^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]+$", ErrorMessage = "Dozwolone tylko litery")]
-        [Required(ErrorMessage = "Pole wymagane")]
+        //[Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Nazwa Firmy")]
         public string CompanyName { get; set; }
 

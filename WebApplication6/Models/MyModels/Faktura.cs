@@ -10,9 +10,9 @@ namespace ProjektZespolowy.Models.MyModels
         public int FakturaId { get; set; }
         public DateTime Data { get; set; }
 
-        public void wystaw(Podmiot podmiot,Usluga usluga)
-        {
+        //public void wystaw(Podmiot podmiot,Usluga usluga)
+        //{
 
-        }
+        //}
     }
 }

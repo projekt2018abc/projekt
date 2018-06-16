@@ -36,7 +36,7 @@ namespace WebApplication6
                 options.Password.RequireNonAlphanumeric = false;
             });
 
-            DbConnectionString = Configuration.GetConnectionString("AzureDB");
+            DbConnectionString = Configuration.GetConnectionString("Rafal");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(DbConnectionString));
 

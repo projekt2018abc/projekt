@@ -1,0 +1,85 @@
+﻿@model WebApplication6.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edytuj</h2>
+
+<h4>Użytkownik</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pesel" class="control-label"></label>
+                <input asp-for="Pesel" class="form-control" />
+                <span asp-validation-for="Pesel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nip" class="control-label"></label>
+                <input asp-for="Nip" class="form-control" />
+                <span asp-validation-for="Nip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Regon" class="control-label"></label>
+                <input asp-for="Regon" class="form-control" />
+                <span asp-validation-for="Regon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsNaturalPerson" /> @Html.DisplayNameFor(model => model.IsNaturalPerson)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="SecurityStamp" />
+            <input type="hidden" asp-for="ConcurrencyStamp" />
+            <input type="hidden" asp-for="UserName" />
+            <input type="hidden" asp-for="NormalizedUserName" />
+            <input type="hidden" asp-for="UserConfirmed" />
+            <input type="hidden" asp-for="NormalizedEmail" />
+            <input type="hidden" asp-for="PasswordHash" />
+            <input type="hidden" asp-for="Points" />
+            <input type="hidden" asp-for="EmailConfirmed" />
+            <input type="hidden" asp-for="PhoneNumberConfirmed" />
+            <input type="hidden" asp-for="TwoFactorEnabled" />
+            <input type="hidden" asp-for="LockoutEnabled" />
+            <input type="hidden" asp-for="LockoutEnd" />
+            <input type="hidden" asp-for="AccessFailedCount" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Powrót do listy</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -559,9 +559,10 @@ namespace WebApplication6.Controllers
             return View(nameof(ShowRecoveryCodes), model);
         }
 
-        #region Helpers
 
-        private void AddErrors(IdentityResult result)
+    #region Helpers
+
+    private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
