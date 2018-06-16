@@ -25,6 +25,9 @@ namespace WebApplication6.Data
         public DbSet<WykonanaUsluga> WykonaneUslugi { get; set; }
         //public DbSet<Rachunek> Rachunki { get; set; }
         public DbSet<Rezerwacja> Rezerwacje { get; set; }
+        public DbSet<Rachunek> Rachunki { get; set; }
+
+        public DbSet<ProjektZespolowy.Models.MyModels.Stanowisko> Stanowisko { get; set; }
 
 
 

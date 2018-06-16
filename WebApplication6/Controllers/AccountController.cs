@@ -236,7 +236,7 @@ namespace WebApplication6.Controllers
                     Nip = model.Nip,
                     Regon = model.Regon
                 };
-                user.createPodmiotFromApplicationUser(model.SelectedRole);
+                //user.createPodmiotFromApplicationUser(model.SelectedRole);
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -280,7 +280,7 @@ namespace WebApplication6.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                user.createPodmiotFromApplicationUser(model.SelectedRole);
+                //user.createPodmiotFromApplicationUser(model.SelectedRole);
                
                 var result = await _userManager.CreateAsync(user, model.Password);
             }
