@@ -3,10 +3,10 @@
     ViewData["Title"] = "Rejestracja";
 }
 
-<section id="register">
+<section class="register">
     <h2>@ViewData["Title"]</h2>
 
-    <div id="register-wrapper">
+    <div class="register-wrapper">
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h4>Utwórz nowe konto.</h4>
             <hr />
@@ -64,31 +64,6 @@
         </form>
     </div>
 </section>
-
-<script type="text/javascript">
-    function toggleFields() {
-        var radioButton2 = document.getElementById("radio2");
-        var radioButton1 = document.getElementById("radio1");
-        if (radioButton2.checked == true) {
-            document.getElementById("firma").classList.remove("hidden-field");
-            document.getElementById("regon").classList.remove("hidden-field");
-            document.getElementById("imie").classList.add("hidden-field");
-            document.getElementById("nazwisko").classList.add("hidden-field");
-            document.getElementById("pesel").classList.add("hidden-field");
-            document.getElementById("regon").classList.add("hidden-field");
-            
-        }
-        else {
-            document.getElementById("firma").classList.add("hidden-field");
-            document.getElementById("regon").classList.add("hidden-field");
-            document.getElementById("imie").classList.remove("hidden-field");
-            document.getElementById("nazwisko").classList.remove("hidden-field");
-            document.getElementById("pesel").classList.remove("hidden-field");
-            document.getElementById("regon").classList.remove("hidden-field");
-        }
-    }
-    
-</script>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")

@@ -1,0 +1,181 @@
+﻿@model ProjektZespolowy.Models.MyModels.Rachunek
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Rachunek</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+
+            <h2>Usługi na rachunku</h2>
+            <div>
+                <table class="table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                Data
+                            </th>
+                            <th>
+                                Rodzaj Usługi
+                            </th>
+                            <th>
+                                Ilość
+                            </th>
+                            <th>
+                                Stanowisko
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (ViewBag.uslugiNaRachunku != null)
+                        {
+                            foreach (var usluga in ViewBag.uslugiNaRachunku)
+                            {
+                                <tr>
+                                    @try
+                                    {
+                                        <td><center>@usluga.Data</center></td>
+                                    }
+                                    catch (Exception)
+                                    {
+                                        @*<td>Nie można wczytać wartości</td>*@
+
+                                    }
+                                    @try
+                                    {
+                                        <td><center>@usluga.Usluga.TypUslugi</center></td>
+                                    }
+                                    catch (Exception)
+                                    {
+                                        @*<td>Nie można wczytać wartości</td>*@
+                                    }
+                                    @try
+                                    {
+                                        <td><center>@usluga.Ilosc</center></td>
+                                    }
+
+
+                                    catch (Exception)
+                                    {
+
+                                        @*<td>Nie można wczytać wartości</td>*@
+                                    }
+                                    @try
+                                    {
+
+                                        <td><center>@usluga.Stanowisko.Typ @usluga.Stanowisko.Numer</center></td>
+                                    }
+
+                                    catch (Exception)
+                                    {
+                                        @*<td>Nie można wczytać wartości</td>*@
+                                    }
+                                    <td>
+                                        <div>
+                                            @*@Html.ActionLink("DodajUsluge", "DodajUsluge")*@
+                                            <a asp-action="UsunUslugeAsync" asp-route-id="@usluga.WykonanaUslugaId"> Usuń</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Usługi do dodania</h2>
+            <table class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            Data
+                        </th>
+                        <th>
+                            Rodzaj Usługi
+                        </th>
+                        <th>
+                            Ilość
+                        </th>
+                        <th>
+                            Stanowisko
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (ViewBag.wykonaneUslugi != null)
+                    {
+                        foreach (var usluga in ViewBag.wykonaneUslugi)
+                        {
+                            <tr>
+                                @try
+                                {
+                                    <td><center>@usluga.Data</center></td>
+                                }
+                                catch (Exception)
+                                {
+                                    @*<td>Nie można wczytać wartości</td>*@
+
+                                }
+                                @try
+                                {
+                                    <td><center>@usluga.Usluga.TypUslugi</center></td>
+                                }
+                                catch (Exception)
+                                {
+                                    @*<td>Nie można wczytać wartości</td>*@
+                                }
+                                @try
+                                {
+                                    <td><center>@usluga.Ilosc</center></td>
+                                }
+
+
+                                catch (Exception)
+                                {
+
+                                    @*<td>Nie można wczytać wartości</td>*@
+                                }
+                                @try
+                                {
+
+                                    <td><center>@usluga.Stanowisko.Typ @usluga.Stanowisko.Numer</center></td>
+                                }
+
+                                catch (Exception)
+                                {
+                                    @*<td>Nie można wczytać wartości</td>*@
+                                }
+                                <td>
+                                    <div>
+                                        @*@Html.ActionLink("DodajUsluge", "DodajUsluge")*@
+                                        <a asp-action="DodajUslugeAsync" asp-route-id="@usluga.WykonanaUslugaId"> Dodaj</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+
+                </tbody>
+            </table>
+            <input type="submit" value="Create" class="btn btn-default" />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,44 @@
+﻿@model ProjektZespolowy.Models.MyModels.Rachunek
+
+@{
+    ViewData["Title"] = "Podsumowanie";
+}
+
+<h2>Podsumowanie</h2>
+
+<div>
+    <h4>Rachunek</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+        <dt>
+            Cena
+        </dt>
+        <dd>
+            @Model.getCena()
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Klient)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Klient)
+        </dd>
+    </dl>
+    <div><input id="userMail" name="userMail" /></div>
+    <a asp-action="SzukajKlient"> Znajdź klienta</a>    
+</div>
+<div>
+    @Html.DisplayNameFor(model=>model.Paragon)
+</div>
+<div>
+    @Html.DisplayFor(model=>model.Paragon)
+</div>
+<div>
+    <a asp-action="Wystaw" >Wystaw Rachunek</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -12,8 +12,8 @@ using WebApplication6.Data;
 namespace ProjektZespolowy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180614211210_ApplicationUserUpdate2")]
-    partial class ApplicationUserUpdate2
+    [Migration("20180615034350_naCzysto")]
+    partial class naCzysto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -206,15 +206,21 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<int?>("FakturaId");
 
-                    b.Property<int?>("KlientPodmiotId");
+                    b.Property<string>("KlientId");
 
                     b.Property<string>("Paragon");
+
+                    b.Property<int?>("PodmiotId");
+
+                    b.Property<int>("PracownikId");
 
                     b.HasKey("RachunekId");
 
                     b.HasIndex("FakturaId");
 
-                    b.HasIndex("KlientPodmiotId");
+                    b.HasIndex("KlientId");
+
+                    b.HasIndex("PodmiotId");
 
                     b.ToTable("Rachunki");
                 });
@@ -235,6 +241,18 @@ namespace ProjektZespolowy.Migrations
                     b.ToTable("Rezerwacje");
                 });
 
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Stanowisko", b =>
+                {
+                    b.Property<int>("StanowiskoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Typ");
+
+                    b.HasKey("StanowiskoId");
+
+                    b.ToTable("Stanowisko");
+                });
+
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Usluga", b =>
                 {
                     b.Property<int>("UslugaId")
@@ -246,9 +264,13 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<int>("PunktyZysk");
 
+                    b.Property<int?>("StanowiskoId");
+
                     b.Property<string>("TypUslugi");
 
                     b.HasKey("UslugaId");
+
+                    b.HasIndex("StanowiskoId");
 
                     b.ToTable("Uslugi");
                 });
@@ -268,11 +290,21 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<double>("Koszt");
 
+                    b.Property<int?>("RachunekId");
+
+                    b.Property<int?>("StanowiskoId");
+
                     b.Property<int?>("UslugaId");
 
                     b.Property<int>("WykorzystanePunkty");
 
+                    b.Property<bool>("Zaksiegowano");
+
                     b.HasKey("WykonanaUslugaId");
+
+                    b.HasIndex("RachunekId");
+
+                    b.HasIndex("StanowiskoId");
 
                     b.HasIndex("UslugaId");
 
@@ -468,9 +500,13 @@ namespace ProjektZespolowy.Migrations
                         .WithMany()
                         .HasForeignKey("FakturaId");
 
-                    b.HasOne("ProjektZespolowy.Models.MyModels.Podmiot", "Klient")
+                    b.HasOne("WebApplication6.Models.ApplicationUser", "Klient")
                         .WithMany("Historia")
-                        .HasForeignKey("KlientPodmiotId");
+                        .HasForeignKey("KlientId");
+
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Podmiot")
+                        .WithMany("Historia")
+                        .HasForeignKey("PodmiotId");
                 });
 
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rezerwacja", b =>
@@ -480,8 +516,23 @@ namespace ProjektZespolowy.Migrations
                         .HasForeignKey("UslugaId");
                 });
 
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Usluga", b =>
+                {
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Stanowisko")
+                        .WithMany("DostepneUslugi")
+                        .HasForeignKey("StanowiskoId");
+                });
+
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.WykonanaUsluga", b =>
                 {
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Rachunek")
+                        .WithMany("Uslugi")
+                        .HasForeignKey("RachunekId");
+
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Stanowisko", "Stanowisko")
+                        .WithMany()
+                        .HasForeignKey("StanowiskoId");
+
                     b.HasOne("ProjektZespolowy.Models.MyModels.Usluga", "Usluga")
                         .WithMany()
                         .HasForeignKey("UslugaId");

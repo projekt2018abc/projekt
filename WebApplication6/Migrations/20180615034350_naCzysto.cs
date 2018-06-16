@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ProjektZespolowy.Migrations
 {
-    public partial class cleandb1 : Migration
+    public partial class naCzysto : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,14 +49,21 @@ namespace ProjektZespolowy.Migrations
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    IsNaturalPerson = table.Column<bool>(nullable: false),
+                    LastName = table.Column<string>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    Nip = table.Column<string>(nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
+                    Pesel = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     PodmiotId = table.Column<int>(nullable: false),
+                    Points = table.Column<int>(nullable: false),
+                    Regon = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     UserConfirmed = table.Column<bool>(nullable: false),
@@ -94,19 +101,16 @@ namespace ProjektZespolowy.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Uslugi",
+                name: "Stanowisko",
                 columns: table => new
                 {
-                    UslugaId = table.Column<int>(nullable: false)
+                    StanowiskoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Cena = table.Column<double>(nullable: false),
-                    PunktyKoszt = table.Column<int>(nullable: false),
-                    PunktyZysk = table.Column<int>(nullable: false),
-                    TypUslugi = table.Column<string>(nullable: true)
+                    Typ = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Uslugi", x => x.UslugaId);
+                    table.PrimaryKey("PK_Stanowisko", x => x.StanowiskoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -246,6 +250,65 @@ namespace ProjektZespolowy.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Uslugi",
+                columns: table => new
+                {
+                    UslugaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Cena = table.Column<double>(nullable: false),
+                    PunktyKoszt = table.Column<int>(nullable: false),
+                    PunktyZysk = table.Column<int>(nullable: false),
+                    StanowiskoId = table.Column<int>(nullable: true),
+                    TypUslugi = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Uslugi", x => x.UslugaId);
+                    table.ForeignKey(
+                        name: "FK_Uslugi_Stanowisko_StanowiskoId",
+                        column: x => x.StanowiskoId,
+                        principalTable: "Stanowisko",
+                        principalColumn: "StanowiskoId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rachunki",
+                columns: table => new
+                {
+                    RachunekId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Data = table.Column<DateTime>(nullable: false),
+                    FakturaId = table.Column<int>(nullable: true),
+                    KlientId = table.Column<string>(nullable: true),
+                    Paragon = table.Column<string>(nullable: true),
+                    PodmiotId = table.Column<int>(nullable: true),
+                    PracownikId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rachunki", x => x.RachunekId);
+                    table.ForeignKey(
+                        name: "FK_Rachunki_Faktury_FakturaId",
+                        column: x => x.FakturaId,
+                        principalTable: "Faktury",
+                        principalColumn: "FakturaId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Rachunki_AspNetUsers_KlientId",
+                        column: x => x.KlientId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Rachunki_Podmioty_PodmiotId",
+                        column: x => x.PodmiotId,
+                        principalTable: "Podmioty",
+                        principalColumn: "PodmiotId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rezerwacje",
                 columns: table => new
                 {
@@ -276,45 +339,32 @@ namespace ProjektZespolowy.Migrations
                     Ilosc = table.Column<double>(nullable: false),
                     IloscZaPunkty = table.Column<int>(nullable: false),
                     Koszt = table.Column<double>(nullable: false),
+                    RachunekId = table.Column<int>(nullable: true),
+                    StanowiskoId = table.Column<int>(nullable: true),
                     UslugaId = table.Column<int>(nullable: true),
-                    WykorzystanePunkty = table.Column<int>(nullable: false)
+                    WykorzystanePunkty = table.Column<int>(nullable: false),
+                    Zaksiegowano = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WykonaneUslugi", x => x.WykonanaUslugaId);
                     table.ForeignKey(
+                        name: "FK_WykonaneUslugi_Rachunki_RachunekId",
+                        column: x => x.RachunekId,
+                        principalTable: "Rachunki",
+                        principalColumn: "RachunekId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_WykonaneUslugi_Stanowisko_StanowiskoId",
+                        column: x => x.StanowiskoId,
+                        principalTable: "Stanowisko",
+                        principalColumn: "StanowiskoId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_WykonaneUslugi_Uslugi_UslugaId",
                         column: x => x.UslugaId,
                         principalTable: "Uslugi",
                         principalColumn: "UslugaId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Rachunki",
-                columns: table => new
-                {
-                    RachunekId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Data = table.Column<DateTime>(nullable: false),
-                    FakturaId = table.Column<int>(nullable: true),
-                    KlientPodmiotId = table.Column<int>(nullable: true),
-                    Paragon = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rachunki", x => x.RachunekId);
-                    table.ForeignKey(
-                        name: "FK_Rachunki_Faktury_FakturaId",
-                        column: x => x.FakturaId,
-                        principalTable: "Faktury",
-                        principalColumn: "FakturaId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Rachunki_Podmioty_KlientPodmiotId",
-                        column: x => x.KlientPodmiotId,
-                        principalTable: "Podmioty",
-                        principalColumn: "PodmiotId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -368,14 +418,34 @@ namespace ProjektZespolowy.Migrations
                 column: "FakturaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rachunki_KlientPodmiotId",
+                name: "IX_Rachunki_KlientId",
                 table: "Rachunki",
-                column: "KlientPodmiotId");
+                column: "KlientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rachunki_PodmiotId",
+                table: "Rachunki",
+                column: "PodmiotId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rezerwacje_UslugaId",
                 table: "Rezerwacje",
                 column: "UslugaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Uslugi_StanowiskoId",
+                table: "Uslugi",
+                column: "StanowiskoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WykonaneUslugi_RachunekId",
+                table: "WykonaneUslugi",
+                column: "RachunekId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WykonaneUslugi_StanowiskoId",
+                table: "WykonaneUslugi",
+                column: "StanowiskoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WykonaneUslugi_UslugaId",
@@ -404,9 +474,6 @@ namespace ProjektZespolowy.Migrations
                 name: "Powiadomienia");
 
             migrationBuilder.DropTable(
-                name: "Rachunki");
-
-            migrationBuilder.DropTable(
                 name: "Rezerwacje");
 
             migrationBuilder.DropTable(
@@ -416,16 +483,22 @@ namespace ProjektZespolowy.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Rachunki");
+
+            migrationBuilder.DropTable(
+                name: "Uslugi");
 
             migrationBuilder.DropTable(
                 name: "Faktury");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Podmioty");
 
             migrationBuilder.DropTable(
-                name: "Uslugi");
+                name: "Stanowisko");
 
             migrationBuilder.DropTable(
                 name: "Adresy");
