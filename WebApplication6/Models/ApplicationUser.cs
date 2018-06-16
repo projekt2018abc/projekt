@@ -33,36 +33,36 @@ namespace WebApplication6.Models
         /** --------------------------------------- **/
         public int PodmiotId { get; set; }
 
-        public void createPodmiotFromApplicationUser(TypKontaEnum typKonta)
-        {
-            switch (typKonta)
-            {
-                case TypKontaEnum.Indywidualne:
-                    var k = new Klient();
-                    PodmiotId = k.PodmiotId;
-                    break;
-                case TypKontaEnum.Firma:
-                    var f = new Firma();
-                    PodmiotId = f.PodmiotId;
-                    break;
-                case TypKontaEnum.Pracownik:
-                    var p = new Pracownik();
-                    PodmiotId = p.PodmiotId;
-                    break;
-                case TypKontaEnum.Monitoring:
-                    var m = new Pracownik { DostepDoMonitoringu = true };
-                    PodmiotId = m.PodmiotId;
-                    break;
-                case TypKontaEnum.Właściciel:
-                    var w = new Wlasciciel();
-                    PodmiotId = w.PodmiotId;
-                    break;
-                default:
-                    break;
-            }
+        //public void createPodmiotFromApplicationUser(TypKontaEnum typKonta)
+        //{
+        //    switch (typKonta)
+        //    {
+        //        case TypKontaEnum.Indywidualne:
+        //            var k = new Klient();
+        //            PodmiotId = k.PodmiotId;
+        //            break;
+        //        case TypKontaEnum.Firma:
+        //            var f = new Firma();
+        //            PodmiotId = f.PodmiotId;
+        //            break;
+        //        case TypKontaEnum.Pracownik:
+        //            var p = new Pracownik();
+        //            PodmiotId = p.PodmiotId;
+        //            break;
+        //        case TypKontaEnum.Monitoring:
+        //            var m = new Pracownik { DostepDoMonitoringu = true };
+        //            PodmiotId = m.PodmiotId;
+        //            break;
+        //        case TypKontaEnum.Właściciel:
+        //            var w = new Wlasciciel();
+        //            PodmiotId = w.PodmiotId;
+        //            break;
+        //        default:
+        //            break;
+        //    }
 
 
-        }
+        //}
 
         internal void dodajRachunekDoHistorii(Rachunek rachunek)
         {
