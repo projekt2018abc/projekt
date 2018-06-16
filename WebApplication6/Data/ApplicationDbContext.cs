@@ -12,22 +12,19 @@ namespace WebApplication6.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        //public DbSet<Podmiot> Podmioty { get; set; }
-        //public DbSet<Osoba> Osoby { get; set; }
-        ////public DbSet<Klient> Klienci { get; set; }
-        //public DbSet<Firma> Firmy { get; set; }
-        //public DbSet<Pracownik> Pracownicy { get; set; }
-        //public DbSet<Wlasciciel> Wlasciciele { get; set; }
+        public DbSet<Podmiot> Podmioty { get; set; }
+        public DbSet<Osoba> Osoby { get; set; }
+        public DbSet<Klient> Klienci { get; set; }
+        public DbSet<Firma> Firmy { get; set; }
+        public DbSet<Pracownik> Pracownicy { get; set; }
+        public DbSet<Wlasciciel> Wlasciciele { get; set; }
         public DbSet<Adres> Adresy { get; set; }
         public DbSet<Faktura> Faktury { get; set; }
         public DbSet<Powiadomienie> Powiadomienia { get; set; }
         public DbSet<Usluga> Uslugi { get; set; }
         public DbSet<WykonanaUsluga> WykonaneUslugi { get; set; }
-        //public DbSet<Rachunek> Rachunki { get; set; }
-        public DbSet<Rezerwacja> Rezerwacje { get; set; }
         public DbSet<Rachunek> Rachunki { get; set; }
-
-        public DbSet<ProjektZespolowy.Models.MyModels.Stanowisko> Stanowisko { get; set; }
+        public DbSet<Rezerwacja> Rezerwacje { get; set; }
 
 
 
@@ -53,6 +50,6 @@ namespace WebApplication6.Data
         {
             optionsBuilder.UseSqlServer(Startup.DbConnectionString);
         }
-        public DbSet<WebApplication6.Models.ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<ProjektZespolowy.Models.MyModels.Stanowisko> Stanowisko { get; set; }
     }
 }
