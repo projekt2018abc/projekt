@@ -11,7 +11,7 @@ namespace ProjektZespolowy.Models.MyModels
         public int RezerwacjaId { get; set; }
         public DateTime Date { get; set; }
         public Usluga usluga { get; set; }
-        public ApplicationUser Klient { get; set; }
+        public string KlientId { get; set; }
 
         public void zapytanieTermin()
         {
