@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using WebApplication6.Models;
 using ProjektZespolowy.Models.MyModels;
 using WebApplication6.Data;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjektZespolowy.Controllers
 {
@@ -14,6 +16,7 @@ namespace ProjektZespolowy.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Monitoring
+        [Authorize(Roles = "Administrator, Pracownik, Monitoring")]
         public ActionResult Index()
         {
             Random r = new Random();
