@@ -16,8 +16,16 @@ namespace ProjektZespolowy.Models.MyModels
                 
         public override string ToString()
         {
-            return $"{Miejscowosc} {Kod_pocztowy}\n" +
-                $"{Ulica} {Numer_domu}/{Numer_lokalu}";
+            if (Numer_lokalu != null)
+            {
+                return $"{Miejscowosc} {Kod_pocztowy}\n" +
+                    $"{Ulica} {Numer_domu}/{Numer_lokalu}";
+            }
+            else
+            {
+                return $"{Miejscowosc} {Kod_pocztowy}\n" +
+                    $"{Ulica} {Numer_domu}";
+            }
         }
     }
 }

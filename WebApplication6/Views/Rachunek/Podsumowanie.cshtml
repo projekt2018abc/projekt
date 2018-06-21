@@ -4,6 +4,14 @@
     ViewData["Title"] = "Podsumowanie";
 }
 
+@{int WykorzystanePukty = 0;}
+    @foreach (var u in Model.Uslugi)
+    {
+        WykorzystanePukty+=u.WykorzystanePunkty;
+
+    }
+
+
 <h2>Podsumowanie</h2>
 
 <div>
@@ -28,6 +36,18 @@
         <dd>
             @Html.DisplayFor(model => model.Klient.Email)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Klient.Points)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Klient.Points)
+        </dd>
+        <dt>
+            Wykorzystane punkty
+        </dt>
+        <dd>
+            @WykorzystanePukty
+        </dd>
     </dl>
     <form asp-action="SzukajKlient">
         <div><input id="userMail" name="userMail" /></div>
@@ -35,15 +55,58 @@
     </form>
 </div>
 @*<div>
-    @Html.DisplayNameFor(model=>model.Paragon)
+        @Html.DisplayNameFor(model=>model.Paragon)
+    </div>
+    <div>
+        @foreach(var usluga in ViewBag.rachunek.Uslugi)
+        {
+            @usluga.Typ;
+        }
+    </div>*@
+<div>
+    <table class="table-responsive">
+        <thead>
+            <tr>
+                <th>Typ</th>
+                <th>Ilość</th>
+                <th>Cena</th>
+                <th>Koszt punkty</th>
+                <th>Wykorzystane punkty</th>
+                <th>Suma</th>
+                <th>Wykorzystaj punkty</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usluga in Model.Uslugi)
+            {
+                <tr>
+                    <td>@usluga.Usluga.TypUslugi</td>
+                    <td>@usluga.Ilosc</td>
+                    <td>@(usluga.Ilosc * usluga.Usluga.Cena)</td>
+                    <td>@usluga.Usluga.PunktyKoszt</td>
+                    <td>@usluga.WykorzystanePunkty</td>
+                    <td>@usluga.Koszt</td>
+                    <td>
+                        @if (Model.Klient != null)
+                        {
+                            @if (Model.Klient.Points >= usluga.Usluga.PunktyKoszt + WykorzystanePukty && usluga.Koszt>0)
+                            {
+                                <a asp-action="DodajZaPunkt" asp-route-id="@usluga.WykonanaUslugaId"> +1 </a>
+                            }
+                            @if (usluga.IloscZaPunkty > 0)
+                            {
+                                <a asp-action="UsunZaPunkt" asp-route-id="@usluga.WykonanaUslugaId"> -1 </a>
+                            }
+                        }
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
 </div>
+
 <div>
-    @foreach(var usluga in ViewBag.rachunek.Uslugi)
-    {
-        @usluga.Typ;
-    }
-</div>*@
-<div>
-    <a asp-action="Wystaw" >Wystaw Rachunek</a> |
+    <a asp-action="Wystaw">Wystaw Rachunek</a> |
     <a asp-action="Index">Back to List</a>
 </div>
