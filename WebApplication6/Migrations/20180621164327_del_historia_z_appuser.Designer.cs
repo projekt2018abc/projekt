@@ -5,15 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 using WebApplication6.Data;
 
 namespace ProjektZespolowy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180615034350_naCzysto")]
-    partial class naCzysto
+    [Migration("20180621164327_del_historia_z_appuser")]
+    partial class del_historia_z_appuser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -162,27 +161,24 @@ namespace ProjektZespolowy.Migrations
                     b.ToTable("Faktury");
                 });
 
-            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Podmiot", b =>
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Monitoring", b =>
                 {
-                    b.Property<int>("PodmiotId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AdresId");
+                    b.Property<double>("Cisnienie");
 
-                    b.Property<string>("AppUserId");
+                    b.Property<DateTime>("Data");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
+                    b.Property<string>("Paliwo");
 
-                    b.Property<int?>("Ilosc_punktow");
+                    b.Property<double>("PoziomPaliwa");
 
-                    b.HasKey("PodmiotId");
+                    b.Property<double>("Temperatura");
 
-                    b.HasIndex("AdresId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Podmioty");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Podmiot");
+                    b.ToTable("Monitoring");
                 });
 
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Powiadomienie", b =>
@@ -192,7 +188,11 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<string>("Nazwa");
 
+                    b.Property<int?>("monitoringId");
+
                     b.HasKey("PowiadomienieId");
+
+                    b.HasIndex("monitoringId");
 
                     b.ToTable("Powiadomienia");
                 });
@@ -210,8 +210,6 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<string>("Paragon");
 
-                    b.Property<int?>("PodmiotId");
-
                     b.Property<int>("PracownikId");
 
                     b.HasKey("RachunekId");
@@ -219,8 +217,6 @@ namespace ProjektZespolowy.Migrations
                     b.HasIndex("FakturaId");
 
                     b.HasIndex("KlientId");
-
-                    b.HasIndex("PodmiotId");
 
                     b.ToTable("Rachunki");
                 });
@@ -380,68 +376,6 @@ namespace ProjektZespolowy.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Firma", b =>
-                {
-                    b.HasBaseType("ProjektZespolowy.Models.MyModels.Podmiot");
-
-                    b.Property<string>("Nazwa");
-
-                    b.Property<string>("Regon");
-
-                    b.ToTable("Firma");
-
-                    b.HasDiscriminator().HasValue("Firma");
-                });
-
-            modelBuilder.Entity("ProjektZespolowy.Models.Osoba", b =>
-                {
-                    b.HasBaseType("ProjektZespolowy.Models.MyModels.Podmiot");
-
-                    b.Property<string>("Imie");
-
-                    b.Property<string>("Nazwisko");
-
-                    b.Property<int?>("Pesel");
-
-                    b.ToTable("Osoba");
-
-                    b.HasDiscriminator().HasValue("Osoba");
-                });
-
-            modelBuilder.Entity("ProjektZespolowy.Models.Klient", b =>
-                {
-                    b.HasBaseType("ProjektZespolowy.Models.Osoba");
-
-                    b.Property<string>("Nip");
-
-                    b.ToTable("Klient");
-
-                    b.HasDiscriminator().HasValue("Klient");
-                });
-
-            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Pracownik", b =>
-                {
-                    b.HasBaseType("ProjektZespolowy.Models.Osoba");
-
-                    b.Property<bool>("DostepDoMonitoringu");
-
-                    b.Property<string>("Stanowisko");
-
-                    b.ToTable("Pracownik");
-
-                    b.HasDiscriminator().HasValue("Pracownik");
-                });
-
-            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Wlasciciel", b =>
-                {
-                    b.HasBaseType("ProjektZespolowy.Models.MyModels.Pracownik");
-
-
-                    b.ToTable("Wlasciciel");
-
-                    b.HasDiscriminator().HasValue("Wlasciciel");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -487,11 +421,11 @@ namespace ProjektZespolowy.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Podmiot", b =>
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Powiadomienie", b =>
                 {
-                    b.HasOne("ProjektZespolowy.Models.MyModels.Adres", "adres")
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Monitoring", "monitoring")
                         .WithMany()
-                        .HasForeignKey("AdresId");
+                        .HasForeignKey("monitoringId");
                 });
 
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rachunek", b =>
@@ -501,12 +435,8 @@ namespace ProjektZespolowy.Migrations
                         .HasForeignKey("FakturaId");
 
                     b.HasOne("WebApplication6.Models.ApplicationUser", "Klient")
-                        .WithMany("Historia")
+                        .WithMany()
                         .HasForeignKey("KlientId");
-
-                    b.HasOne("ProjektZespolowy.Models.MyModels.Podmiot")
-                        .WithMany("Historia")
-                        .HasForeignKey("PodmiotId");
                 });
 
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rezerwacja", b =>

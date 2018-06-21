@@ -35,7 +35,7 @@ namespace WebApplication6.Models
         [Display(Name = "Osoba fizyczna")]
         public bool IsNaturalPerson { get; set; }
 
-        public List<Rachunek> Historia { get; set; }
+        //public List<Rachunek> Historia { get; set; }
 
         /** --------------------------------------- **/
         public int PodmiotId { get; set; }
@@ -71,9 +71,9 @@ namespace WebApplication6.Models
 
         //}
 
-        internal void dodajRachunekDoHistorii(Rachunek rachunek)
-        {
-            Historia.Add(rachunek);
-        }
+        //internal void dodajRachunekDoHistorii(Rachunek rachunek)
+        //{
+        //    Historia.Add(rachunek);
+        //}
     }
 }

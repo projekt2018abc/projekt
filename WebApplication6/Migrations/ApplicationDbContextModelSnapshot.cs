@@ -160,6 +160,26 @@ namespace ProjektZespolowy.Migrations
                     b.ToTable("Faktury");
                 });
 
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Monitoring", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("Cisnienie");
+
+                    b.Property<DateTime>("Data");
+
+                    b.Property<string>("Paliwo");
+
+                    b.Property<double>("PoziomPaliwa");
+
+                    b.Property<double>("Temperatura");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Monitoring");
+                });
+
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Powiadomienie", b =>
                 {
                     b.Property<int>("PowiadomienieId")
@@ -167,9 +187,37 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<string>("Nazwa");
 
+                    b.Property<int?>("monitoringId");
+
                     b.HasKey("PowiadomienieId");
 
+                    b.HasIndex("monitoringId");
+
                     b.ToTable("Powiadomienia");
+                });
+
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rachunek", b =>
+                {
+                    b.Property<int>("RachunekId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Data");
+
+                    b.Property<int?>("FakturaId");
+
+                    b.Property<string>("KlientId");
+
+                    b.Property<string>("Paragon");
+
+                    b.Property<int>("PracownikId");
+
+                    b.HasKey("RachunekId");
+
+                    b.HasIndex("FakturaId");
+
+                    b.HasIndex("KlientId");
+
+                    b.ToTable("Rachunki");
                 });
 
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rezerwacja", b =>
@@ -188,6 +236,18 @@ namespace ProjektZespolowy.Migrations
                     b.ToTable("Rezerwacje");
                 });
 
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Stanowisko", b =>
+                {
+                    b.Property<int>("StanowiskoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Typ");
+
+                    b.HasKey("StanowiskoId");
+
+                    b.ToTable("Stanowisko");
+                });
+
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Usluga", b =>
                 {
                     b.Property<int>("UslugaId")
@@ -199,9 +259,13 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<int>("PunktyZysk");
 
+                    b.Property<int?>("StanowiskoId");
+
                     b.Property<string>("TypUslugi");
 
                     b.HasKey("UslugaId");
+
+                    b.HasIndex("StanowiskoId");
 
                     b.ToTable("Uslugi");
                 });
@@ -221,11 +285,21 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<double>("Koszt");
 
+                    b.Property<int?>("RachunekId");
+
+                    b.Property<int?>("StanowiskoId");
+
                     b.Property<int?>("UslugaId");
 
                     b.Property<int>("WykorzystanePunkty");
 
+                    b.Property<bool>("Zaksiegowano");
+
                     b.HasKey("WykonanaUslugaId");
+
+                    b.HasIndex("RachunekId");
+
+                    b.HasIndex("StanowiskoId");
 
                     b.HasIndex("UslugaId");
 
@@ -272,6 +346,8 @@ namespace ProjektZespolowy.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<int>("PodmiotId");
 
                     b.Property<int>("Points");
 
@@ -344,6 +420,24 @@ namespace ProjektZespolowy.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Powiadomienie", b =>
+                {
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Monitoring", "monitoring")
+                        .WithMany()
+                        .HasForeignKey("monitoringId");
+                });
+
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rachunek", b =>
+                {
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Faktura", "faktura")
+                        .WithMany()
+                        .HasForeignKey("FakturaId");
+
+                    b.HasOne("WebApplication6.Models.ApplicationUser", "Klient")
+                        .WithMany()
+                        .HasForeignKey("KlientId");
+                });
+
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rezerwacja", b =>
                 {
                     b.HasOne("ProjektZespolowy.Models.MyModels.Usluga", "usluga")
@@ -351,8 +445,23 @@ namespace ProjektZespolowy.Migrations
                         .HasForeignKey("UslugaId");
                 });
 
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Usluga", b =>
+                {
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Stanowisko")
+                        .WithMany("DostepneUslugi")
+                        .HasForeignKey("StanowiskoId");
+                });
+
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.WykonanaUsluga", b =>
                 {
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Rachunek")
+                        .WithMany("Uslugi")
+                        .HasForeignKey("RachunekId");
+
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Stanowisko", "Stanowisko")
+                        .WithMany()
+                        .HasForeignKey("StanowiskoId");
+
                     b.HasOne("ProjektZespolowy.Models.MyModels.Usluga", "Usluga")
                         .WithMany()
                         .HasForeignKey("UslugaId");

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ProjektZespolowy.Migrations
 {
-    public partial class naCzysto : Migration
+    public partial class del_historia_z_appuser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -88,16 +88,20 @@ namespace ProjektZespolowy.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Powiadomienia",
+                name: "Monitoring",
                 columns: table => new
                 {
-                    PowiadomienieId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nazwa = table.Column<string>(nullable: true)
+                    Cisnienie = table.Column<double>(nullable: false),
+                    Data = table.Column<DateTime>(nullable: false),
+                    Paliwo = table.Column<string>(nullable: true),
+                    PoziomPaliwa = table.Column<double>(nullable: false),
+                    Temperatura = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Powiadomienia", x => x.PowiadomienieId);
+                    table.PrimaryKey("PK_Monitoring", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -111,36 +115,6 @@ namespace ProjektZespolowy.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stanowisko", x => x.StanowiskoId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Podmioty",
-                columns: table => new
-                {
-                    Nip = table.Column<string>(nullable: true),
-                    Nazwa = table.Column<string>(nullable: true),
-                    Regon = table.Column<string>(nullable: true),
-                    PodmiotId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AdresId = table.Column<int>(nullable: true),
-                    AppUserId = table.Column<string>(nullable: true),
-                    Discriminator = table.Column<string>(nullable: false),
-                    Ilosc_punktow = table.Column<int>(nullable: true),
-                    DostepDoMonitoringu = table.Column<bool>(nullable: true),
-                    Stanowisko = table.Column<string>(nullable: true),
-                    Imie = table.Column<string>(nullable: true),
-                    Nazwisko = table.Column<string>(nullable: true),
-                    Pesel = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Podmioty", x => x.PodmiotId);
-                    table.ForeignKey(
-                        name: "FK_Podmioty_Adresy_AdresId",
-                        column: x => x.AdresId,
-                        principalTable: "Adresy",
-                        principalColumn: "AdresId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -250,6 +224,55 @@ namespace ProjektZespolowy.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rachunki",
+                columns: table => new
+                {
+                    RachunekId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Data = table.Column<DateTime>(nullable: false),
+                    FakturaId = table.Column<int>(nullable: true),
+                    KlientId = table.Column<string>(nullable: true),
+                    Paragon = table.Column<string>(nullable: true),
+                    PracownikId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rachunki", x => x.RachunekId);
+                    table.ForeignKey(
+                        name: "FK_Rachunki_Faktury_FakturaId",
+                        column: x => x.FakturaId,
+                        principalTable: "Faktury",
+                        principalColumn: "FakturaId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Rachunki_AspNetUsers_KlientId",
+                        column: x => x.KlientId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Powiadomienia",
+                columns: table => new
+                {
+                    PowiadomienieId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nazwa = table.Column<string>(nullable: true),
+                    monitoringId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Powiadomienia", x => x.PowiadomienieId);
+                    table.ForeignKey(
+                        name: "FK_Powiadomienia_Monitoring_monitoringId",
+                        column: x => x.monitoringId,
+                        principalTable: "Monitoring",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Uslugi",
                 columns: table => new
                 {
@@ -269,42 +292,6 @@ namespace ProjektZespolowy.Migrations
                         column: x => x.StanowiskoId,
                         principalTable: "Stanowisko",
                         principalColumn: "StanowiskoId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Rachunki",
-                columns: table => new
-                {
-                    RachunekId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Data = table.Column<DateTime>(nullable: false),
-                    FakturaId = table.Column<int>(nullable: true),
-                    KlientId = table.Column<string>(nullable: true),
-                    Paragon = table.Column<string>(nullable: true),
-                    PodmiotId = table.Column<int>(nullable: true),
-                    PracownikId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rachunki", x => x.RachunekId);
-                    table.ForeignKey(
-                        name: "FK_Rachunki_Faktury_FakturaId",
-                        column: x => x.FakturaId,
-                        principalTable: "Faktury",
-                        principalColumn: "FakturaId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Rachunki_AspNetUsers_KlientId",
-                        column: x => x.KlientId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Rachunki_Podmioty_PodmiotId",
-                        column: x => x.PodmiotId,
-                        principalTable: "Podmioty",
-                        principalColumn: "PodmiotId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -408,9 +395,9 @@ namespace ProjektZespolowy.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Podmioty_AdresId",
-                table: "Podmioty",
-                column: "AdresId");
+                name: "IX_Powiadomienia_monitoringId",
+                table: "Powiadomienia",
+                column: "monitoringId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rachunki_FakturaId",
@@ -421,11 +408,6 @@ namespace ProjektZespolowy.Migrations
                 name: "IX_Rachunki_KlientId",
                 table: "Rachunki",
                 column: "KlientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rachunki_PodmiotId",
-                table: "Rachunki",
-                column: "PodmiotId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rezerwacje_UslugaId",
@@ -456,6 +438,9 @@ namespace ProjektZespolowy.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Adresy");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -483,6 +468,9 @@ namespace ProjektZespolowy.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Monitoring");
+
+            migrationBuilder.DropTable(
                 name: "Rachunki");
 
             migrationBuilder.DropTable(
@@ -495,13 +483,7 @@ namespace ProjektZespolowy.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Podmioty");
-
-            migrationBuilder.DropTable(
                 name: "Stanowisko");
-
-            migrationBuilder.DropTable(
-                name: "Adresy");
         }
     }
 }

@@ -206,6 +206,7 @@ namespace ProjektZespolowy.Controllers
         public async Task<IActionResult> Wystaw()
         {
             rachunek.zatwierdzRachunek(false);
+            _context.SaveChanges();
             return Paragon();
         }
 

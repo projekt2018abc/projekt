@@ -74,23 +74,28 @@ namespace ProjektZespolowy.Models.MyModels
 
         public bool zatwierdzRachunek(bool czyFaktura)
         {
-            if (Klient.Points < PunktyWykorzystane)
+            if (Klient != null)
             {
-                System.Console.WriteLine("Za mało punktów na koncie klienta");
-                return false;
+                if (Klient.Points < PunktyWykorzystane)
+                {
+                    System.Console.WriteLine("Za mało punktów na koncie klienta");
+                    return false;
+                }
+                
+                Klient.Points -= PunktyWykorzystane;
+                Klient.Points += PunktyZysk;
             }
+            Data = DateTime.Now;
             Paragon = generujParagon();
-            Klient.Points -= PunktyWykorzystane;
-            Klient.Points += PunktyZysk;
-            Klient.dodajRachunekDoHistorii(this);
+            ///Klient.dodajRachunekDoHistorii(this);
             if (czyFaktura)
                 faktura = generujFakture();
 
-            using (ApplicationDbContext context = new ApplicationDbContext())
-            {
-                context.Rachunki.Add(this);
-                context.SaveChanges();
-            }
+            //using (ApplicationDbContext context = new ApplicationDbContext())
+            //{
+            //    context.Rachunki.Add(this);
+            //    context.SaveChanges();
+            //}
 
             return true;
 
@@ -104,7 +109,6 @@ namespace ProjektZespolowy.Models.MyModels
 
         private string generujParagon()
         {
-            Data = DateTime.Now;
             return $"Stacja Paliw SPB\n" +
                     $"{NaszaPlacowka.ToString()}\n" +
                     $"{UslugaToString()}\n" +
@@ -127,6 +131,11 @@ namespace ProjektZespolowy.Models.MyModels
                     lista += $"{usluga.Usluga.TypUslugi} X {usluga.Ilosc}: {usluga.Koszt}PLN\n";
             }
             return lista;
+        }
+
+        public string ParagonToHtml()
+        {
+            return Paragon.Replace("\n", "<br/>");
         }
 
     }

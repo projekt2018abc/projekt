@@ -23,6 +23,8 @@
     <Compile Remove="Migrations\20180610143952_db.Designer.cs" />
     <Compile Remove="Migrations\20180610144535_cleandb1.cs" />
     <Compile Remove="Migrations\20180610144535_cleandb1.Designer.cs" />
+    <Compile Remove="Migrations\20180621163813_del_historia_z_appuser.cs" />
+    <Compile Remove="Migrations\20180621163813_del_historia_z_appuser.Designer.cs" />
   </ItemGroup>
 
 
