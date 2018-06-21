@@ -10,12 +10,12 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Ver">
+        <form asp-action="Ver2">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="UserConfirmed" /> @Html.DisplayName("Zweryfikuj użytkownika")
+                        <input asp-for="UserConfirmed" /> @Html.DisplayName("Zweryfikuj firme")
                     </label>
                 </div>
             </div>
@@ -25,16 +25,15 @@
             <input type="hidden" asp-for="UserName" />
             <input type="hidden" asp-for="NormalizedUserName" />
             <input type="hidden" asp-for="Email" />
+            <input type="hidden" asp-for="CompanyName" />
             <input type="hidden" asp-for="NormalizedEmail" />
             <input type="hidden" asp-for="FirstName" />
             <input type="hidden" asp-for="LastName" />
-            <input type="hidden" asp-for="CompanyName" />
             <input type="hidden" asp-for="PasswordHash" />
             <input type="hidden" asp-for="Nip" />
             <input type="hidden" asp-for="Regon" />
             <input type="hidden" asp-for="Pesel" />
             <input type="hidden" asp-for="IsNaturalPerson" />
-            <input type="hidden" asp-for="IsEmployee" />
             <input type="hidden" asp-for="Points" />
             <input type="hidden" asp-for="EmailConfirmed" />
             <input type="hidden" asp-for="PhoneNumber" />
@@ -51,7 +50,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Powrót do listy</a>
+    <a asp-action="Index2">Powrót do listy</a>
 </div>
 
 @section Scripts {

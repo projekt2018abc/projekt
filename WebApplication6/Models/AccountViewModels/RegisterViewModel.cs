@@ -26,7 +26,6 @@ namespace WebApplication6.Models.AccountViewModels
         public string ConfirmPassword { get; set; }
 
         [RegularExpression(@"^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]+$", ErrorMessage = "Dozwolone tylko litery")]
-        [Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Imie")]
         public string FirstName { get; set; }
 
@@ -37,7 +36,6 @@ namespace WebApplication6.Models.AccountViewModels
 
         [RegularExpression(@"^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]+$", ErrorMessage = "Dozwolone tylko litery")]
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
 

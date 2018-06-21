@@ -10,27 +10,12 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit2">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Pesel" class="control-label"></label>
-                <input asp-for="Pesel" class="form-control" />
-                <span asp-validation-for="Pesel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nip" class="control-label"></label>
-                <input asp-for="Nip" class="form-control" />
-                <span asp-validation-for="Nip" class="text-danger"></span>
+                <label asp-for="CompanyName" class="control-label"></label>
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Regon" class="control-label"></label>
@@ -54,20 +39,17 @@
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsEmployee" /> @Html.DisplayNameFor(model => model.IsEmployee)
-                    </label>
-                </div>
-            </div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="SecurityStamp" />
             <input type="hidden" asp-for="ConcurrencyStamp" />
             <input type="hidden" asp-for="UserName" />
-            <input type="hidden" asp-for="CompanyName" />
+            <input type="hidden" asp-for="FirstName" />
+            <input type="hidden" asp-for="LastName" />
+            <input type="hidden" asp-for="Pesel" />
+            <input type="hidden" asp-for="Nip" />
             <input type="hidden" asp-for="NormalizedUserName" />
             <input type="hidden" asp-for="UserConfirmed" />
+            <input type="hidden" asp-for="IsEmployee" />
             <input type="hidden" asp-for="NormalizedEmail" />
             <input type="hidden" asp-for="PasswordHash" />
             <input type="hidden" asp-for="Points" />
@@ -85,7 +67,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Powrót do listy</a>
+    <a asp-action="Index2">Powrót do listy</a>
 </div>
 
 @section Scripts {

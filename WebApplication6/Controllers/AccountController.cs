@@ -226,6 +226,12 @@ namespace WebApplication6.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                bool naturalPerson;
+                if (model.SelectedRole == 0)
+                    naturalPerson = true;
+                else
+                    naturalPerson = false;
+
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -234,7 +240,11 @@ namespace WebApplication6.Controllers
                     LastName = model.LastName,
                     Pesel = model.Pesel,
                     Nip = model.Nip,
-                    Regon = model.Regon
+                    Regon = model.Regon,
+                    CompanyName = model.CompanyName,
+                    IsNaturalPerson = naturalPerson,
+                    
+                    
                 };
                 //user.createPodmiotFromApplicationUser(model.SelectedRole);
                 var result = await _userManager.CreateAsync(user, model.Password);
