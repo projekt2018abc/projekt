@@ -227,7 +227,12 @@ namespace ProjektZespolowy.Controllers
         public async Task<IActionResult> Wystaw()
         {
             rachunek.zatwierdzRachunek(false);
-            _context.UpdateRange(rachunek, rachunek.Klient);
+
+            if (rachunek.Klient != null)
+                _context.UpdateRange(rachunek, rachunek.Klient);
+            else
+                _context.Update(rachunek);
+            
             _context.SaveChanges();
             Temp.rachunek = null;
             ViewBag.rachunek = rachunek;
