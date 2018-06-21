@@ -198,14 +198,36 @@ namespace ProjektZespolowy.Controllers
         public async Task<IActionResult> SzukajKlient()
         {
             string mail = Convert.ToString(Request.Form["userMail"]);
-            rachunek.Klient = _context.Users.Where(u => u.Email == mail).Single();
+            try
+            {
+                rachunek.Klient = _context.Users.Where(u => u.Email == mail).Single();
+            }
+            catch(Exception ex)
+            {
+                rachunek.Klient = null;
+            }
             return RedirectToAction(nameof(Podsumowanie));
             
+        }
+
+        public async Task<IActionResult> DodajZaPunkt(int id)
+        {
+            rachunek.Uslugi.Find(u => u.WykonanaUslugaId == id).wykorzystajPunkty(1);
+            return RedirectToAction(nameof(Podsumowanie));
+
+        }
+
+        public async Task<IActionResult> UsunZaPunkt(int id)
+        {
+            rachunek.Uslugi.Find(u => u.WykonanaUslugaId == id).wykorzystajPunkty(-1);
+            return RedirectToAction(nameof(Podsumowanie));
+
         }
 
         public async Task<IActionResult> Wystaw()
         {
             rachunek.zatwierdzRachunek(false);
+            _context.UpdateRange(rachunek, rachunek.Klient);
             _context.SaveChanges();
             Temp.rachunek = null;
             ViewBag.rachunek = rachunek;
