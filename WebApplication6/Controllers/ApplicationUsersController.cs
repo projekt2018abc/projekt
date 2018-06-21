@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,11 @@ namespace ProjektZespolowy.Controllers
     public class ApplicationUsersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ApplicationUsersController(ApplicationDbContext context)
+        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -340,6 +343,18 @@ namespace ProjektZespolowy.Controllers
                 {
                     _context.Update(applicationUser);
                     await _context.SaveChangesAsync();
+                    if (applicationUser.UserConfirmed == true)
+                    {
+                        await _userManager.RemoveFromRoleAsync(applicationUser, "UzytkownikNiezweryfikowany");
+                        await _userManager.AddToRoleAsync(applicationUser, "Uzytkownik");
+                        await _userManager.UpdateAsync(applicationUser);
+                    }
+                    else
+                    {
+                        await _userManager.RemoveFromRoleAsync(applicationUser, "Uzytkownik");
+                        await _userManager.AddToRoleAsync(applicationUser, "UzytkownikNiezweryfikowany");
+                        await _userManager.UpdateAsync(applicationUser);
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -385,6 +400,18 @@ namespace ProjektZespolowy.Controllers
                 {
                     _context.Update(applicationUser);
                     await _context.SaveChangesAsync();
+                    if (applicationUser.UserConfirmed == true)
+                    {
+                        await _userManager.RemoveFromRoleAsync(applicationUser, "UzytkownikNiezweryfikowany");
+                        await _userManager.AddToRoleAsync(applicationUser, "Uzytkownik");
+                        await _userManager.UpdateAsync(applicationUser);
+                    }
+                    else
+                    {
+                        await _userManager.RemoveFromRoleAsync(applicationUser, "Uzytkownik");
+                        await _userManager.AddToRoleAsync(applicationUser, "UzytkownikNiezweryfikowany");
+                        await _userManager.UpdateAsync(applicationUser);
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
