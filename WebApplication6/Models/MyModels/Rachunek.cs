@@ -111,7 +111,10 @@ namespace ProjektZespolowy.Models.MyModels
         {
             return $"Stacja Paliw SPB\n" +
                     $"{NaszaPlacowka.ToString()}\n" +
-                    $"{UslugaToString()}\n" +
+                    $"--------------------------\n"+
+                    $"{UslugaToString()}\n\n" +
+                    $"SUMA: {getCena()}PLN\n" +
+                    $"--------------------------\n" +
                     $"{Data}\n" +
                     $"Dziękujemy za skorzystanie z naszych usług\n" +
                     $"Zapraszamy ponownie!";
@@ -126,7 +129,7 @@ namespace ProjektZespolowy.Models.MyModels
                 if (usluga.IloscZaPunkty > 0)
                     lista += $"{usluga.Usluga.TypUslugi} X {usluga.Ilosc}:{usluga.Ilosc * usluga.Usluga.Cena}PLN\n" +
                             $"Z czego {usluga.IloscZaPunkty} za {usluga.WykorzystanePunkty} punkty\n" +
-                            $"Łącznie: {usluga.Koszt}\n";
+                            $"={usluga.Koszt} PLN\n";
                 else
                     lista += $"{usluga.Usluga.TypUslugi} X {usluga.Ilosc}: {usluga.Koszt}PLN\n";
             }
