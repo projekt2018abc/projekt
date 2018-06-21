@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication6.Data;
 using WebApplication6.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjektZespolowy.Controllers
 {
@@ -27,7 +28,7 @@ namespace ProjektZespolowy.Controllers
         //{
         //    return View(await _context.ApplicationUser.ToListAsync());
         //}
-
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -69,7 +70,7 @@ namespace ProjektZespolowy.Controllers
             return View(await users.AsNoTracking().ToListAsync());
         }
 
-
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Index2(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -110,6 +111,7 @@ namespace ProjektZespolowy.Controllers
             return View(await users.AsNoTracking().ToListAsync());
         }
 
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Index3(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -192,6 +194,7 @@ namespace ProjektZespolowy.Controllers
         }
 
         // GET: ApplicationUsers/Edit/5
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -208,6 +211,7 @@ namespace ProjektZespolowy.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Edit(string id, [Bind("UserConfirmed,FirstName,LastName,CompanyName,Pesel,Nip,Regon,Points,IsNaturalPerson,IsEmployee,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
         {
             if (id != applicationUser.Id)
@@ -244,6 +248,7 @@ namespace ProjektZespolowy.Controllers
             return View(applicationUser);
         }
         // GET: ApplicationUsers/Edit/5
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Edit2(string id)
         {
             if (id == null)
@@ -260,6 +265,7 @@ namespace ProjektZespolowy.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Edit2(string id, [Bind("UserConfirmed,FirstName,LastName,CompanyName,Pesel,Nip,Regon,Points,IsNaturalPerson,IsEmployee,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
         {
             if (id != applicationUser.Id)
@@ -290,6 +296,7 @@ namespace ProjektZespolowy.Controllers
             return View(applicationUser);
         }
 
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit3(string id)
         {
             if (id == null)
@@ -306,6 +313,7 @@ namespace ProjektZespolowy.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit3(string id, [Bind("UserConfirmed,FirstName,LastName,CompanyName,Pesel,Nip,Regon,Points,IsNaturalPerson,IsEmployee,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
         {
             if (id != applicationUser.Id)
@@ -396,6 +404,7 @@ namespace ProjektZespolowy.Controllers
         }
 
         // GET: ApplicationUsers/Delete/5
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -416,6 +425,7 @@ namespace ProjektZespolowy.Controllers
         // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
@@ -430,6 +440,7 @@ namespace ProjektZespolowy.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Ver(string id, [Bind("UserConfirmed,FirstName,LastName,CompanyName,Pesel,Nip,Regon,Points,IsNaturalPerson,IsEmployee,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
         {
             if (id != applicationUser.Id)
@@ -471,6 +482,8 @@ namespace ProjektZespolowy.Controllers
             }
             return View(applicationUser);
         }
+
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Ver(string id)
         {
             if (id == null)
@@ -487,6 +500,7 @@ namespace ProjektZespolowy.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Ver2(string id, [Bind("UserConfirmed,FirstName,LastName,CompanyName,Pesel,Nip,Regon,Points,IsNaturalPerson,IsEmployee,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
         {
             if (id != applicationUser.Id)
@@ -528,6 +542,8 @@ namespace ProjektZespolowy.Controllers
             }
             return View(applicationUser);
         }
+
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Ver2(string id)
         {
             if (id == null)
