@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication6.Models;
 
 namespace ProjektZespolowy.Models.MyModels
 {
@@ -10,6 +11,7 @@ namespace ProjektZespolowy.Models.MyModels
         public int RezerwacjaId { get; set; }
         public DateTime Date { get; set; }
         public Usluga usluga { get; set; }
+        public ApplicationUser Klient { get; set; }
 
         public void zapytanieTermin()
         {
