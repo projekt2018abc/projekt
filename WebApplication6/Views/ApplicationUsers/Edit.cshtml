@@ -54,6 +54,8 @@
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
+            @if (User.IsInRole("Administrator"))
+            {
             <div class="form-group">
                 <div class="checkbox">
                     <label>
@@ -61,25 +63,26 @@
                     </label>
                 </div>
             </div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="SecurityStamp" />
-            <input type="hidden" asp-for="ConcurrencyStamp" />
-            <input type="hidden" asp-for="UserName" />
-            <input type="hidden" asp-for="CompanyName" />
-            <input type="hidden" asp-for="NormalizedUserName" />
-            <input type="hidden" asp-for="UserConfirmed" />
-            <input type="hidden" asp-for="NormalizedEmail" />
-            <input type="hidden" asp-for="PasswordHash" />
-            <input type="hidden" asp-for="Points" />
-            <input type="hidden" asp-for="EmailConfirmed" />
-            <input type="hidden" asp-for="PhoneNumberConfirmed" />
-            <input type="hidden" asp-for="TwoFactorEnabled" />
-            <input type="hidden" asp-for="LockoutEnabled" />
-            <input type="hidden" asp-for="LockoutEnd" />
-            <input type="hidden" asp-for="AccessFailedCount" />
-            <div class="form-group">
-                <input type="submit" value="Zapisz" class="btn btn-default" />
-            </div>
+            }
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="SecurityStamp" />
+        <input type="hidden" asp-for="ConcurrencyStamp" />
+        <input type="hidden" asp-for="UserName" />
+        <input type="hidden" asp-for="CompanyName" />
+        <input type="hidden" asp-for="NormalizedUserName" />
+        <input type="hidden" asp-for="UserConfirmed" />
+        <input type="hidden" asp-for="NormalizedEmail" />
+        <input type="hidden" asp-for="PasswordHash" />
+        <input type="hidden" asp-for="Points" />
+        <input type="hidden" asp-for="EmailConfirmed" />
+        <input type="hidden" asp-for="PhoneNumberConfirmed" />
+        <input type="hidden" asp-for="TwoFactorEnabled" />
+        <input type="hidden" asp-for="LockoutEnabled" />
+        <input type="hidden" asp-for="LockoutEnd" />
+        <input type="hidden" asp-for="AccessFailedCount" />
+        <div class="form-group">
+            <input type="submit" value="Zapisz" class="btn btn-default" />
+        </div>
         </form>
     </div>
 </div>
