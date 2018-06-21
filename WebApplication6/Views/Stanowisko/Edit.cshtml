@@ -1,34 +1,32 @@
 ﻿@model ProjektZespolowy.Models.MyModels.Stanowisko
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edycja stanowiska";
 }
 
-<h2>Edit</h2>
 
-<h4>Stanowisko</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="StanowiskoId" />
-            <div class="form-group">
-                <label asp-for="Typ" class="control-label"></label>
-                <input asp-for="Typ" class="form-control" />
-                <span asp-validation-for="Typ" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+<div class="register">
+    <section class="register-wrapper">
+        <h2>Edytuj stanowisko</h2>
+        <hr />
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="StanowiskoId" />
+                    <div class="form-group">
+                        <label asp-for="Typ" class="control-label">Typ</label>
+                        <input asp-for="Typ" class="form-control" />
+                        <span asp-validation-for="Typ" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Zapisz" class="btn btn-default" />
+                    </div>
+                </form>
+
+        <div>
+            <a asp-action="Index">Wróć do listy stanowisk</a>
+        </div>
+    </section>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
