@@ -26,18 +26,23 @@
             @Html.DisplayNameFor(model => model.Klient)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Klient)
+            @Html.DisplayFor(model => model.Klient.Email)
         </dd>
     </dl>
-    <div><input id="userMail" name="userMail" /></div>
-    <a asp-action="SzukajKlient"> Znajdź klienta</a>    
+    <form asp-action="SzukajKlient">
+        <div><input id="userMail" name="userMail" /></div>
+        <input type="submit" value="SzukajKlient" class="btn btn-default" />
+    </form>
 </div>
-<div>
+@*<div>
     @Html.DisplayNameFor(model=>model.Paragon)
 </div>
 <div>
-    @Html.DisplayFor(model=>model.Paragon)
-</div>
+    @foreach(var usluga in ViewBag.rachunek.Uslugi)
+    {
+        @usluga.Typ;
+    }
+</div>*@
 <div>
     <a asp-action="Wystaw" >Wystaw Rachunek</a> |
     <a asp-action="Index">Back to List</a>

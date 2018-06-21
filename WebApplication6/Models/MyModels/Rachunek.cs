@@ -107,7 +107,7 @@ namespace ProjektZespolowy.Models.MyModels
             throw new NotImplementedException();
         }
 
-        private string generujParagon()
+        public string generujParagon()
         {
             return $"Stacja Paliw SPB\n" +
                     $"{NaszaPlacowka.ToString()}\n" +

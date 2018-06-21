@@ -84,7 +84,7 @@ namespace ProjektZespolowy.Controllers
 
         public async Task<IActionResult> Podsumowanie()
         {
-
+            ViewBag.rachunek = rachunek;
             return View(rachunek);
         }
 
@@ -197,7 +197,7 @@ namespace ProjektZespolowy.Controllers
 
         public async Task<IActionResult> SzukajKlient()
         {
-            string mail = Request.Form["userMail"].ToString();
+            string mail = Convert.ToString(Request.Form["userMail"]);
             rachunek.Klient = _context.Users.Where(u => u.Email == mail).Single();
             return RedirectToAction(nameof(Podsumowanie));
             
