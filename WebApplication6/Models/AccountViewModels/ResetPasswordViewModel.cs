@@ -15,6 +15,7 @@ namespace WebApplication6.Models.AccountViewModels
         [Required]
         [StringLength(100, ErrorMessage = "{0} musi zawierać conajmniej {2} i co najwyżej {1} znaków długości.", MinimumLength = 6)]
         [DataType(DataType.Password)]
+        [Display(Name = "Hasło")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

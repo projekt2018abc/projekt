@@ -9,7 +9,7 @@ namespace WebApplication6.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Pole wymagane")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Wprowadz poprawny adres email")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
