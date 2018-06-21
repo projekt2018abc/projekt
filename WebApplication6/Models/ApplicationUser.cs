@@ -16,14 +16,19 @@ namespace WebApplication6.Models
         [Display(Name = "Użytkownik zweryfikowany")]
         public bool UserConfirmed { get; set; }
 
+        [Display(Name = "Pracownik")]
+        public bool IsEmployee { get; set; }
+
         [Display(Name = "Imie")]
         public string FirstName { get; set; }
 
         [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
-        
-        public string Pesel { get; set; }
 
+        [Display(Name = "Nazwa firmy")]
+        public string CompanyName { get; set; }
+
+        public string Pesel { get; set; }
 
         public string Nip { get; set; }
 
@@ -34,6 +39,10 @@ namespace WebApplication6.Models
 
         [Display(Name = "Osoba fizyczna")]
         public bool IsNaturalPerson { get; set; }
+
+        [Display(Name = "Numer telefonu")]
+        override public string PhoneNumber { get; set; }
+
 
         //public List<Rachunek> Historia { get; set; }
 
