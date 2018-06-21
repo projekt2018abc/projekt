@@ -131,57 +131,57 @@ namespace WebApplication6.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Verification(IndexViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Verification(IndexViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
 
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
+        //    var user = await _userManager.GetUserAsync(User);
+        //    if (user == null)
+        //    {
+        //        throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+        //    }
 
            
-            user.UserConfirmed = true;
-            await _userManager.RemoveFromRoleAsync(user, "UzytkownikNiezweryfikowany");
-            await _userManager.AddToRoleAsync(user, "Uzytkownik");
-            await _userManager.UpdateAsync(user);
+        //    user.UserConfirmed = true;
+        //    await _userManager.RemoveFromRoleAsync(user, "UzytkownikNiezweryfikowany");
+        //    await _userManager.AddToRoleAsync(user, "Uzytkownik");
+        //    await _userManager.UpdateAsync(user);
            
            
-            //Log the user out
-            await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //    //Log the user out
+        //    await _signInManager.SignOutAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UnVerification(IndexViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> UnVerification(IndexViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
 
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
+        //    var user = await _userManager.GetUserAsync(User);
+        //    if (user == null)
+        //    {
+        //        throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+        //    }
 
 
-            user.UserConfirmed = false ;
-            await _userManager.RemoveFromRoleAsync(user, "Uzytkownik");
-            await _userManager.AddToRoleAsync(user, "UzytkownikNiezweryfikowany");
-            await _userManager.UpdateAsync(user);
-            await _signInManager.SignOutAsync();
-            StatusMessage = "User is UnConfirmed";
-            return RedirectToAction(nameof(Index));
-        }
+        //    user.UserConfirmed = false ;
+        //    await _userManager.RemoveFromRoleAsync(user, "Uzytkownik");
+        //    await _userManager.AddToRoleAsync(user, "UzytkownikNiezweryfikowany");
+        //    await _userManager.UpdateAsync(user);
+        //    await _signInManager.SignOutAsync();
+        //    StatusMessage = "User is UnConfirmed";
+        //    return RedirectToAction(nameof(Index));
+        //}
 
 
         //[HttpPost]

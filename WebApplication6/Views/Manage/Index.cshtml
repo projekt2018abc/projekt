@@ -1,6 +1,6 @@
 ﻿@model IndexViewModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Profil";
     ViewData.AddActivePage(ManageNavPages.Index);
 }
 
@@ -10,46 +10,58 @@
     <div class="col-md-6">
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Username"></label>
                 <input asp-for="Username" class="form-control" disabled />
+            </div>*@
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" disabled />
+            </div>
+            @*<div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="Email" class="form-control" disabled />
             </div>
             <div class="form-group">
                 <label asp-for="Email"></label>
-                @if (Model.IsEmailConfirmed)
+                <input asp-for="Email" class="form-control" disabled />
+            </div>*@
+            @*<div class="form-group">
+                        <label asp-for="Email"></label>
+                        @if (Model.IsEmailConfirmed)
                 {
                     <div class="input-group">
                         <input asp-for="Email" class="form-control" />
                         <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
                     </div>
-                }
-                else
-                {
-                    <input asp-for="Email" class="form-control" />
-                    <button asp-action="SendVerificationEmail" class="btn btn-link">Send verification email</button>
-                }
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IsUserConfirmed"></label>
-                @if (Model.IsUserConfirmed)
+        }
+        else
+        {
+                <input asp-for="Email" class="form-control" />
+                <button asp-action="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+        }
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IsUserConfirmed"></label>
+                        @if (Model.IsUserConfirmed)
                 {
                     <span>Zweryfikowany</span>
                     <button asp-action="UnVerification" class="btn btn-link">Cofnij weryfikacje!</button>
-                }
-                else
-                {
-                    <span>Niezweryfikowany</span>
-                    <button asp-action="Verification" class="btn btn-link">Zweryfikuj mnie!!</button>
-                }
-                <span asp-validation-for="IsUserConfirmed" class="text-danger"></span>
-            </div>
+        }
+        else
+        {
+                <span>Niezweryfikowany</span>
+                <button asp-action="Verification" class="btn btn-link">Zweryfikuj mnie!!</button>
+        }
+                        <span asp-validation-for="IsUserConfirmed" class="text-danger"></span>
+                    </div>*@
             <div class="form-group">
                 <label asp-for="PhoneNumber"></label>
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Save</button>
+            <button type="submit" class="btn btn-default">Zapisz</button>
         </form>
     </div>
 </div>
