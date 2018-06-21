@@ -207,6 +207,8 @@ namespace ProjektZespolowy.Controllers
         {
             rachunek.zatwierdzRachunek(false);
             _context.SaveChanges();
+            Temp.rachunek = null;
+            ViewBag.rachunek = rachunek;
             return Paragon();
         }
 
