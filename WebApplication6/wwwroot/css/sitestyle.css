@@ -152,3 +152,8 @@ footer p{
     color: #333;
     text-decoration: none;
 }
+
+.uslugi .two-columns th,
+.uslugi .two-columns td {
+        text-align: center;
+}
