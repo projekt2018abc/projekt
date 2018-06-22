@@ -1,25 +1,24 @@
 ﻿@model ProjektZespolowy.Models.MyModels.Rachunek
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edycja rachunku";
 }
 
-<h2>Edit</h2>
+<div class="register">
+    <section class="register-wrapper">
+        <h2>Edycja rachunku</h2>
+        <hr />
 
-<h4>Rachunek</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="RachunekId" />
             <div class="form-group">
-                <label asp-for="Data" class="control-label"></label>
+                <label asp-for="Data" class="control-label">Data</label>
                 <input asp-for="Data" class="form-control" />
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Paragon" class="control-label"></label>
+                <label asp-for="Paragon" class="control-label">Paragon</label>
                 <input asp-for="Paragon" class="form-control" />
                 <span asp-validation-for="Paragon" class="text-danger"></span>
             </div>
@@ -27,13 +26,11 @@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
-    </div>
+        <div>
+            <a asp-action="Index">Wróć do listy rachunków</a>
+        </div>
+    </section>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

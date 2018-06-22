@@ -84,7 +84,7 @@ namespace WebApplication6.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Nieudana próba logowania.");
                     return View(model);
                 }
             }
@@ -124,7 +124,7 @@ namespace WebApplication6.Controllers
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Nie znaleziono użytkownika o ID: '{_userManager.GetUserId(User)}'.");
             }
 
             var authenticatorCode = model.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
@@ -226,6 +226,12 @@ namespace WebApplication6.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                bool naturalPerson;
+                if (model.SelectedRole == 0)
+                    naturalPerson = true;
+                else
+                    naturalPerson = false;
+
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -234,7 +240,11 @@ namespace WebApplication6.Controllers
                     LastName = model.LastName,
                     Pesel = model.Pesel,
                     Nip = model.Nip,
-                    Regon = model.Regon
+                    Regon = model.Regon,
+                    CompanyName = model.CompanyName,
+                    IsNaturalPerson = naturalPerson,
+                    
+                    
                 };
                 //user.createPodmiotFromApplicationUser(model.SelectedRole);
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -399,7 +409,7 @@ namespace WebApplication6.Controllers
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{userId}'.");
+                throw new ApplicationException($"Nie znaleziono użytkownika o ID: '{userId}'.");
             }
             var result = await _userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
@@ -431,7 +441,7 @@ namespace WebApplication6.Controllers
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
                 await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+                   $"Prosze, zresetuj swoje hasło klikając tutaj: <a href='{callbackUrl}'>link</a>");
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
 

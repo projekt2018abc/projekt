@@ -11,9 +11,10 @@ using WebApplication6.Data;
 namespace ProjektZespolowy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180621193201_monitoring_rezerwacje")]
+    partial class monitoring_rezerwacje
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,9 +230,13 @@ namespace ProjektZespolowy.Migrations
 
                     b.Property<string>("KlientId");
 
-                    b.Property<string>("usluga");
+                    b.Property<int?>("UslugaId");
 
                     b.HasKey("RezerwacjaId");
+
+                    b.HasIndex("KlientId");
+
+                    b.HasIndex("UslugaId");
 
                     b.ToTable("Rezerwacje");
                 });
@@ -440,6 +445,17 @@ namespace ProjektZespolowy.Migrations
                     b.HasOne("WebApplication6.Models.ApplicationUser", "Klient")
                         .WithMany()
                         .HasForeignKey("KlientId");
+                });
+
+            modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Rezerwacja", b =>
+                {
+                    b.HasOne("WebApplication6.Models.ApplicationUser", "Klient")
+                        .WithMany()
+                        .HasForeignKey("KlientId");
+
+                    b.HasOne("ProjektZespolowy.Models.MyModels.Usluga", "usluga")
+                        .WithMany()
+                        .HasForeignKey("UslugaId");
                 });
 
             modelBuilder.Entity("ProjektZespolowy.Models.MyModels.Usluga", b =>

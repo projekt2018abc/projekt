@@ -4,6 +4,120 @@
     ViewData["Title"] = "Podsumowanie";
 }
 
+
+@{int WykorzystanePukty = 0;}
+    @foreach (var u in Model.Uslugi)
+    {
+        WykorzystanePukty+=u.WykorzystanePunkty;
+
+    }
+
+
+<div class="register">
+    <section id="rachunek-podsumowanie">
+        <h2>Podsumowanie</h2>
+
+        <div>
+            <h4>Rachunek</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    Data:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Data)
+                </dd>
+                <dt>
+                    Cena:
+                </dt>
+                <dd>
+                    @Model.getCena()
+                </dd>
+                <dt>
+                    Klient:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Klient.Email)
+                </dd>
+                <dt>
+                    Punkty:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Klient.Points)
+                </dd>
+                <dt>
+                    Wykorzystane punkty:
+                </dt>
+                <dd>
+                    @WykorzystanePukty
+                </dd>
+            </dl>
+            <br />
+            <form asp-action="SzukajKlient">
+                <div><input id="userMail" name="userMail" /></div>
+                <input type="submit" value="Szukaj klienta" class="btn btn-default" />
+            </form>
+        </div>
+        <br />
+        @*<div>
+                @Html.DisplayNameFor(model=>model.Paragon)
+            </div>
+            <div>
+                @foreach(var usluga in ViewBag.rachunek.Uslugi)
+                {
+                    @usluga.Typ;
+                }
+            </div>*@
+        <div>
+            <table class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>Typ</th>
+                        <th>Ilość</th>
+                        <th>Cena</th>
+                        <th>Koszt punkty</th>
+                        <th>Wykorzystane punkt</th>
+                        <th>Suma</th>
+                        <th>Wykorzystaj punkty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var usluga in Model.Uslugi)
+                    {
+                        <tr>
+                            <td>@usluga.Usluga.TypUslugi</td>
+                            <td>@usluga.Ilosc</td>
+                            <td>@(usluga.Ilosc * usluga.Usluga.Cena)</td>
+                            <td>@usluga.Usluga.PunktyKoszt</td>
+                            <td>@usluga.WykorzystanePunkty</td>
+                            <td>@usluga.Koszt</td>
+                            <td>
+                                @if (Model.Klient != null)
+                                {
+                                    @if (Model.Klient.Points >= usluga.Usluga.PunktyKoszt + WykorzystanePukty && usluga.Koszt > 0)
+                                    {
+                                        <a asp-action="DodajZaPunkt" asp-route-id="@usluga.WykonanaUslugaId"> +1 </a>
+                                    }
+                                    @if (usluga.IloscZaPunkty > 0)
+                                    {
+                                        <a asp-action="UsunZaPunkt" asp-route-id="@usluga.WykonanaUslugaId"> -1 </a>
+                                    }
+                                }
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div>
+            <a asp-action="Wystaw">Wystaw Rachunek</a> |
+            <a asp-action="Index">Wróć do listy rachunków</a>
+        </div>
+        </section>
+</div>
+
 <h2>Podsumowanie</h2>
 
 <div>
@@ -39,3 +153,4 @@
     <a asp-action="Wystaw" >Wystaw Rachunek</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+

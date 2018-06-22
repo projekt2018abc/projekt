@@ -13,7 +13,7 @@ namespace WebApplication6.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
-        [Display(Name = "Użytkownik zweryfikowany")]
+        [Display(Name = "Weryfikacja")]
         public bool UserConfirmed { get; set; }
 
         [Display(Name = "Pracownik")]

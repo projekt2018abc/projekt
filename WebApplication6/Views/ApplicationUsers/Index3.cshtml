@@ -4,19 +4,17 @@
     ViewData["Title"] = "Użytkownicy";
 }
 
-<h2>Użytkownicy</h2>
-<a asp-action="Index">Osoby fizyczne</a>
-<a asp-action="Index2">Firmy</a>
+<h2>Pracownicy</h2>
 @*<p>
     <a asp-action="Create">Utwórz nowego użytkownika</a>
 </p>*@
 
-<form asp-action="Index" method="get">
+<form asp-action="Index3" method="get">
     <div class="form-actions no-color">
         <p>
             Wyszukaj: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
             <input type="submit" value="Wyszukaj" class="btn btn-default" /> |
-            <a asp-action="Index">Powrót do pełnej listy</a>
+            <a asp-action="Index3">Powrót do pełnej listy</a>
         </p>
     </div>
 </form>
@@ -27,17 +25,17 @@
         <tr>
             <th>
                 @*@Html.DisplayNameFor(model => model.UserConfirmed)*@
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["UserConfSortParm"]">@Html.DisplayNameFor(model => model.UserConfirmed)</a>
+                <a asp-action="Index3" asp-route-sortOrder="@ViewData["UserConfSortParm"]">@Html.DisplayNameFor(model => model.PhoneNumber)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
                 @*@Html.DisplayNameFor(model => model.LastName)*@
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
+                <a asp-action="Index3" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmailSortParm"]">@Html.DisplayNameFor(model => model.Email)</a>
+                <a asp-action="Index3" asp-route-sortOrder="@ViewData["EmailSortParm"]">@Html.DisplayNameFor(model => model.Email)</a>
             </th>
 
             <th></th>
@@ -48,7 +46,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserConfirmed)
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstName)
@@ -60,12 +58,9 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                    <a asp-action="Edit3" asp-route-id="@item.Id">Zarządzaj</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
                 </td>>
-                <td>
-                    <a asp-action="Ver" asp-route-id="@item.Id">Weryfikuj</a>
-                </td>
             </tr>
         }
     </tbody>

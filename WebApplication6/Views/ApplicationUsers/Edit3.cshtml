@@ -4,13 +4,13 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edytuj</h2>
+<h2>Zarządzaj</h2>
 
-<h4>Użytkownik</h4>
+<h4>Pracownik</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
@@ -23,28 +23,6 @@
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Pesel" class="control-label"></label>
-                <input asp-for="Pesel" class="form-control" />
-                <span asp-validation-for="Pesel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nip" class="control-label"></label>
-                <input asp-for="Nip" class="form-control" />
-                <span asp-validation-for="Nip" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Regon" class="control-label"></label>
-                <input asp-for="Regon" class="form-control" />
-                <span asp-validation-for="Regon" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsNaturalPerson" /> @Html.DisplayNameFor(model => model.IsNaturalPerson)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
@@ -54,8 +32,6 @@
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            @if (User.IsInRole("Administrator"))
-            {
             <div class="form-group">
                 <div class="checkbox">
                     <label>
@@ -63,7 +39,6 @@
                     </label>
                 </div>
             </div>
-            }
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="SecurityStamp" />
         <input type="hidden" asp-for="ConcurrencyStamp" />
@@ -74,6 +49,10 @@
         <input type="hidden" asp-for="NormalizedEmail" />
         <input type="hidden" asp-for="PasswordHash" />
         <input type="hidden" asp-for="Points" />
+        <input type="hidden" asp-for="Pesel" />
+        <input type="hidden" asp-for="Nip" />
+        <input type="hidden" asp-for="Regon" />
+        <input type="hidden" asp-for="IsNaturalPerson" />
         <input type="hidden" asp-for="EmailConfirmed" />
         <input type="hidden" asp-for="PhoneNumberConfirmed" />
         <input type="hidden" asp-for="TwoFactorEnabled" />
@@ -88,7 +67,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Powrót do listy</a>
+    <a asp-action="Index3">Powrót do listy</a>
 </div>
 
 @section Scripts {

@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication6.Data;
 using WebApplication6.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjektZespolowy.Controllers
 {
     public class ApplicationUsersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ApplicationUsersController(ApplicationDbContext context)
+        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -24,7 +28,7 @@ namespace ProjektZespolowy.Controllers
         //{
         //    return View(await _context.ApplicationUser.ToListAsync());
         //}
-
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -33,8 +37,91 @@ namespace ProjektZespolowy.Controllers
             ViewData["CurrentFilter"] = searchString;
 
 
-            var users = from s in _context.Users
-                           select s;
+            var users = from s in _context.Users.Where(u => u.IsNaturalPerson == true && u.IsEmployee == false)
+                        select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(s => s.LastName.Contains(searchString)
+                                       || s.FirstName.Contains(searchString));
+            }
+
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    users = users.OrderByDescending(s => s.LastName);
+                    break;
+                case "email_desc":
+                    users = users.OrderByDescending(s => s.Email);
+                    break;
+                case "email":
+                    users = users.OrderBy(s => s.Email);
+                    break;
+                case "userConf":
+                    users = users.OrderBy(s => s.UserConfirmed);
+                    break;
+                case "userConf_desc":
+                    users = users.OrderByDescending(s => s.UserConfirmed);
+                    break;
+                default:
+                    users = users.OrderBy(s => s.LastName);
+                    break;
+            }
+            return View(await users.AsNoTracking().ToListAsync());
+        }
+
+        [Authorize(Roles = "Pracownik, Administrator")]
+        public async Task<IActionResult> Index2(string sortOrder, string searchString)
+        {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["EmailSortParm"] = sortOrder == "email" ? "email_desc" : "email";
+            ViewData["UserConfSortParm"] = sortOrder == "userConf" ? "userConf_desc" : "userConf";
+            ViewData["CurrentFilter"] = searchString;
+
+
+            var users = from s in _context.Users.Where(u => u.IsNaturalPerson==false)
+                        select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(s => s.CompanyName.Contains(searchString));
+            }
+
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    users = users.OrderByDescending(s => s.CompanyName);
+                    break;
+                case "email_desc":
+                    users = users.OrderByDescending(s => s.Email);
+                    break;
+                case "email":
+                    users = users.OrderBy(s => s.Email);
+                    break;
+                case "userConf":
+                    users = users.OrderBy(s => s.UserConfirmed);
+                    break;
+                case "userConf_desc":
+                    users = users.OrderByDescending(s => s.UserConfirmed);
+                    break;
+                default:
+                    users = users.OrderBy(s => s.CompanyName);
+                    break;
+            }
+            return View(await users.AsNoTracking().ToListAsync());
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Index3(string sortOrder, string searchString)
+        {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["EmailSortParm"] = sortOrder == "email" ? "email_desc" : "email";
+            ViewData["UserConfSortParm"] = sortOrder == "userConf" ? "userConf_desc" : "userConf";
+            ViewData["CurrentFilter"] = searchString;
+
+
+            var users = from s in _context.Users.Where(u => u.IsEmployee == true)
+                        select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 users = users.Where(s => s.LastName.Contains(searchString)
@@ -107,6 +194,7 @@ namespace ProjektZespolowy.Controllers
         }
 
         // GET: ApplicationUsers/Edit/5
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -123,7 +211,62 @@ namespace ProjektZespolowy.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("UserConfirmed,FirstName,LastName,Pesel,Nip,Regon,Points,IsNaturalPerson,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
+        [Authorize(Roles = "Pracownik, Administrator")]
+        public async Task<IActionResult> Edit(string id, [Bind("UserConfirmed,FirstName,LastName,CompanyName,Pesel,Nip,Regon,Points,IsNaturalPerson,IsEmployee,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
+        {
+            if (id != applicationUser.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(applicationUser);
+                    await _context.SaveChangesAsync();
+                    if (applicationUser.IsEmployee == true)
+                    {
+                        await _userManager.RemoveFromRoleAsync(applicationUser, "Uzytkownik");
+                        await _userManager.AddToRoleAsync(applicationUser, "Pracownik");
+                        await _userManager.UpdateAsync(applicationUser);
+                    }
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ApplicationUserExists(applicationUser.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(applicationUser);
+        }
+        // GET: ApplicationUsers/Edit/5
+        [Authorize(Roles = "Pracownik, Administrator")]
+        public async Task<IActionResult> Edit2(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationUser == null)
+            {
+                return NotFound();
+            }
+            return View(applicationUser);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Pracownik, Administrator")]
+        public async Task<IActionResult> Edit2(string id, [Bind("UserConfirmed,FirstName,LastName,CompanyName,Pesel,Nip,Regon,Points,IsNaturalPerson,IsEmployee,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
         {
             if (id != applicationUser.Id)
             {
@@ -148,11 +291,64 @@ namespace ProjektZespolowy.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index2));
             }
             return View(applicationUser);
         }
 
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Edit3(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationUser == null)
+            {
+                return NotFound();
+            }
+            return View(applicationUser);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Edit3(string id, [Bind("UserConfirmed,FirstName,LastName,CompanyName,Pesel,Nip,Regon,Points,IsNaturalPerson,IsEmployee,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
+        {
+            if (id != applicationUser.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(applicationUser);
+                    await _context.SaveChangesAsync();
+                    if (applicationUser.IsEmployee == false)
+                    {
+                        await _userManager.RemoveFromRoleAsync(applicationUser, "Pracownik");
+                        await _userManager.AddToRoleAsync(applicationUser, "Uzytkownik");
+                        await _userManager.UpdateAsync(applicationUser);
+                    }
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ApplicationUserExists(applicationUser.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index3));
+            }
+            return View(applicationUser);
+        }
 
         public async Task<IActionResult> Verify(string id)
         {
@@ -208,6 +404,7 @@ namespace ProjektZespolowy.Controllers
         }
 
         // GET: ApplicationUsers/Delete/5
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -228,6 +425,7 @@ namespace ProjektZespolowy.Controllers
         // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
@@ -242,7 +440,8 @@ namespace ProjektZespolowy.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Ver(string id, [Bind("UserConfirmed,FirstName,LastName,Pesel,Nip,Regon,Points,IsNaturalPerson,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
+        [Authorize(Roles = "Pracownik, Administrator")]
+        public async Task<IActionResult> Ver(string id, [Bind("UserConfirmed,FirstName,LastName,CompanyName,Pesel,Nip,Regon,Points,IsNaturalPerson,IsEmployee,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
         {
             if (id != applicationUser.Id)
             {
@@ -255,6 +454,18 @@ namespace ProjektZespolowy.Controllers
                 {
                     _context.Update(applicationUser);
                     await _context.SaveChangesAsync();
+                    if (applicationUser.UserConfirmed == true)
+                    {
+                        await _userManager.RemoveFromRoleAsync(applicationUser, "UzytkownikNiezweryfikowany");
+                        await _userManager.AddToRoleAsync(applicationUser, "Uzytkownik");
+                        await _userManager.UpdateAsync(applicationUser);
+                    }
+                    else
+                    {
+                        await _userManager.RemoveFromRoleAsync(applicationUser, "Uzytkownik");
+                        await _userManager.AddToRoleAsync(applicationUser, "UzytkownikNiezweryfikowany");
+                        await _userManager.UpdateAsync(applicationUser);
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -271,7 +482,69 @@ namespace ProjektZespolowy.Controllers
             }
             return View(applicationUser);
         }
+
+        [Authorize(Roles = "Pracownik, Administrator")]
         public async Task<IActionResult> Ver(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationUser == null)
+            {
+                return NotFound();
+            }
+            return View(applicationUser);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Pracownik, Administrator")]
+        public async Task<IActionResult> Ver2(string id, [Bind("UserConfirmed,FirstName,LastName,CompanyName,Pesel,Nip,Regon,Points,IsNaturalPerson,IsEmployee,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
+        {
+            if (id != applicationUser.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(applicationUser);
+                    await _context.SaveChangesAsync();
+                    if (applicationUser.UserConfirmed == true)
+                    {
+                        await _userManager.RemoveFromRoleAsync(applicationUser, "UzytkownikNiezweryfikowany");
+                        await _userManager.AddToRoleAsync(applicationUser, "Uzytkownik");
+                        await _userManager.UpdateAsync(applicationUser);
+                    }
+                    else
+                    {
+                        await _userManager.RemoveFromRoleAsync(applicationUser, "Uzytkownik");
+                        await _userManager.AddToRoleAsync(applicationUser, "UzytkownikNiezweryfikowany");
+                        await _userManager.UpdateAsync(applicationUser);
+                    }
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ApplicationUserExists(applicationUser.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index2));
+            }
+            return View(applicationUser);
+        }
+
+        [Authorize(Roles = "Pracownik, Administrator")]
+        public async Task<IActionResult> Ver2(string id)
         {
             if (id == null)
             {

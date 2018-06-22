@@ -19,6 +19,7 @@ namespace WebApplication6.Data
         public DbSet<WykonanaUsluga> WykonaneUslugi { get; set; }
         public DbSet<Rachunek> Rachunki { get; set; }
         public DbSet<Rezerwacja> Rezerwacje { get; set; }
+        public DbSet<Monitoring> Monitorings { get; set; }
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
 

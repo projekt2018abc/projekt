@@ -14,7 +14,11 @@ namespace ProjektZespolowy.Controllers
 {
     public class MonitoringController : Controller
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _context;
+        public MonitoringController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         // GET: Monitoring
         [Authorize(Roles = "Administrator, Pracownik, Monitoring")]
         public ActionResult Index()
@@ -22,11 +26,16 @@ namespace ProjektZespolowy.Controllers
             Random r = new Random();
             List<Monitoring> monity = new List<Monitoring>
             {
-                new Monitoring { Id = 1, Paliwo = "Pb 95", Cisnienie = r.Next(100,200)+r.NextDouble(), PoziomPaliwa = r.Next(0, 100) + r.NextDouble(), Data = DateTime.Now, Temperatura = r.Next(-10, 50) + r.NextDouble() },
-                new Monitoring { Id = 2, Paliwo = "Pb 98", Cisnienie = r.Next(100, 200) + r.NextDouble(), PoziomPaliwa = r.Next(0, 100) + r.NextDouble(), Data = DateTime.Now, Temperatura = r.Next(-10, 50) + r.NextDouble() },
-                new Monitoring { Id = 3, Paliwo = "ON", Cisnienie = r.Next(100, 200) + r.NextDouble(), PoziomPaliwa = r.Next(0, 100) + r.NextDouble(), Data = DateTime.Now, Temperatura = r.Next(-10, 50) + r.NextDouble() },
-                new Monitoring { Id = 4, Paliwo = "LPG", Cisnienie = r.Next(100, 200) + r.NextDouble(), PoziomPaliwa = r.Next(0, 100) + r.NextDouble(), Data = DateTime.Now, Temperatura = r.Next(-10, 50) + r.NextDouble() }
+                new Monitoring { Paliwo = "Pb 95", Cisnienie = r.Next(100,200)+r.NextDouble(), PoziomPaliwa = r.Next(0, 100) + r.NextDouble(), Data = DateTime.Now, Temperatura = r.Next(-10, 50) + r.NextDouble() },
+                new Monitoring {  Paliwo = "Pb 98", Cisnienie = r.Next(100, 200) + r.NextDouble(), PoziomPaliwa = r.Next(0, 100) + r.NextDouble(), Data = DateTime.Now, Temperatura = r.Next(-10, 50) + r.NextDouble() },
+                new Monitoring {  Paliwo = "ON", Cisnienie = r.Next(100, 200) + r.NextDouble(), PoziomPaliwa = r.Next(0, 100) + r.NextDouble(), Data = DateTime.Now, Temperatura = r.Next(-10, 50) + r.NextDouble() },
+                new Monitoring {  Paliwo = "LPG", Cisnienie = r.Next(100, 200) + r.NextDouble(), PoziomPaliwa = r.Next(0, 100) + r.NextDouble(), Data = DateTime.Now, Temperatura = r.Next(-10, 50) + r.NextDouble() }
             };
+            foreach (var item in monity)
+            {
+                _context.Monitorings.Add(item);
+                _context.SaveChanges();
+            }
             List<Powiadomienie> powiadomienia = new List<Powiadomienie>();
             foreach (var item in monity)
             {
@@ -67,7 +76,13 @@ namespace ProjektZespolowy.Controllers
             ViewBag.powiadomienia = powiadomienia.Select(x=>x.Nazwa);
             return View(monity);
         }
+        public ActionResult Show()
+        {
+            List<Monitoring> monity = _context.Monitorings.ToList();
+            return View(monity);
+        }
 
-       
+
+
     }
 }

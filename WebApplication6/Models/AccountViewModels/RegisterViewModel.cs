@@ -9,7 +9,7 @@ namespace WebApplication6.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Pole wymagane")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Wprowadz poprawny adres email")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -26,18 +26,16 @@ namespace WebApplication6.Models.AccountViewModels
         public string ConfirmPassword { get; set; }
 
         [RegularExpression(@"^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]+$", ErrorMessage = "Dozwolone tylko litery")]
-        [Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Imie")]
         public string FirstName { get; set; }
 
-        [RegularExpression(@"^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]+$", ErrorMessage = "Dozwolone tylko litery")]
+        [RegularExpression(@"^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ\s]+$", ErrorMessage = "Dozwolone tylko litery")]
         //[Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Nazwa Firmy")]
         public string CompanyName { get; set; }
 
         [RegularExpression(@"^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]+$", ErrorMessage = "Dozwolone tylko litery")]
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "Pole wymagane")]
         [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
 
