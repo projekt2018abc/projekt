@@ -33,7 +33,9 @@ namespace WebApplication6.Data
             {
                 //UserName = Configuration.GetSection("AppSettings")["UserEmail"],
                 UserName = Configuration.GetSection("UserSettings")["UserEmail"],
-                Email = Configuration.GetSection("UserSettings")["UserEmail"]
+                Email = Configuration.GetSection("UserSettings")["UserEmail"],
+                IsNaturalPerson = true,
+                IsEmployee = true,
             };
             string userPassword = Configuration.GetSection("UserSettings")["UserPassword"];
 
