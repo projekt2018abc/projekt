@@ -1,47 +1,53 @@
 ﻿@model IEnumerable<ProjektZespolowy.Models.RezerwcjaViewModels.RezerwacjaIndex>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Rezerwacje";
 }
 
-<h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.data)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Usluga)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.data)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usluga)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.RezerwacjaId  })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="content-wrapper">
+    <section class="uslugi">
+        <h2>Rezerwacje</h2>
+
+        <p>
+            <a asp-action="Create">Dodaj nową</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Data
+                    </th>
+                    <th>
+                        Nazwa użytkownika
+                    </th>
+                    <th>
+                        Usługa
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.data)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usluga)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edytuj", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Szczegóły", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Usuń", new { id = item.RezerwacjaId })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>
