@@ -3,13 +3,12 @@
     ViewData["Title"] = "Monitoring zbiorników paliwa";
 }
 
-
-<p>@Html.ActionLink("Dodaj nowego", "RegisterAsAdmin")</p>
+@Html.ActionLink("Wyświetl całą bazę", "Show")
 
 @foreach (var item in ViewBag.powiadomienia)
 {
     <h3 style="color:darkred">@item</h3>
- }
+}
 
 
 
