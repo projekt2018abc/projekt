@@ -59,17 +59,8 @@
             </form>
         </div>
         <br />
-        @*<div>
-                @Html.DisplayNameFor(model=>model.Paragon)
-            </div>
-            <div>
-                @foreach(var usluga in ViewBag.rachunek.Uslugi)
-                {
-                    @usluga.Typ;
-                }
-            </div>*@
         <div>
-            <table class="table-responsive">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Typ</th>
@@ -112,7 +103,10 @@
         </div>
         <br>
         <div>
-            <a asp-action="Wystaw">Wystaw Rachunek</a> |
+            <a asp-action="Wystaw">Wystaw Paragon</a>|
+
+            @Html.ActionLink("Wystaw Fakturę", "Faktura", "Rachunek", new { id = 0 }, new { target = "_blank" }) |
+
             <a asp-action="Index">Wróć do listy rachunków</a>
         </div>
         </section>

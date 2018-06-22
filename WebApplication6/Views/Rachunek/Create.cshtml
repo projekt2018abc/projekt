@@ -14,7 +14,7 @@
 
             <h2>Usługi na rachunku</h2>
             <div>
-                <table class="table-responsive">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>
@@ -66,16 +66,7 @@
 
                                         @*<td>Nie można wczytać wartości</td>*@
                                     }
-                                    @try
-                                    {
-
-                                        <td><center>@usluga.Stanowisko.Typ @usluga.Stanowisko.Numer</center></td>
-                                    }
-
-                                    catch (Exception)
-                                    {
-                                        @*<td>Nie można wczytać wartości</td>*@
-                                    }
+                                  
                                     <td>
                                         <div>
                                             @*@Html.ActionLink("DodajUsluge", "DodajUsluge")*@
@@ -92,7 +83,7 @@
             </div>
 
             <h2>Usługi do dodania</h2>
-            <table class="table-responsive">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>
@@ -144,16 +135,7 @@
 
                                     @*<td>Nie można wczytać wartości</td>*@
                                 }
-                                @try
-                                {
-
-                                    <td><center>@usluga.Stanowisko.Typ @usluga.Stanowisko.Numer</center></td>
-                                }
-
-                                catch (Exception)
-                                {
-                                    @*<td>Nie można wczytać wartości</td>*@
-                                }
+                                
                                 <td>
                                     <div>
                                         @*@Html.ActionLink("DodajUsluge", "DodajUsluge")*@

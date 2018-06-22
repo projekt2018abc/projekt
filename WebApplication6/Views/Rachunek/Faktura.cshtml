@@ -22,8 +22,10 @@
         <p>@NaszaPlacowka.adres.Ulica @NaszaPlacowka.adres.Numer_domu</p>
     </div>
     <div id="nabywcaPole">
-        <h3>Nabywca</h3>
-        @*@if (Model.Klient.IsNaturalPerson)
+        <h3>Nabywca:</h3>
+        @if (Model.Klient != null)
+        {
+        @if (Model.Klient.IsNaturalPerson)
         {
             <p>@Model.Klient.FirstName</p> <p>@Model.Klient.LastName</p>
             @if (Model.Klient.Nip != null)
@@ -41,13 +43,43 @@
             <p>@Model.Klient.CompanyName</p>
             <p>Regon:@Model.Klient.Regon</p>
             <p>NIP:@Model.Klient.Nip</p>
-        }*@
+        }
+        }
     </div>
     <div id="data">
-        @*@Model.Data*@
+        @Model.Data
     </div>
     <div id="towaryPole">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Typ</th>
+                    <th>Ilość</th>
+                    <th>Cena</th>
+                    <th>Wykorzystane punkty</th>
+                    <th>Suma</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var usluga in Model.Uslugi)
+                {
+                    <tr>
+                        <td>@usluga.Usluga.TypUslugi</td>
+                        <td>@usluga.Ilosc</td>
+                        <td>@(usluga.Ilosc * usluga.Usluga.Cena)</td>
+                        <td>@usluga.WykorzystanePunkty</td>
+                        <td>@usluga.Koszt PLN</td>
+                    </tr>
 
+                }
+                <tr>
+                    <th>SUMA:</th>
+                    <td>@Model.getCena()</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <div id="podpisSprzedawca">Podpis sprzedawcy</div>
+    <div id="podpisNabywca">Podpis nabywcy</div>
 </body>
 </html>
