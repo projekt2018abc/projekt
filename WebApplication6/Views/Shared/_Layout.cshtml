@@ -44,13 +44,25 @@
                     <li><a asp-area="" asp-controller="Rezerwacja" asp-action="Index">Rezerwacje</a></li>
 
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact2">Kontakt</a></li>
-                    @if (User.IsInRole("Administrator"))
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Wlasciciel"))
+                    {
+
+                        <li><a asp-area="" asp-controller="ApplicationUsers" asp-action="Index3">Pracownicy</a></li>
+
+
+
+                    }
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Pracownik") || User.IsInRole("Wlasciciel") || User.IsInRole("Monitoring"))
                     {
                         <li><a asp-area="" asp-controller="ApplicationUsers" asp-action="Index">Użytkownicy</a></li>
-                        <li><a asp-area="" asp-controller="ApplicationUsers" asp-action="Index3">Pracownicy</a></li>
                         <li><a asp-area="" asp-controller="Rachunek" asp-action="Index">Rachunki</a></li>
-                        <li><a asp-area="" asp-controller="Monitoring" asp-action="Index">Monitoring</a></li>
                         <li><a asp-area="" asp-controller="Account" asp-action="ShowUsers">Użytkownicy</a></li>
+
+                    }
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Monitoring") || User.IsInRole("Wlasciciel"))
+                    {
+
+                        <li><a asp-area="" asp-controller="Monitoring" asp-action="Index">Monitoring</a></li>
                     }
 
                 </ul>
