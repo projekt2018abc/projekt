@@ -51,9 +51,15 @@
         color: #292929;
     }
 
-#mapaGoogle {
+.mapaGoogle {
     width: 100%;
     height: 300px;
+}
+
+.content-wrapper .mapaGoogle {
+    max-width: 600px;
+    height: 350px;
+    margin:0 auto;
 }
 
 footer p{
@@ -196,4 +202,9 @@ footer p{
 
 .do-weryfikacji .table tbody tr a{
     color: #333;
+}
+
+.kontakt address {
+    display: block;
+    text-align: center;
 }
