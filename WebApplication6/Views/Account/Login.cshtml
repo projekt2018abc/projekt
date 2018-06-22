@@ -13,42 +13,44 @@
 
 
 <section class="register">
-    <h2>@ViewData["Title"]</h2>
-    <div class="register-wrapper">
-        <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-            <h4>Zaloguj się</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label asp-for="RememberMe">
-                        <input asp-for="RememberMe" />
-                        @Html.DisplayName("Zapamiętaj mnie")
-                    </label>
+    <div class="content-wrapper">
+        <h2>@ViewData["Title"]</h2>
+        <div class="register-wrapper">
+            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                <h4>Zaloguj się</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-default">Zaloguj</button>
-            </div>
-            <div class="form-group">
-                <p>
-                    <a asp-action="ForgotPassword">Nie pamiętasz hasła?</a>
-                </p>
-                <p>
-                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Zarejestruj się</a>
-                </p>
-            </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="RememberMe">
+                            <input asp-for="RememberMe" />
+                            @Html.DisplayName("Zapamiętaj mnie")
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">Zaloguj</button>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a asp-action="ForgotPassword">Nie pamiętasz hasła?</a>
+                    </p>
+                    <p>
+                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Zarejestruj się</a>
+                    </p>
+                </div>
+            </form>
+        </div>
     </div>
 </section>
 
