@@ -157,3 +157,21 @@ footer p{
 .uslugi .two-columns td {
         text-align: center;
 }
+
+#rachunek-podsumowanie{
+    text-align:center;
+}
+
+#rachunek-podsumowanie .table-responsive{
+    margin:auto;
+    overflow-x:auto;
+}
+
+#rachunek-podsumowanie .dl-horizontal{
+    max-width:400px;
+    margin:0 auto;
+}
+
+#paragon-info{
+    text-align: center;
+}

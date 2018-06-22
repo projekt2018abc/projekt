@@ -5,9 +5,12 @@
     ViewData["Title"] = "Paragon";
 }
 
-<h2>Paragon</h2>
-
-<div>
-    @Html.Raw(ViewBag.rachunek.ParagonToHtml())
-</div>
-
+<div class="register">
+    <section class="register-wrapper">
+        <h2>Paragon</h2>
+        <hr />
+        <div id="paragon-info">
+            @Html.Raw(ViewBag.rachunek.ParagonToHtml())
+        </div>
+        </section>
+    </div>

@@ -1,15 +1,15 @@
 ﻿@model ProjektZespolowy.Models.MyModels.Rachunek
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Tworzenie rachunku";
 }
 
-<h2>Create</h2>
+<div class="register">
+    <section class="register-wrapper">
+        <h2>Tworzenie rachunku</h2>
 
-<h4>Rachunek</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+        <hr />
+
         <form asp-action="Create">
 
             <h2>Usługi na rachunku</h2>
@@ -167,15 +167,14 @@
 
                 </tbody>
             </table>
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Dodaj" class="btn btn-default" />
         </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <div>
+            <a asp-action="Index">Wróć do listy rachunków</a>
+        </div>
+    </section>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
