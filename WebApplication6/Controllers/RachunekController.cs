@@ -239,6 +239,21 @@ namespace ProjektZespolowy.Controllers
             return Paragon();
         }
 
+        public async Task<IActionResult> WystawF()
+        {
+            rachunek.zatwierdzRachunek(false);
+
+            if (rachunek.Klient != null)
+                _context.UpdateRange(rachunek, rachunek.Klient);
+            else
+                _context.Update(rachunek);
+
+            _context.SaveChanges();
+            Temp.rachunek = null;
+            ViewBag.rachunek = rachunek;
+            return RedirectToPage(nameof(Faktura));
+        }
+
         private IActionResult Paragon()
         {
             return View();
@@ -246,7 +261,8 @@ namespace ProjektZespolowy.Controllers
 
         public async Task<IActionResult> Faktura()
         {
-            return View();
+            rachunek.Data = System.DateTime.Now;
+            return View(rachunek);
         }
 
         private bool RachunekExists(int id)

@@ -59,17 +59,8 @@
             </form>
         </div>
         <br />
-        @*<div>
-                @Html.DisplayNameFor(model=>model.Paragon)
-            </div>
-            <div>
-                @foreach(var usluga in ViewBag.rachunek.Uslugi)
-                {
-                    @usluga.Typ;
-                }
-            </div>*@
         <div>
-            <table class="table-responsive">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Typ</th>
@@ -112,45 +103,11 @@
         </div>
         <br>
         <div>
-            <a asp-action="Wystaw">Wystaw Rachunek</a> |
+            <a asp-action="Wystaw">Wystaw Paragon</a>|
+
+            @Html.ActionLink("Wystaw Fakturę", "Faktura", "Rachunek", new { id = 0 }, new { target = "_blank" }) |
+
             <a asp-action="Index">Wróć do listy rachunków</a>
         </div>
         </section>
 </div>
-
-<h2>Podsumowanie</h2>
-
-<div>
-    <h4>Rachunek</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Data)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Data)
-        </dd>
-        <dt>
-            Cena
-        </dt>
-        <dd>
-            @Model.getCena()
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Klient)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Klient.Email)
-        </dd>
-    </dl>
-    <form asp-action="SzukajKlient">
-        <div><input id="userMail" name="userMail" /></div>
-        <input type="submit" value="SzukajKlient" class="btn btn-default" />
-    </form>
-</div>
-
-<div>
-    <a asp-action="Wystaw" >Wystaw Rachunek</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-

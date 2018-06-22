@@ -18,4 +18,18 @@ div {
 }
 #nabywcaPole{
     float:left;
+    min-height:10em;
+    min-width:5em;
+}
+#towaryPole{
+    min-width:inherit;
+    clear:both;
+}
+#podpisSprzedawca{
+    height:5em;
+    float:left
+}
+#podpisNabywca {
+    height: 5em;
+    float:right;
 }
