@@ -3,12 +3,12 @@
     ViewData["Title"] = "RegisterAsAdmin";
 }
 
-<h2>@ViewData["Title"]</h2>
 
-<div class="row">
-    <div class="col-md-4">
+
+<div class="register">
+    <section class="register-wrapper">
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-            <h4>Create a new account.</h4>
+            <h2>Utwórz konto</h2>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -36,9 +36,9 @@
                 <input asp-for="SelectedRole" type="radio" value=4 /><b>Wlasciciel</b>
                 <span asp-validation-for="SelectedRole" class="radio"></span>
             </div>
-            <button type="submit" class="btn btn-default">Register</button>
+            <button type="submit" class="btn btn-default">Zarejestruj</button>
         </form>
-    </div>
+    </section>
 </div>
 
 @section Scripts {

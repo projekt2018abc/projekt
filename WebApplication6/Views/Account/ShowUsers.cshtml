@@ -3,47 +3,52 @@
     ViewData["Title"] = "Użytkownicy";
 }
 
-<h2>ShowUsers</h2>
-<p>W bazie znajduje sie @Model.Count() Userów</p>
 
-<p>@Html.ActionLink("Dodaj nowego", "RegisterAsAdmin")</p>
+<div class="content-wrapper">
+    <section class="uslugi">
+        <h2>Wszyscy użytkownicy</h2>
+        <p>W bazie znajduje sie @Model.Count() Userów</p>
 
-
-    <table style="width:100%;">
-        <tr>
-            <th>
-                Username
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Czy aktywny
-            </th>
-
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserConfirmed)
-            </td>
+        <p>@Html.ActionLink("Dodaj nowego", "RegisterAsAdmin")</p>
 
 
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("DeleteUser", "DeleteUser", new { id = item.Id })
-            </td>
-        </tr>
-        }
-    </table>
+        <table class="table" style="width:100%;">
+            <tr>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Czy aktywny
+                </th>
+
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserConfirmed)
+                    </td>
 
 
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("DeleteUser", "DeleteUser", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </table>
+
+
+    </section>
+</div>
