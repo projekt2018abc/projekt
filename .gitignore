@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/WebApplication6/Migrations/20180622095353_cosiedzje2.cs
+/WebApplication6/Migrations/20180622095353_cosiedzje2.Designer.cs

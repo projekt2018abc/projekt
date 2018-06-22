@@ -10,6 +10,10 @@ div {
     border-color: black;
     padding:5px;
 }
+#container{
+    max-width:70em;
+    min-height:80em;
+}
 #sprzedajacyPole {
     float: left;
 }
@@ -19,7 +23,7 @@ div {
 #nabywcaPole{
     float:left;
     min-height:10em;
-    min-width:5em;
+    min-width:7em;
 }
 #towaryPole{
     min-width:inherit;
@@ -27,9 +31,9 @@ div {
 }
 #podpisSprzedawca{
     height:5em;
-    float:left
+    float:left;
 }
 #podpisNabywca {
     height: 5em;
-    float:right;
+    float: right;
 }
