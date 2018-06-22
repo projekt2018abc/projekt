@@ -181,7 +181,8 @@ footer p{
     text-align: center;
 }
 
-.wykonane-uslugi .table{
+.wykonane-uslugi .table,
+.monitoring .table{
     font-size: 12px;
 }
 

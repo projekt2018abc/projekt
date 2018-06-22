@@ -3,63 +3,68 @@
     ViewData["Title"] = "Monitoring zbiorników paliwa";
 }
 
-@Html.ActionLink("Wyświetl całą bazę", "Show")
+<div class="content-wrapper">
+    <section class="uslugi monitoring">
 
-@foreach (var item in ViewBag.powiadomienia)
-{
-    <h3 style="color:darkred">@item</h3>
-}
+        @Html.ActionLink("Wyświetl całą bazę", "Show")
 
-
-
-<table style="width:100%;">
-    <tr>
-        <th>
-            Nazwa paliwa
-        </th>
-        <th>
-            Poziom paliwa w zbiorniku
-        </th>
-        <th>
-            Ciśnienie
-        </th>
-        <th>
-            Temperatura
-        </th>
-        <th>
-            Data
-        </th>
+        @foreach (var item in ViewBag.powiadomienia)
+        {
+            <h3 style="color:darkred">@item</h3>
+        }
 
 
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Paliwo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PoziomPaliwa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cisnienie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Temperatura)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Data)
-            </td>
+
+        <table class="table" style="width:100%;">
+            <tr>
+                <th>
+                    Nazwa paliwa
+                </th>
+                <th>
+                    Poziom paliwa w zbiorniku
+                </th>
+                <th>
+                    Ciśnienie
+                </th>
+                <th>
+                    Temperatura
+                </th>
+                <th>
+                    Data
+                </th>
 
 
-            @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("DeleteUser", "DeleteUser", new { id = item.Id })
-                </td>*@
-        </tr>
-    }
-</table>
+                @*<th></th>*@
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Paliwo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PoziomPaliwa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cisnienie)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Temperatura)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Data)
+                    </td>
 
 
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("DeleteUser", "DeleteUser", new { id = item.Id })
+                        </td>*@
+                </tr>
+            }
+        </table>
+
+
+    </section>
+</div>

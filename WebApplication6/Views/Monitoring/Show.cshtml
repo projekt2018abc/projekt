@@ -4,50 +4,55 @@
     ViewData["Title"] = "Show";
 }
 
-<h2>Show</h2>
 
+<div class="content-wrapper">
+    <h2>Monitoring</h2>
+    <section class="uslugi monitoring">
 
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.PoziomPaliwa)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cisnienie)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Temperatura)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Paliwo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Data)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PoziomPaliwa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cisnienie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Temperatura)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Paliwo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Data)
-            </td>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PoziomPaliwa)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cisnienie)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Temperatura)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paliwo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Data)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PoziomPaliwa)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cisnienie)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Temperatura)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Paliwo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Data)
+                        </td>
 
-        </tr>
-}
-    </tbody>
-</table>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>
