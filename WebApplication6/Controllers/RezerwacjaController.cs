@@ -71,7 +71,7 @@ namespace ProjektZespolowy.Controllers
         // GET: Rezerwacja/Create
         public ActionResult Create()
         {
-            var myjnie = _context.Uslugi.ToList();
+            var myjnie = _context.Uslugi.Where(u=>u.TypUslugi== "mycie standardowe"||u.TypUslugi== "mycie woskowanie").ToList();
             ViewBag.myjnie = new SelectList(myjnie, "TypUslugi","TypUslugi");
             return View();
         }
