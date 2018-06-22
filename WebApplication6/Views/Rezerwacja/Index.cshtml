@@ -49,7 +49,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Usluga)
                     </td>
-                    @if (User.IsInRole("Administrator"))
+                    @if (User.IsInRole("Administrator")||User.IsInRole("Pracownik"))
                     {
                         <td>
                             @Html.ActionLink("Edit", "Edytuj", new { /* id=item.PrimaryKey */ }) |
