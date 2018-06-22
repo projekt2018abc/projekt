@@ -1,81 +1,79 @@
 ﻿@model ProjektZespolowy.Models.MyModels.WykonanaUsluga
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Dodawanie usługi";
 }
 
-<h2>Create</h2>
+<div class="register">
+    <section class="register-wrapper">
+        <h2>Dodawanie usługi</h2>
+        <hr />
 
-<h4>WykonanaUsluga</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Ilosc" class="control-label"></label>
+                <label asp-for="Ilosc" class="control-label">Ilość</label>
                 <input asp-for="Ilosc" class="form-control" />
                 <span asp-validation-for="Ilosc" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="IloscZaPunkty" class="control-label"></label>
-                <input asp-for="IloscZaPunkty" class="form-control" />
-                <span asp-validation-for="IloscZaPunkty" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="IloscZaPunkty" class="control-label"></label>
+                    <input asp-for="IloscZaPunkty" class="form-control" />
+                    <span asp-validation-for="IloscZaPunkty" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
-                <label asp-for="Data" class="control-label"></label>
+                <label asp-for="Data" class="control-label">Data</label>
                 <input asp-for="Data" class="form-control" />
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="Koszt" class="control-label"></label>
-                <input asp-for="Koszt" class="form-control" />
-                <span asp-validation-for="Koszt" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="Koszt" class="control-label"></label>
+                    <input asp-for="Koszt" class="form-control" />
+                    <span asp-validation-for="Koszt" class="text-danger"></span>
+                </div>*@
             @*<div class="form-group">
-                <label asp-for="WykorzystanePunkty" class="control-label"></label>
-                <input asp-for="WykorzystanePunkty" class="form-control" />
-                <span asp-validation-for="WykorzystanePunkty" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="WykorzystanePunkty" class="control-label"></label>
+                    <input asp-for="WykorzystanePunkty" class="form-control" />
+                    <span asp-validation-for="WykorzystanePunkty" class="text-danger"></span>
+                </div>*@
             @*<div class="form-group">
-                <label asp-for="DodanePunkty" class="control-label"></label>
-                <input asp-for="DodanePunkty" class="form-control" />
-                <span asp-validation-for="DodanePunkty" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="DodanePunkty" class="control-label"></label>
+                    <input asp-for="DodanePunkty" class="form-control" />
+                    <span asp-validation-for="DodanePunkty" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="Zaksiegowano" /> @Html.DisplayNameFor(model => model.Zaksiegowano)
+                        <input asp-for="Zaksiegowano" /> Zaksięgowano
                     </label>
                 </div>
             </div>
             <div>
-                <select id="selectedId" name="selectedId" asp-items="@(new SelectList(ViewBag.Uslugi, "UslugaId", "TypUslugi"))">
-                </select>
+                <select id="selectedId" name="selectedId" asp-items="@(new SelectList(ViewBag.Uslugi, "UslugaId", "TypUslugi"))"></select>
 
 
                 @*<select>
-            @if (ViewBag.Uslugi != null)
-            {
-                foreach (var usluga in ViewBag.Uslugi)
-                {
-                    <option value=@usluga.UslugaId>@usluga.TypUslugi</option>
-                }
-            }
-        </select>*@
+                        @if (ViewBag.Uslugi != null)
+                        {
+                            foreach (var usluga in ViewBag.Uslugi)
+                            {
+                                <option value=@usluga.UslugaId>@usluga.TypUslugi</option>
+                            }
+                        }
+                    </select>*@
             </div>
 
-            
 
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Dodaj" class="btn btn-default" />
             </div>
         </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <div>
+            <a asp-action="Index">Wróć do listy wykonanych usług</a>
+        </div>
+    </section>
 </div>
 
 @section Scripts {

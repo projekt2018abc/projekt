@@ -91,6 +91,11 @@ footer p{
     text-align: center;
 }
 
+.register-wrapper .dl-horizontal{
+    max-width: 400px;
+    margin:0 auto;
+}
+
 .hidden-field{
     display:none;
 }
@@ -174,4 +179,8 @@ footer p{
 
 #paragon-info{
     text-align: center;
+}
+
+.wykonane-uslugi .table{
+    font-size: 12px;
 }

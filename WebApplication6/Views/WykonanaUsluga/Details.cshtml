@@ -1,60 +1,66 @@
 ﻿@model ProjektZespolowy.Models.MyModels.WykonanaUsluga
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Szczegóły wykonanej usługi";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>WykonanaUsluga</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Ilosc)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ilosc)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IloscZaPunkty)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IloscZaPunkty)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Data)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Data)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Koszt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Koszt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WykorzystanePunkty)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WykorzystanePunkty)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DodanePunkty)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DodanePunkty)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Zaksiegowano)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Zaksiegowano)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.WykonanaUslugaId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="register">
+    <section class="register-wrapper">
+        <h2>Szczegóły</h2>
+
+        <div>
+            <h4>Wykonana Usługa</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    Ilość:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Ilosc)
+                </dd>
+                <dt>
+                    Ilość za punkty:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.IloscZaPunkty)
+                </dd>
+                <dt>
+                    Data:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Data)
+                </dd>
+                <dt>
+                    Koszt:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Koszt)
+                </dd>
+                <dt>
+                    Wykorzystane punkty:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.WykorzystanePunkty)
+                </dd>
+                <dt>
+                    Dodane punkty:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DodanePunkty)
+                </dd>
+                <dt>
+                    Zaksięgowano:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Zaksiegowano)
+                </dd>
+            </dl>
+        </div>
+        <br />
+        <div class="details-bottom-nav">
+            <a asp-action="Edit" asp-route-id="@Model.WykonanaUslugaId">Edytuj</a> |
+            <a asp-action="Index">Wróć do listy wykonanych usług</a>
+        </div>
+    </section>
 </div>
