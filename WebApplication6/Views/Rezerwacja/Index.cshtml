@@ -18,34 +18,46 @@
                     <th>
                         Data
                     </th>
-                    <th>
-                        Nazwa użytkownika
-                    </th>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <th>
+                            Nazwa użytkownika
+                        </th>
+                    }
                     <th>
                         Usługa
                     </th>
-                    <th></th>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <th></th>
+                    }
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.data)
-                        </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.data)
+                    </td>
+                    @if (User.IsInRole("Administrator"))
+                    {
                         <td>
                             @Html.DisplayFor(modelItem => item.UserName)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Usluga)
-                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Usluga)
+                    </td>
+                    @if (User.IsInRole("Administrator"))
+                    {
                         <td>
                             @Html.ActionLink("Edit", "Edytuj", new { /* id=item.PrimaryKey */ }) |
                             @Html.ActionLink("Details", "Szczegóły", new { /* id=item.PrimaryKey */ }) |
                             @Html.ActionLink("Delete", "Usuń", new { id = item.RezerwacjaId })
                         </td>
-                    </tr>
+                    }
+                </tr>
                 }
             </tbody>
         </table>

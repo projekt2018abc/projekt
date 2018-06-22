@@ -12,6 +12,8 @@
         <p>
             <a asp-action="Create">Dodaj nową</a>
         </p>
+        @if (User.IsInRole("Administrator"))
+        {
         <table class="table">
             <thead>
                 <tr>
@@ -73,5 +75,6 @@
                 }
             </tbody>
         </table>
+        }
     </section>
 </div>
