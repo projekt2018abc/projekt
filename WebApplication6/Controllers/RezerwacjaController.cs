@@ -9,6 +9,9 @@ using WebApplication6.Data;
 using WebApplication6.Models;
 using ProjektZespolowy.Models.RezerwcjaViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ProjektZespolowy.Controllers
 {
@@ -21,17 +24,38 @@ namespace ProjektZespolowy.Controllers
             _context = context;
         }
         // GET: Rezerwacja
+        [Authorize(Roles = "Administrator, Pracownik, Uzytkownik, UzytkownikNiezweryfikowany,Indywidualne, Firma, Wlasciciel, Monitoring")]
         public ActionResult Index()
         {
-            List<RezerwacjaIndex> rezerwacje = new List<RezerwacjaIndex>();
+
             var wszystkieRezerwacje = _context.Rezerwacje.ToList();
+            List<RezerwacjaIndex> rezerwacje = new List<RezerwacjaIndex>();
+            if (User.Identity.IsAuthenticated)
+            {
+                wszystkieRezerwacje.Clear();
+                wszystkieRezerwacje = _context.Rezerwacje.
+                   Where(x => x.KlientId == _context.ApplicationUser.
+                   Where(y => y.UserName == User.Identity.Name).
+                   Select(y => y.Id).First()).
+                   ToList();
+            }
+            else
+                return RedirectToAction("Index", "Home");
+            if (User.IsInRole("Administrator"))
+            {
+                 wszystkieRezerwacje = _context.Rezerwacje.ToList();
+            }
+            if (User.Identity.Name == null)
+                wszystkieRezerwacje.Clear();
+            
+            
             foreach (var item in wszystkieRezerwacje)
             {
                 rezerwacje.Add(new RezerwacjaIndex
                 {
                     data = item.Date,
                     UserName = _context.ApplicationUser.Where(x => x.Id == item.KlientId).Select(y => y.UserName).FirstOrDefault(),
-                    Usluga = item.usluga.TypUslugi,
+                    Usluga = item.usluga,
                     RezerwacjaId = item.RezerwacjaId
                 });
             }
@@ -55,12 +79,25 @@ namespace ProjektZespolowy.Controllers
         // POST: Rezerwacja/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection, Rezerwacja rezerwacja)
+        public ActionResult Create(IFormCollection collection, Rezerwacja rezerwacja,string myjnie)
         {
             try
             {
+                var testy = _context.Rezerwacje.ToList();
+                foreach (var item in testy)
+                {
+                    if (item.Date == rezerwacja.Date)
+                    {
+                        ViewBag.blad = "Data zarezerwowana";
+                        var x = _context.Uslugi.ToList();
+                        ViewBag.myjnie = new SelectList(x, "TypUslugi", "TypUslugi");
+                        return View();
+                    }
+                    
+                }
+                var usluga = _context.Uslugi.Where(x => x.TypUslugi == myjnie).FirstOrDefault();
                 var nowy = _context.ApplicationUser.Where(x=>x.UserName == User.Identity.Name).FirstOrDefault();
-                Rezerwacja nowa = new Rezerwacja { Date = rezerwacja.Date, usluga = rezerwacja.usluga, KlientId = nowy.Id };
+                Rezerwacja nowa = new Rezerwacja { Date = rezerwacja.Date, usluga = myjnie, KlientId = nowy.Id };
                 _context.Rezerwacje.Add(nowa);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
