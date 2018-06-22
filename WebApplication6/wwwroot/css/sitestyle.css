@@ -50,6 +50,7 @@
         margin: 0 auto;
         font-size: 30px;
         color: #292929;
+        min-height:100vh;
     }
 
 .mapaGoogle {
