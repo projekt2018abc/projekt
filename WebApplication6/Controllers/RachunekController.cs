@@ -217,6 +217,11 @@ namespace ProjektZespolowy.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Faktura()
+        {
+            return View();
+        }
+
         private bool RachunekExists(int id)
         {
             return _context.Rachunki.Any(e => e.RachunekId == id);

@@ -1,0 +1,53 @@
+﻿@model ProjektZespolowy.Models.MyModels.Rachunek
+@using ProjektZespolowy.Models.MyModels
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="@Url.Content("~/css/FakturaStyle.css")" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Faktura</title>
+</head>
+<body>
+    <div id="sprzedajacyPole">
+        <h3>Sprzedający:</h3>
+        <h4>Stacja Paliw SBP</h4>
+        <p>@NaszaPlacowka.adres.Miejscowosc @NaszaPlacowka.adres.Kod_pocztowy</p>
+        <p>@NaszaPlacowka.adres.Ulica @NaszaPlacowka.adres.Numer_domu</p>
+    </div>
+    <div id="nabywcaPole">
+        <h3>Nabywca</h3>
+        @*@if (Model.Klient.IsNaturalPerson)
+        {
+            <p>@Model.Klient.FirstName</p> <p>@Model.Klient.LastName</p>
+            @if (Model.Klient.Nip != null)
+            {
+                <p>NIP:@Model.Klient.Nip</p>
+            }
+            if (Model.Klient.Pesel != null)
+            {
+                <p>PESEL:@Model.Klient.Pesel</p>
+
+            }
+        }
+        else
+        {
+            <p>@Model.Klient.CompanyName</p>
+            <p>Regon:@Model.Klient.Regon</p>
+            <p>NIP:@Model.Klient.Nip</p>
+        }*@
+    </div>
+    <div id="data">
+        @*@Model.Data*@
+    </div>
+    <div id="towaryPole">
+
+    </div>
+</body>
+</html>
