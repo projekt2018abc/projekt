@@ -184,3 +184,15 @@ footer p{
 .wykonane-uslugi .table{
     font-size: 12px;
 }
+
+.do-weryfikacji a{
+    margin-right:25px;
+}
+.do-weryfikacji .table a {
+    margin-right: 0px;
+    color: #f2e6b6;
+}
+
+.do-weryfikacji .table tbody tr a{
+    color: #333;
+}

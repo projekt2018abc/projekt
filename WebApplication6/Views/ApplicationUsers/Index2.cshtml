@@ -1,66 +1,70 @@
 ﻿@model IEnumerable<WebApplication6.Models.ApplicationUser>
 
 @{
-    ViewData["Title"] = "Użytkownicy";
+    ViewData["Title"] = "Firmy";
 }
+<div class="content-wrapper">
+    <section class="uslugi do-weryfikacji">
 
-<h2>Użytkownicy</h2>
-<a asp-action="Index">Osoby fizyczne</a>
-<a asp-action="Index2">Firmy</a>
-@*<p>
-        <a asp-action="Create">Utwórz nowego użytkownika</a>
-    </p>*@
+        <h2>Firmy</h2>
+        <a asp-action="Index">Osoby fizyczne</a>
+        <a asp-action="Index2">Firmy</a>
+        @*<p>
+                <a asp-action="Create">Utwórz nowego użytkownika</a>
+            </p>*@
 
-<form asp-action="Index2" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Wyszukaj: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Wyszukaj" class="btn btn-default" /> |
-            <a asp-action="Index2">Powrót do pełnej listy</a>
-        </p>
-    </div>
-</form>
+        <form asp-action="Index2" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Wyszukaj: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                    <input type="submit" value="Wyszukaj" class="btn btn-default" /> |
+                    <a asp-action="Index2">Powrót do pełnej listy</a>
+                </p>
+            </div>
+        </form>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @*@Html.DisplayNameFor(model => model.UserConfirmed)*@
-                <a asp-action="Index2" asp-route-sortOrder="@ViewData["UserConfSortParm"]">@Html.DisplayNameFor(model => model.UserConfirmed)</a>
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.LastName)*@
-                <a asp-action="Index2" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.CompanyName)</a>
-            </th>
-            <th>
-                <a asp-action="Index2" asp-route-sortOrder="@ViewData["EmailSortParm"]">@Html.DisplayNameFor(model => model.Email)</a>
-            </th>
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserConfirmed)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    <a asp-action="Edit2" asp-route-id="@item.Id">Edytuj</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
-                </td>>
-                <td>
-                    <a asp-action="Ver2" asp-route-id="@item.Id">Weryfikuj</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.UserConfirmed)*@
+                        <a asp-action="Index2" asp-route-sortOrder="@ViewData["UserConfSortParm"]">Weryfikacja</a>
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.LastName)*@
+                        <a asp-action="Index2" asp-route-sortOrder="@ViewData["NameSortParm"]">Nazwa firmy</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index2" asp-route-sortOrder="@ViewData["EmailSortParm"]">Email</a>
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserConfirmed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            <a asp-action="Edit2" asp-route-id="@item.Id">Edytuj</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                        </td>>
+                        <td>
+                            <a asp-action="Ver2" asp-route-id="@item.Id">Weryfikuj</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>

@@ -4,69 +4,75 @@
     ViewData["Title"] = "Użytkownicy";
 }
 
-<h2>Użytkownicy</h2>
-<a asp-action="Index">Osoby fizyczne</a>
-<a asp-action="Index2">Firmy</a>
-@*<p>
-    <a asp-action="Create">Utwórz nowego użytkownika</a>
-</p>*@
+<div class="content-wrapper">
+    <section class="uslugi do-weryfikacji">
 
-<form asp-action="Index" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Wyszukaj: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Wyszukaj" class="btn btn-default" /> |
-            <a asp-action="Index">Powrót do pełnej listy</a>
-        </p>
-    </div>
-</form>
+        <h2>Użytkownicy</h2>
+        <a asp-action="Index">Osoby fizyczne</a>
+        <a asp-action="Index2">Firmy</a>
+        @*<p>
+                <a asp-action="Create">Utwórz nowego użytkownika</a>
+            </p>*@
+
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Wyszukaj: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                    <input type="submit" value="Wyszukaj" class="btn btn-default" /> |
+                    <a asp-action="Index">Powrót do pełnej listy</a>
+                </p>
+            </div>
+        </form>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @*@Html.DisplayNameFor(model => model.UserConfirmed)*@
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["UserConfSortParm"]">@Html.DisplayNameFor(model => model.UserConfirmed)</a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.LastName)*@
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmailSortParm"]">@Html.DisplayNameFor(model => model.Email)</a>
-            </th>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.UserConfirmed)*@
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["UserConfSortParm"]">Weryfikacja</a>
+                    </th>
+                    <th>
+                        Imię
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.LastName)*@
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Nazwisko</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["EmailSortParm"]">Email</a>
+                    </th>
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserConfirmed)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
-                </td>>
-                <td>
-                    <a asp-action="Ver" asp-route-id="@item.Id">Weryfikuj</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserConfirmed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                        </td>>
+                        <td>
+                            <a asp-action="Ver" asp-route-id="@item.Id">Weryfikuj</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>
