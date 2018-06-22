@@ -55,7 +55,7 @@
                         <input asp-for="PhoneNumber" class="form-control" />
                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
-                    @if (User.IsInRole("Administrator"))
+                    @if (User.IsInRole("Administrator")||User.IsInRole("Wlasciciel"))
                     {
                         <div class="form-group">
                             <div class="checkbox">

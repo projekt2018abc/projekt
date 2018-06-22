@@ -12,7 +12,7 @@
         <p>
             <a asp-action="Create">Dodaj nową</a>
         </p>
-        @if (User.IsInRole("Administrator"))
+        @if (User.IsInRole("Administrator")||User.IsInRole("Pracownik")||User.IsInRole("Wlasciciel")||User.IsInRole("Monitoring"))
         {
         <table class="table">
             <thead>

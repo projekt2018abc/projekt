@@ -41,13 +41,13 @@
                     <input asp-for="DodanePunkty" class="form-control" />
                     <span asp-validation-for="DodanePunkty" class="text-danger"></span>
                 </div>*@
-            <div class="form-group">
+            @*<div class="form-group">
                 <div class="checkbox">
                     <label>
                         <input asp-for="Zaksiegowano" /> Zaksięgowano
                     </label>
                 </div>
-            </div>
+            </div>*@
             <div>
                 <select id="selectedId" name="selectedId" asp-items="@(new SelectList(ViewBag.Uslugi, "UslugaId", "TypUslugi"))"></select>
 
