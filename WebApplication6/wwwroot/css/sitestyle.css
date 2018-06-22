@@ -38,10 +38,11 @@
 }
 
 #opis {
-    width: 100%;
+    max-width: 1180px;
     padding: 80px 0;
     background-color: #f2e6b6;
     text-align: center;
+    margin:0 auto;
 }
 
     #opis p {
@@ -52,8 +53,10 @@
     }
 
 .mapaGoogle {
-    width: 100%;
+    max-width: 800px;
     height: 300px;
+    margin: 0 auto;
+    margin-top: 50px;
 }
 
 .content-wrapper .mapaGoogle {
@@ -111,6 +114,7 @@ footer p{
     background-color: #f2e6b6;
     padding: 50px 0 50px 0;
     margin: 0 auto;
+    min-height: 85vh;
 }
 
 .content-wrapper h2{
